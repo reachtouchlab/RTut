@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Teil 9 Verknüpfung von Antworten und Reaktionszeiten in ein Maß | Analyse von Verhaltensdaten mit R</title>
   <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Teil 9 Verknüpfung von Antworten und Reaktionszeiten in ein Maß | Analyse von Verhaltensdaten mit R" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
 <link rel="prev" href="basic-stats.html"/>
 <link rel="next" href="references.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -117,6 +119,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -262,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
 <li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
 <li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
-<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleiche für die Interaktion im GLMM</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
@@ -296,10 +321,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="bis-score" class="section level1" number="9">
 <h1><span class="header-section-number">Teil 9</span> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</h1>
-<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="bis-score.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;RTL_beispieldaten.RData&quot;</span>)</span>
-<span id="cb159-2"><a href="bis-score.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;RTL_beispieldaten_clean.RData&quot;</span>)</span>
-<span id="cb159-3"><a href="bis-score.html#cb159-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb159-4"><a href="bis-score.html#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <div id="speed-accuracy-tradeoff" class="section level2" number="9.1">
 <h2><span class="header-section-number">9.1</span> Speed-Accuracy-Tradeoff</h2>
 <p>Der Zusammenhang von den in der kognitiven Psychologie typischen Verhaltensmaßen Reaktionszeit und (Korrektheit von) Antworten ist ein seit vielen Jahrzehnten viel diskutiertes Thema. Grundsätzlich ist die Idee, dass schwierige Kognitive Prozesse erstens länger dauern und zweitens zu mehr Fehlern führen. Demnach ist zu erwarten, dass eine höhere Anzahl an Fehlern auch mit längeren RTs einhergeht.
@@ -311,29 +332,36 @@ Dieser Gedanke übersieht allerdings, dass sich Reaktionszeit und Fehlerhäufigk
 Eine neue Methode ist die Berechnung des sogenannten BIS-Scores.
 Wie der BIS-Score berechnet wird und auch, wie er sich von anderen Methoden mit einem ähnlichen Ziel abhebt, ist in dem dazugehörigen Paper nachzulesen:</p>
 <p>Liesefeld, H. R., &amp; Janczyk, M. (2019). Combining speed and accuracy to control for speed-accuracy trade-offs(?). Behavior Research Methods, 51(1), 40–60. <a href="https://doi.org/10.3758/s13428-018-1076-x" class="uri">https://doi.org/10.3758/s13428-018-1076-x</a></p>
-<p>Im Folgenden wird der BIS-Score für die Beispieldaten berechnet. Dazu wird zunächst ein Datensatz gebraucht, der die Mittelwerte der RTs (means) für korrekt und inkorrekt beantwortete Trials enthält. Wir nennen den Datensatz mal “dc.m.”</p>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="bis-score.html#cb160-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant, posture, factor_A, factor_B ) <span class="sc">%&gt;%</span></span>
-<span id="cb160-2"><a href="bis-score.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb160-3"><a href="bis-score.html#cb160-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sdRtCorr =</span> <span class="fu">sd</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
-<span id="cb160-4"><a href="bis-score.html#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtCorr =</span> <span class="fu">mean</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
-<span id="cb160-5"><a href="bis-score.html#cb160-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtAll =</span> <span class="fu">mean</span>( rtClean ),</span>
-<span id="cb160-6"><a href="bis-score.html#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">corrCount =</span> <span class="fu">sum</span>( respClean <span class="sc">==</span> <span class="dv">1</span> ),</span>
-<span id="cb160-7"><a href="bis-score.html#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">totalCount =</span> <span class="fu">n</span>(),</span>
-<span id="cb160-8"><a href="bis-score.html#cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pc =</span> corrCount <span class="sc">/</span> totalCount <span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb160-9"><a href="bis-score.html#cb160-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Im Folgenden wird der BIS-Score für die Beispieldaten berechnet. Dazu wird zunächst ein Datensatz gebraucht, der folgende Info enthält:</p>
+<ul>
+<li>die Anzahl korrekt beantwortete Trials</li>
+<li>die Anzahl aller Trials</li>
+<li>die mittleren RTs für korrekt beantwortete Trials</li>
+<li>die mittleren RTs für alle Trials</li>
+</ul>
+<p>Wir nennen den Datensatz mal “dc.m.”</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="bis-score.html#cb157-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant, posture, factor_A, factor_B ) <span class="sc">%&gt;%</span></span>
+<span id="cb157-2"><a href="bis-score.html#cb157-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb157-3"><a href="bis-score.html#cb157-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sdRtCorr =</span> <span class="fu">sd</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
+<span id="cb157-4"><a href="bis-score.html#cb157-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtCorr =</span> <span class="fu">mean</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
+<span id="cb157-5"><a href="bis-score.html#cb157-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtAll =</span> <span class="fu">mean</span>( rtClean ),</span>
+<span id="cb157-6"><a href="bis-score.html#cb157-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">corrCount =</span> <span class="fu">sum</span>( respClean <span class="sc">==</span> <span class="dv">1</span> ),</span>
+<span id="cb157-7"><a href="bis-score.html#cb157-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">totalCount =</span> <span class="fu">n</span>(),</span>
+<span id="cb157-8"><a href="bis-score.html#cb157-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pc =</span> corrCount <span class="sc">/</span> totalCount <span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb157-9"><a href="bis-score.html#cb157-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;participant&#39;, &#39;posture&#39;, &#39;factor_A&#39;. You can override using the `.groups` argument.</code></pre>
 <p>Jetzt können wir den BIS-Score berechnen.</p>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="bis-score.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BIS</span></span>
-<span id="cb162-2"><a href="bis-score.html#cb162-2" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb162-3"><a href="bis-score.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">zRt =</span> ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
-<span id="cb162-4"><a href="bis-score.html#cb162-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zPc =</span> ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
-<span id="cb162-5"><a href="bis-score.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bis =</span> zPc <span class="sc">-</span> zRt</span>
-<span id="cb162-6"><a href="bis-score.html#cb162-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="bis-score.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BIS</span></span>
+<span id="cb159-2"><a href="bis-score.html#cb159-2" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb159-3"><a href="bis-score.html#cb159-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">zRt =</span> ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
+<span id="cb159-4"><a href="bis-score.html#cb159-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zPc =</span> ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
+<span id="cb159-5"><a href="bis-score.html#cb159-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bis =</span> zPc <span class="sc">-</span> zRt</span>
+<span id="cb159-6"><a href="bis-score.html#cb159-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Dabei sollte beachtet werden, dass der BIS-Score innerhalb der Versuchsperson berechnet ist und damit normalisiert wird. Das heißt, der BIS-Score drückt die Unterschiede zwischen Bedingungen aus und nicht die UNtersdchiede zwischen Personen generell. ODer in anderen Worten: die Summe der BIS-Scores innerhalb jeder Person über die Bedingungen ist (bis auf Rundungsfehler) immer gleich und hat den Wert 0.</p>
 <p>Das kann man einfach überprüfen:</p>
-<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="bis-score.html#cb163-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> </span>
-<span id="cb163-2"><a href="bis-score.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBIS=</span><span class="fu">round</span>(<span class="fu">mean</span>(bis)))</span></code></pre></div>
-<pre><code>## # A tibble: 18 x 2
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="bis-score.html#cb160-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> </span>
+<span id="cb160-2"><a href="bis-score.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBIS=</span><span class="fu">round</span>(<span class="fu">mean</span>(bis)))</span></code></pre></div>
+<pre><code>## # A tibble: 18 × 2
 ##    participant meanBIS
 ##    &lt;fct&gt;         &lt;dbl&gt;
 ##  1 B006b-08          0
@@ -359,9 +387,9 @@ Wie der BIS-Score berechnet wird und auch, wie er sich von anderen Methoden mit 
 <h2><span class="header-section-number">9.3</span> Analyse des BIS-Scores</h2>
 <p>Der BIS-Score ist metrisch und normalerweise parametrisch. Es liegt pro Person und Zelle genau ein Wert vor.
 Eine gute Wahl für die statistische Analyse ist die rm-Anova, die wir in Teil <a href="basic-stats.html#basic-stats">8</a> schon vorgestellt haben.</p>
-<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="bis-score.html#cb165-1" aria-hidden="true" tabindex="-1"></a>BIS.rmanova <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&quot;participant&quot;</span>, <span class="at">dv =</span> <span class="st">&quot;bis&quot;</span>, <span class="at">data =</span> dc.m, <span class="at">within =</span> <span class="fu">c</span>(<span class="st">&quot;factor_A&quot;</span>, <span class="st">&quot;factor_B&quot;</span>, <span class="st">&quot;posture&quot;</span>))</span>
-<span id="cb165-2"><a href="bis-score.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb165-3"><a href="bis-score.html#cb165-3" aria-hidden="true" tabindex="-1"></a>BIS.rmanova</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="bis-score.html#cb162-1" aria-hidden="true" tabindex="-1"></a>BIS.rmanova <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&quot;participant&quot;</span>, <span class="at">dv =</span> <span class="st">&quot;bis&quot;</span>, <span class="at">data =</span> dc.m, <span class="at">within =</span> <span class="fu">c</span>(<span class="st">&quot;factor_A&quot;</span>, <span class="st">&quot;factor_B&quot;</span>, <span class="st">&quot;posture&quot;</span>))</span>
+<span id="cb162-2"><a href="bis-score.html#cb162-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb162-3"><a href="bis-score.html#cb162-3" aria-hidden="true" tabindex="-1"></a>BIS.rmanova</span></code></pre></div>
 <pre><code>## Anova Table (Type 3 tests)
 ## 
 ## Response: bis
@@ -380,14 +408,13 @@ Eine gute Wahl für die statistische Analyse ist die rm-Anova, die wir in Teil <
 <div id="visualisierung-der-ergbenisse-des-modells" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> Visualisierung der Ergbenisse des Modells</h2>
 <p>Wieder können wir uns die EMM graphisch anschauen.</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="bis-score.html#cb167-1" aria-hidden="true" tabindex="-1"></a>emm.bis.factorBXposture <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(BIS.rmanova, <span class="sc">~</span>factor_B<span class="sc">:</span>posture)</span></code></pre></div>
-<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="bis-score.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.bis.factorBXposture), </span>
-<span id="cb169-2"><a href="bis-score.html#cb169-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
-<span id="cb169-3"><a href="bis-score.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb169-4"><a href="bis-score.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower.CL, <span class="at">ymax=</span>upper.CL), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
-<span id="cb169-5"><a href="bis-score.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;BIS score&quot;</span>)</span></code></pre></div>
-<div class="figure"><span id="fig:EMM-bis"></span>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="bis-score.html#cb164-1" aria-hidden="true" tabindex="-1"></a>emm.bis.factorBXposture <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(BIS.rmanova, <span class="sc">~</span>factor_B<span class="sc">:</span>posture)</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="bis-score.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.bis.factorBXposture), </span>
+<span id="cb165-2"><a href="bis-score.html#cb165-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
+<span id="cb165-3"><a href="bis-score.html#cb165-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb165-4"><a href="bis-score.html#cb165-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower.CL, <span class="at">ymax=</span>upper.CL), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb165-5"><a href="bis-score.html#cb165-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;BIS score&quot;</span>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:EMM-bis"></span>
 <img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/EMM-bis-1.png" alt="EMM zur für factor_B und posture" width="672" />
 <p class="caption">
 Figure 9.1: EMM zur für factor_B und posture
@@ -397,14 +424,14 @@ Figure 9.1: EMM zur für factor_B und posture
 <div id="post-hoc-vergleich-zum-bis-score" class="section level2" number="9.5">
 <h2><span class="header-section-number">9.5</span> Post-hoc Vergleich zum BIS-Score</h2>
 <p>Der paarweise Vergleich sieht wie folgt aus:</p>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="bis-score.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.bis.factorBXposture, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
-<pre><code>##  contrast                          estimate    SE   df t.ratio p.value
-##  Level_1 uncr - Level_2 uncr          0.226 0.210 29.8  1.078  0.2899 
-##  Level_1 uncr - Level_1 crossed       1.649 0.331 21.8  4.981  0.0001 
-##  Level_1 uncr - Level_2 crossed       4.052 0.355 26.8 11.405  &lt;.0001 
-##  Level_2 uncr - Level_1 crossed       1.423 0.355 26.8  4.006  0.0005 
-##  Level_2 uncr - Level_2 crossed       3.825 0.331 21.8 11.554  &lt;.0001 
-##  Level_1 crossed - Level_2 crossed    2.402 0.210 29.8 11.446  &lt;.0001 
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="bis-score.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.bis.factorBXposture, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          estimate    SE df t.ratio p.value
+##  Level_1 uncr - Level_2 uncr          0.226 0.189 17   1.196  0.2479
+##  Level_1 uncr - Level_1 crossed       1.649 0.287 17   5.752  &lt;.0001
+##  Level_1 uncr - Level_2 crossed       4.052 0.316 17  12.821  &lt;.0001
+##  Level_2 uncr - Level_1 crossed       1.423 0.391 17   3.644  0.0024
+##  Level_2 uncr - Level_2 crossed       3.825 0.370 17  10.334  &lt;.0001
+##  Level_1 crossed - Level_2 crossed    2.402 0.229 17  10.497  &lt;.0001
 ## 
 ## Results are averaged over the levels of: factor_A 
 ## P value adjustment: fdr method for 6 tests</code></pre>
@@ -423,7 +450,6 @@ Figure 9.1: EMM zur für factor_B und posture
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -453,6 +479,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
