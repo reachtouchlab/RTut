@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>References | Analyse von Verhaltensdaten mit R</title>
+  <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="References | Analyse von Verhaltensdaten mit R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="References | Analyse von Verhaltensdaten mit R" />
+  
+  <meta name="twitter:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+<meta name="author" content="Xaver Fuchs, Christian Seegelke, Tobias Heed" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bis-score.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Auswerteschablone für R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Übersicht</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wozu-dieses-dokument-dient"><i class="fa fa-check"></i><b>1.1</b> Wozu dieses Dokument dient</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ergänzende-quellen"><i class="fa fa-check"></i><b>1.2</b> Ergänzende Quellen</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#hinweis-zu-diesem-dokument"><i class="fa fa-check"></i><b>1.3</b> Hinweis zu diesem Dokument</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#interaktive-verwendungsweise"><i class="fa fa-check"></i><b>1.4</b> Interaktive Verwendungsweise</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#rückmeldung-zu-der-lernerfahrung"><i class="fa fa-check"></i><b>1.5</b> Rückmeldung zu der Lernerfahrung</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#die-nächsten-schritte"><i class="fa fa-check"></i><b>1.6</b> Die nächsten Schritte</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="get-started.html"><a href="get-started.html"><i class="fa fa-check"></i><b>2</b> Einstieg</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="get-started.html"><a href="get-started.html#r-und-rstudio"><i class="fa fa-check"></i><b>2.1</b> R und RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="get-started.html"><a href="get-started.html#dokument-mit-ersten-schritten"><i class="fa fa-check"></i><b>2.2</b> Dokument mit ersten Schritten</a></li>
+<li class="chapter" data-level="2.3" data-path="get-started.html"><a href="get-started.html#code-und-daten-herunterladen"><i class="fa fa-check"></i><b>2.3</b> Code und Daten herunterladen</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="get-started.html"><a href="get-started.html#rmarkdown-code"><i class="fa fa-check"></i><b>2.3.1</b> RMarkdown code</a></li>
+<li class="chapter" data-level="2.3.2" data-path="get-started.html"><a href="get-started.html#daten"><i class="fa fa-check"></i><b>2.3.2</b> Daten</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="get-started.html"><a href="get-started.html#projektordner-anlegen"><i class="fa fa-check"></i><b>2.4</b> Projektordner anlegen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>3</b> Pakete und Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="read-data.html"><a href="read-data.html#verwendete-packages"><i class="fa fa-check"></i><b>3.1</b> Verwendete Packages</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="read-data.html"><a href="read-data.html#pakete-für-datenverarbeitung-und-statistik"><i class="fa fa-check"></i><b>3.1.1</b> Pakete für Datenverarbeitung und Statistik</a></li>
+<li class="chapter" data-level="3.1.2" data-path="read-data.html"><a href="read-data.html#pakete-für-rmarkdown"><i class="fa fa-check"></i><b>3.1.2</b> Pakete für RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="read-data.html"><a href="read-data.html#daten-einlesen"><i class="fa fa-check"></i><b>3.2</b> Daten einlesen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="read-data.html"><a href="read-data.html#verzeichnisse-und-pfade"><i class="fa fa-check"></i><b>3.2.1</b> Verzeichnisse und Pfade</a></li>
+<li class="chapter" data-level="3.2.2" data-path="read-data.html"><a href="read-data.html#verzeichnisse-ermitteln-und-setzen"><i class="fa fa-check"></i><b>3.2.2</b> Verzeichnisse ermitteln und setzen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="read-data.html"><a href="read-data.html#daten-laden"><i class="fa fa-check"></i><b>3.3</b> Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="read-data.html"><a href="read-data.html#daten-die-als-textdatei-vorliegen"><i class="fa fa-check"></i><b>3.3.1</b> Daten, die als Textdatei vorliegen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="read-data.html"><a href="read-data.html#daten-die-in-excel-vorliegen"><i class="fa fa-check"></i><b>3.3.2</b> Daten, die in Excel vorliegen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="read-data.html"><a href="read-data.html#daten-die-in-spss-vorliegen"><i class="fa fa-check"></i><b>3.3.3</b> Daten, die in SPSS vorliegen</a></li>
+<li class="chapter" data-level="3.3.4" data-path="read-data.html"><a href="read-data.html#daten-die-schon-in-r-gespeichert-waren"><i class="fa fa-check"></i><b>3.3.4</b> Daten, die schon in R gespeichert waren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="read-data.html"><a href="read-data.html#daten-speichern"><i class="fa fa-check"></i><b>3.4</b> Daten speichern</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="read-data.html"><a href="read-data.html#speichern-im-r-typischen-format-als-rdata"><i class="fa fa-check"></i><b>3.4.1</b> Speichern im R-typischen Format (als RData)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="read-data.html"><a href="read-data.html#speichern-als-textdatei"><i class="fa fa-check"></i><b>3.4.2</b> Speichern als Textdatei</a></li>
+<li class="chapter" data-level="3.4.3" data-path="read-data.html"><a href="read-data.html#speichern-als-als-excel-datei"><i class="fa fa-check"></i><b>3.4.3</b> Speichern als als Excel-Datei</a></li>
+<li class="chapter" data-level="3.4.4" data-path="read-data.html"><a href="read-data.html#speichern-als-spss-datei"><i class="fa fa-check"></i><b>3.4.4</b> Speichern als SPSS-Datei</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plan-analysis.html"><a href="plan-analysis.html"><i class="fa fa-check"></i><b>4</b> Analysen planen und Variablentypen anpassen</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plan-analysis.html"><a href="plan-analysis.html#die-richtige-analyse-für-das-vorliegende-design-wählen"><i class="fa fa-check"></i><b>4.1</b> Die richtige Analyse für das vorliegende Design wählen</a></li>
+<li class="chapter" data-level="4.2" data-path="plan-analysis.html"><a href="plan-analysis.html#daten-ins-richtige-format-bringen"><i class="fa fa-check"></i><b>4.2</b> Daten ins richtige Format bringen</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="plan-analysis.html"><a href="plan-analysis.html#überblick-über-datensatz-verschaffen"><i class="fa fa-check"></i><b>4.2.1</b> Überblick über Datensatz verschaffen</a></li>
+<li class="chapter" data-level="4.2.2" data-path="plan-analysis.html"><a href="plan-analysis.html#kopie-des-originalen-datensatzes-machen"><i class="fa fa-check"></i><b>4.2.2</b> Kopie des originalen Datensatzes machen</a></li>
+<li class="chapter" data-level="4.2.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-und-faktorlevels-umbenennen"><i class="fa fa-check"></i><b>4.2.3</b> Variablen und Faktorlevels umbenennen</a></li>
+<li class="chapter" data-level="4.2.4" data-path="plan-analysis.html"><a href="plan-analysis.html#abhängige-variablen-prüfen-und-in-richtigers-format-bringen"><i class="fa fa-check"></i><b>4.2.4</b> Abhängige Variablen prüfen und in richtigers Format bringen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-von-interesse-auswählen"><i class="fa fa-check"></i><b>4.3</b> Variablen von Interesse auswählen</a></li>
+<li class="chapter" data-level="4.4" data-path="plan-analysis.html"><a href="plan-analysis.html#ergebnis-überprüfen"><i class="fa fa-check"></i><b>4.4</b> Ergebnis überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="plausibility-check.html"><a href="plausibility-check.html"><i class="fa fa-check"></i><b>5</b> Daten auf Plausibilität prüfen</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-vpn-überprüfen"><i class="fa fa-check"></i><b>5.0.1</b> Anzahl Vpn überprüfen</a></li>
+<li class="chapter" data-level="5.0.2" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-von-trials-überprüfen"><i class="fa fa-check"></i><b>5.0.2</b> Anzahl von Trials überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clean-data.html"><a href="clean-data.html"><i class="fa fa-check"></i><b>6</b> Daten bereinigen</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="clean-data.html"><a href="clean-data.html#funktion-zur-beseitigung-von-trials-mit-zu-langen-oder-zu-kurzen-rts"><i class="fa fa-check"></i><b>6.1</b> Funktion zur Beseitigung von Trials mit zu langen oder zu kurzen RTs</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="clean-data.html"><a href="clean-data.html#test-der-funktion-an-einem-toy-vektor"><i class="fa fa-check"></i><b>6.1.1</b> Test der Funktion an einem Toy-Vektor</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="clean-data.html"><a href="clean-data.html#anwendung-der-rt-basierten-bereinigung-auf-die-daten"><i class="fa fa-check"></i><b>6.2</b> Anwendung der RT-basierten Bereinigung auf die Daten</a></li>
+<li class="chapter" data-level="6.3" data-path="clean-data.html"><a href="clean-data.html#korrektur-der-av-antwort-für-die-trials-mit-ungültigen-rts"><i class="fa fa-check"></i><b>6.3</b> Korrektur der AV Antwort für die Trials mit ungültigen RTs</a></li>
+<li class="chapter" data-level="6.4" data-path="clean-data.html"><a href="clean-data.html#anzahl-entfernter-trials-berichten"><i class="fa fa-check"></i><b>6.4</b> Anzahl entfernter Trials berichten</a></li>
+<li class="chapter" data-level="6.5" data-path="clean-data.html"><a href="clean-data.html#datensatz-auf-gültige-trials-beschränken"><i class="fa fa-check"></i><b>6.5</b> Datensatz auf gültige Trials beschränken</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="basic-plots.html"><a href="basic-plots.html"><i class="fa fa-check"></i><b>7</b> Visualisierung der Rohdaten</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="basic-plots.html"><a href="basic-plots.html#grammar-of-graphics"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-von-rohdaten-pro-vpn"><i class="fa fa-check"></i><b>7.2</b> Visualisierung von Rohdaten pro Vpn</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-antworten"><i class="fa fa-check"></i><b>7.2.1</b> Visualisierung der AV Antworten</a></li>
+<li class="chapter" data-level="7.2.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-rts"><i class="fa fa-check"></i><b>7.2.2</b> Visualisierung der AV RTs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-auf-gruppenebene"><i class="fa fa-check"></i><b>7.3</b> Visualisierung auf Gruppenebene</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="basic-plots.html"><a href="basic-plots.html#av-antwort"><i class="fa fa-check"></i><b>7.3.1</b> AV Antwort</a></li>
+<li class="chapter" data-level="7.3.2" data-path="basic-plots.html"><a href="basic-plots.html#av-rt"><i class="fa fa-check"></i><b>7.3.2</b> AV RT</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="basic-plots.html"><a href="basic-plots.html#daten-abspeichern"><i class="fa fa-check"></i><b>7.4</b> Daten abspeichern</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-stats.html"><a href="basic-stats.html"><i class="fa fa-check"></i><b>8</b> Statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basic-stats.html"><a href="basic-stats.html#vorwort-zu-statistische-analysen"><i class="fa fa-check"></i><b>8.1</b> Vorwort zu statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von--daten-zb-korrektinkorrekt"><i class="fa fa-check"></i><b>8.1.1</b> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.2</b> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-stats.html"><a href="basic-stats.html#rts-als-metrische-daten"><i class="fa fa-check"></i><b>8.1.3</b> RTs als metrische Daten</a></li>
+<li class="chapter" data-level="8.1.4" data-path="basic-stats.html"><a href="basic-stats.html#rts-bei-korrekten-und-inkorrekten-trials"><i class="fa fa-check"></i><b>8.1.4</b> RTs bei korrekten und inkorrekten Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basic-stats.html"><a href="basic-stats.html#die-normale-anova"><i class="fa fa-check"></i><b>8.2</b> Die “normale” Anova</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten"><i class="fa fa-check"></i><b>8.2.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basic-stats.html"><a href="basic-stats.html#der-anova-befehl-und-output"><i class="fa fa-check"></i><b>8.2.2</b> Der Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.2.3" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-vergleiche"><i class="fa fa-check"></i><b>8.2.3</b> Post-hoc Vergleiche</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="basic-stats.html"><a href="basic-stats.html#die-repeated-measures-anova"><i class="fa fa-check"></i><b>8.3</b> Die repeated measures Anova</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-1"><i class="fa fa-check"></i><b>8.3.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basic-stats.html"><a href="basic-stats.html#anova-befehl-und-output"><i class="fa fa-check"></i><b>8.3.2</b> Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.3.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion"><i class="fa fa-check"></i><b>8.3.3</b> Plots von estimated marginal means zum Nachvollziehen der Interaktion</a></li>
+<li class="chapter" data-level="8.3.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.3.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="basic-stats.html"><a href="basic-stats.html#das-linear-mixed-model-lmm"><i class="fa fa-check"></i><b>8.4</b> Das linear mixed model (LMM)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-2"><i class="fa fa-check"></i><b>8.4.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.4.2" data-path="basic-stats.html"><a href="basic-stats.html#mixed-befehl-und-output"><i class="fa fa-check"></i><b>8.4.2</b> Mixed-Befehl und Output</a></li>
+<li class="chapter" data-level="8.4.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.4.3</b> Plots von EMM für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1"><i class="fa fa-check"></i><b>8.4.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.5" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.5</b> Plots von EMM für die factor_B x factor_A Interaktion</a></li>
+<li class="chapter" data-level="8.4.6" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.6</b> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="basic-stats.html"><a href="basic-stats.html#das-generalized-linear-mixed-model-glmm"><i class="fa fa-check"></i><b>8.5</b> Das generalized linear mixed model (GLMM)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
+<li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
+<li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bis-score.html"><a href="bis-score.html#speed-accuracy-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Speed-Accuracy-Tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="bis-score.html"><a href="bis-score.html#der-bis-score"><i class="fa fa-check"></i><b>9.2</b> Der BIS-Score</a></li>
+<li class="chapter" data-level="9.3" data-path="bis-score.html"><a href="bis-score.html#analyse-des-bis-scores"><i class="fa fa-check"></i><b>9.3</b> Analyse des BIS-Scores</a></li>
+<li class="chapter" data-level="9.4" data-path="bis-score.html"><a href="bis-score.html#visualisierung-der-ergbenisse-des-modells"><i class="fa fa-check"></i><b>9.4</b> Visualisierung der Ergbenisse des Modells</a></li>
+<li class="chapter" data-level="9.5" data-path="bis-score.html"><a href="bis-score.html#post-hoc-vergleich-zum-bis-score"><i class="fa fa-check"></i><b>9.5</b> Post-hoc Vergleich zum BIS-Score</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse von Verhaltensdaten mit R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-wickham2009" class="csl-entry">
+Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. New York: Springer Science &amp; Business Media.
+</div>
+<div id="ref-xie2015" class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bis-score.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

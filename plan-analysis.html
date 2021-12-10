@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Teil 4 Analysen planen und Variablentypen anpassen | Analyse von Verhaltensdaten mit R</title>
+  <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Teil 4 Analysen planen und Variablentypen anpassen | Analyse von Verhaltensdaten mit R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Teil 4 Analysen planen und Variablentypen anpassen | Analyse von Verhaltensdaten mit R" />
+  
+  <meta name="twitter:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+<meta name="author" content="Xaver Fuchs, Christian Seegelke, Tobias Heed" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="read-data.html"/>
+<link rel="next" href="plausibility-check.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Auswerteschablone für R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Übersicht</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wozu-dieses-dokument-dient"><i class="fa fa-check"></i><b>1.1</b> Wozu dieses Dokument dient</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ergänzende-quellen"><i class="fa fa-check"></i><b>1.2</b> Ergänzende Quellen</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#hinweis-zu-diesem-dokument"><i class="fa fa-check"></i><b>1.3</b> Hinweis zu diesem Dokument</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#interaktive-verwendungsweise"><i class="fa fa-check"></i><b>1.4</b> Interaktive Verwendungsweise</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#rückmeldung-zu-der-lernerfahrung"><i class="fa fa-check"></i><b>1.5</b> Rückmeldung zu der Lernerfahrung</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#die-nächsten-schritte"><i class="fa fa-check"></i><b>1.6</b> Die nächsten Schritte</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="get-started.html"><a href="get-started.html"><i class="fa fa-check"></i><b>2</b> Einstieg</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="get-started.html"><a href="get-started.html#r-und-rstudio"><i class="fa fa-check"></i><b>2.1</b> R und RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="get-started.html"><a href="get-started.html#dokument-mit-ersten-schritten"><i class="fa fa-check"></i><b>2.2</b> Dokument mit ersten Schritten</a></li>
+<li class="chapter" data-level="2.3" data-path="get-started.html"><a href="get-started.html#code-und-daten-herunterladen"><i class="fa fa-check"></i><b>2.3</b> Code und Daten herunterladen</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="get-started.html"><a href="get-started.html#rmarkdown-code"><i class="fa fa-check"></i><b>2.3.1</b> RMarkdown code</a></li>
+<li class="chapter" data-level="2.3.2" data-path="get-started.html"><a href="get-started.html#daten"><i class="fa fa-check"></i><b>2.3.2</b> Daten</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="get-started.html"><a href="get-started.html#projektordner-anlegen"><i class="fa fa-check"></i><b>2.4</b> Projektordner anlegen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>3</b> Pakete und Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="read-data.html"><a href="read-data.html#verwendete-packages"><i class="fa fa-check"></i><b>3.1</b> Verwendete Packages</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="read-data.html"><a href="read-data.html#pakete-für-datenverarbeitung-und-statistik"><i class="fa fa-check"></i><b>3.1.1</b> Pakete für Datenverarbeitung und Statistik</a></li>
+<li class="chapter" data-level="3.1.2" data-path="read-data.html"><a href="read-data.html#pakete-für-rmarkdown"><i class="fa fa-check"></i><b>3.1.2</b> Pakete für RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="read-data.html"><a href="read-data.html#daten-einlesen"><i class="fa fa-check"></i><b>3.2</b> Daten einlesen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="read-data.html"><a href="read-data.html#verzeichnisse-und-pfade"><i class="fa fa-check"></i><b>3.2.1</b> Verzeichnisse und Pfade</a></li>
+<li class="chapter" data-level="3.2.2" data-path="read-data.html"><a href="read-data.html#verzeichnisse-ermitteln-und-setzen"><i class="fa fa-check"></i><b>3.2.2</b> Verzeichnisse ermitteln und setzen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="read-data.html"><a href="read-data.html#daten-laden"><i class="fa fa-check"></i><b>3.3</b> Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="read-data.html"><a href="read-data.html#daten-die-als-textdatei-vorliegen"><i class="fa fa-check"></i><b>3.3.1</b> Daten, die als Textdatei vorliegen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="read-data.html"><a href="read-data.html#daten-die-in-excel-vorliegen"><i class="fa fa-check"></i><b>3.3.2</b> Daten, die in Excel vorliegen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="read-data.html"><a href="read-data.html#daten-die-in-spss-vorliegen"><i class="fa fa-check"></i><b>3.3.3</b> Daten, die in SPSS vorliegen</a></li>
+<li class="chapter" data-level="3.3.4" data-path="read-data.html"><a href="read-data.html#daten-die-schon-in-r-gespeichert-waren"><i class="fa fa-check"></i><b>3.3.4</b> Daten, die schon in R gespeichert waren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="read-data.html"><a href="read-data.html#daten-speichern"><i class="fa fa-check"></i><b>3.4</b> Daten speichern</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="read-data.html"><a href="read-data.html#speichern-im-r-typischen-format-als-rdata"><i class="fa fa-check"></i><b>3.4.1</b> Speichern im R-typischen Format (als RData)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="read-data.html"><a href="read-data.html#speichern-als-textdatei"><i class="fa fa-check"></i><b>3.4.2</b> Speichern als Textdatei</a></li>
+<li class="chapter" data-level="3.4.3" data-path="read-data.html"><a href="read-data.html#speichern-als-als-excel-datei"><i class="fa fa-check"></i><b>3.4.3</b> Speichern als als Excel-Datei</a></li>
+<li class="chapter" data-level="3.4.4" data-path="read-data.html"><a href="read-data.html#speichern-als-spss-datei"><i class="fa fa-check"></i><b>3.4.4</b> Speichern als SPSS-Datei</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plan-analysis.html"><a href="plan-analysis.html"><i class="fa fa-check"></i><b>4</b> Analysen planen und Variablentypen anpassen</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plan-analysis.html"><a href="plan-analysis.html#die-richtige-analyse-für-das-vorliegende-design-wählen"><i class="fa fa-check"></i><b>4.1</b> Die richtige Analyse für das vorliegende Design wählen</a></li>
+<li class="chapter" data-level="4.2" data-path="plan-analysis.html"><a href="plan-analysis.html#daten-ins-richtige-format-bringen"><i class="fa fa-check"></i><b>4.2</b> Daten ins richtige Format bringen</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="plan-analysis.html"><a href="plan-analysis.html#überblick-über-datensatz-verschaffen"><i class="fa fa-check"></i><b>4.2.1</b> Überblick über Datensatz verschaffen</a></li>
+<li class="chapter" data-level="4.2.2" data-path="plan-analysis.html"><a href="plan-analysis.html#kopie-des-originalen-datensatzes-machen"><i class="fa fa-check"></i><b>4.2.2</b> Kopie des originalen Datensatzes machen</a></li>
+<li class="chapter" data-level="4.2.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-und-faktorlevels-umbenennen"><i class="fa fa-check"></i><b>4.2.3</b> Variablen und Faktorlevels umbenennen</a></li>
+<li class="chapter" data-level="4.2.4" data-path="plan-analysis.html"><a href="plan-analysis.html#abhängige-variablen-prüfen-und-in-richtigers-format-bringen"><i class="fa fa-check"></i><b>4.2.4</b> Abhängige Variablen prüfen und in richtigers Format bringen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-von-interesse-auswählen"><i class="fa fa-check"></i><b>4.3</b> Variablen von Interesse auswählen</a></li>
+<li class="chapter" data-level="4.4" data-path="plan-analysis.html"><a href="plan-analysis.html#ergebnis-überprüfen"><i class="fa fa-check"></i><b>4.4</b> Ergebnis überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="plausibility-check.html"><a href="plausibility-check.html"><i class="fa fa-check"></i><b>5</b> Daten auf Plausibilität prüfen</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-vpn-überprüfen"><i class="fa fa-check"></i><b>5.0.1</b> Anzahl Vpn überprüfen</a></li>
+<li class="chapter" data-level="5.0.2" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-von-trials-überprüfen"><i class="fa fa-check"></i><b>5.0.2</b> Anzahl von Trials überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clean-data.html"><a href="clean-data.html"><i class="fa fa-check"></i><b>6</b> Daten bereinigen</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="clean-data.html"><a href="clean-data.html#funktion-zur-beseitigung-von-trials-mit-zu-langen-oder-zu-kurzen-rts"><i class="fa fa-check"></i><b>6.1</b> Funktion zur Beseitigung von Trials mit zu langen oder zu kurzen RTs</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="clean-data.html"><a href="clean-data.html#test-der-funktion-an-einem-toy-vektor"><i class="fa fa-check"></i><b>6.1.1</b> Test der Funktion an einem Toy-Vektor</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="clean-data.html"><a href="clean-data.html#anwendung-der-rt-basierten-bereinigung-auf-die-daten"><i class="fa fa-check"></i><b>6.2</b> Anwendung der RT-basierten Bereinigung auf die Daten</a></li>
+<li class="chapter" data-level="6.3" data-path="clean-data.html"><a href="clean-data.html#korrektur-der-av-antwort-für-die-trials-mit-ungültigen-rts"><i class="fa fa-check"></i><b>6.3</b> Korrektur der AV Antwort für die Trials mit ungültigen RTs</a></li>
+<li class="chapter" data-level="6.4" data-path="clean-data.html"><a href="clean-data.html#anzahl-entfernter-trials-berichten"><i class="fa fa-check"></i><b>6.4</b> Anzahl entfernter Trials berichten</a></li>
+<li class="chapter" data-level="6.5" data-path="clean-data.html"><a href="clean-data.html#datensatz-auf-gültige-trials-beschränken"><i class="fa fa-check"></i><b>6.5</b> Datensatz auf gültige Trials beschränken</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="basic-plots.html"><a href="basic-plots.html"><i class="fa fa-check"></i><b>7</b> Visualisierung der Rohdaten</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="basic-plots.html"><a href="basic-plots.html#grammar-of-graphics"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-von-rohdaten-pro-vpn"><i class="fa fa-check"></i><b>7.2</b> Visualisierung von Rohdaten pro Vpn</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-antworten"><i class="fa fa-check"></i><b>7.2.1</b> Visualisierung der AV Antworten</a></li>
+<li class="chapter" data-level="7.2.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-rts"><i class="fa fa-check"></i><b>7.2.2</b> Visualisierung der AV RTs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-auf-gruppenebene"><i class="fa fa-check"></i><b>7.3</b> Visualisierung auf Gruppenebene</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="basic-plots.html"><a href="basic-plots.html#av-antwort"><i class="fa fa-check"></i><b>7.3.1</b> AV Antwort</a></li>
+<li class="chapter" data-level="7.3.2" data-path="basic-plots.html"><a href="basic-plots.html#av-rt"><i class="fa fa-check"></i><b>7.3.2</b> AV RT</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="basic-plots.html"><a href="basic-plots.html#daten-abspeichern"><i class="fa fa-check"></i><b>7.4</b> Daten abspeichern</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-stats.html"><a href="basic-stats.html"><i class="fa fa-check"></i><b>8</b> Statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basic-stats.html"><a href="basic-stats.html#vorwort-zu-statistische-analysen"><i class="fa fa-check"></i><b>8.1</b> Vorwort zu statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von--daten-zb-korrektinkorrekt"><i class="fa fa-check"></i><b>8.1.1</b> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.2</b> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-stats.html"><a href="basic-stats.html#rts-als-metrische-daten"><i class="fa fa-check"></i><b>8.1.3</b> RTs als metrische Daten</a></li>
+<li class="chapter" data-level="8.1.4" data-path="basic-stats.html"><a href="basic-stats.html#rts-bei-korrekten-und-inkorrekten-trials"><i class="fa fa-check"></i><b>8.1.4</b> RTs bei korrekten und inkorrekten Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basic-stats.html"><a href="basic-stats.html#die-normale-anova"><i class="fa fa-check"></i><b>8.2</b> Die “normale” Anova</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten"><i class="fa fa-check"></i><b>8.2.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basic-stats.html"><a href="basic-stats.html#der-anova-befehl-und-output"><i class="fa fa-check"></i><b>8.2.2</b> Der Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.2.3" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-vergleiche"><i class="fa fa-check"></i><b>8.2.3</b> Post-hoc Vergleiche</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="basic-stats.html"><a href="basic-stats.html#die-repeated-measures-anova"><i class="fa fa-check"></i><b>8.3</b> Die repeated measures Anova</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-1"><i class="fa fa-check"></i><b>8.3.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basic-stats.html"><a href="basic-stats.html#anova-befehl-und-output"><i class="fa fa-check"></i><b>8.3.2</b> Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.3.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion"><i class="fa fa-check"></i><b>8.3.3</b> Plots von estimated marginal means zum Nachvollziehen der Interaktion</a></li>
+<li class="chapter" data-level="8.3.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.3.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="basic-stats.html"><a href="basic-stats.html#das-linear-mixed-model-lmm"><i class="fa fa-check"></i><b>8.4</b> Das linear mixed model (LMM)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-2"><i class="fa fa-check"></i><b>8.4.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.4.2" data-path="basic-stats.html"><a href="basic-stats.html#mixed-befehl-und-output"><i class="fa fa-check"></i><b>8.4.2</b> Mixed-Befehl und Output</a></li>
+<li class="chapter" data-level="8.4.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.4.3</b> Plots von EMM für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1"><i class="fa fa-check"></i><b>8.4.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.5" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.5</b> Plots von EMM für die factor_B x factor_A Interaktion</a></li>
+<li class="chapter" data-level="8.4.6" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.6</b> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="basic-stats.html"><a href="basic-stats.html#das-generalized-linear-mixed-model-glmm"><i class="fa fa-check"></i><b>8.5</b> Das generalized linear mixed model (GLMM)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
+<li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
+<li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bis-score.html"><a href="bis-score.html#speed-accuracy-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Speed-Accuracy-Tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="bis-score.html"><a href="bis-score.html#der-bis-score"><i class="fa fa-check"></i><b>9.2</b> Der BIS-Score</a></li>
+<li class="chapter" data-level="9.3" data-path="bis-score.html"><a href="bis-score.html#analyse-des-bis-scores"><i class="fa fa-check"></i><b>9.3</b> Analyse des BIS-Scores</a></li>
+<li class="chapter" data-level="9.4" data-path="bis-score.html"><a href="bis-score.html#visualisierung-der-ergbenisse-des-modells"><i class="fa fa-check"></i><b>9.4</b> Visualisierung der Ergbenisse des Modells</a></li>
+<li class="chapter" data-level="9.5" data-path="bis-score.html"><a href="bis-score.html#post-hoc-vergleich-zum-bis-score"><i class="fa fa-check"></i><b>9.5</b> Post-hoc Vergleich zum BIS-Score</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse von Verhaltensdaten mit R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plan-analysis" class="section level1" number="4">
+<h1><span class="header-section-number">Teil 4</span> Analysen planen und Variablentypen anpassen</h1>
+<div id="die-richtige-analyse-für-das-vorliegende-design-wählen" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Die richtige Analyse für das vorliegende Design wählen</h2>
+<p>Bevor man mit den Daten losgegt, sollte man sich gut überlegen, wie das Experimentaldesign aussieht und in die Analyse umgesetzt werden muss.
+Dazu gehört u.a.:</p>
+<ul>
+<li>Was ist/ sind meine abhängige Variable/n (AV)?</li>
+<li>Welches Skalenniveau (nominal, ordinal, kardinal) hat/ haben meine AV? Beachte Abschnitt “Umgang mit %-Daten” weiter unten</li>
+<li>Was ist sind meine unabhängige Variable/n (UV)? Dies sind i.d.R. unsere experimentellen Faktoren.</li>
+<li>Welches Skalenniveau hat/ haben meine UV?</li>
+<li>Welche Ausprägungen/ wieviel Stufen haben meine UV?</li>
+<li>Handelt es sich um Innersubjektfaktoren (within-subject, abhängige Messungen) und/ oder Zwischensubjektfakoren (between-subject, unabhängige Messungen)?</li>
+<li>Sind die entsprechenden Variablen in R im korrekten Format (diskrete UV sollten als “Factor” vorliegen, kontinuierliche als “int” (=integer)) oder “numeric.” Um die Variablen ins richtige Format zu bringen, s. Abschnitt “Daten ins richtige Format bringen”</li>
+<li>Sind alle Variablen, die ich benötige schon vorhanden, oder müssen ggf. neue Variablen berechnet werden?</li>
+</ul>
+</div>
+<div id="daten-ins-richtige-format-bringen" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Daten ins richtige Format bringen</h2>
+<p><strong>Zeitplanung: nach den ersten 1-2 Erhebungen</strong></p>
+<p>Nachdem die Daten geladen sind, muss man sie so bearbeiten, dass man sie richtig nutzen kann. Gründe dafür sind, z.B.:</p>
+<ul>
+<li>manche Variablen haben möglicherweise ein ungünstiges Format (z.B. s statt ms)</li>
+<li>R weiß noch nicht, welche Variablen welchen Typ haben; insbesondere muss man R sagen, welche Variablen Faktoren sind, da sonst viele statistische Auswertungen nicht funktionieren.</li>
+</ul>
+<p>Was muss man dabei typischerweise beachten?</p>
+<ol style="list-style-type: decimal">
+<li>Alles, was man aus einer Textdatei an Texten geladen hat, sind in R zunächst “chr” (steht für character). Dies sind normalerweise in unserer Experimentallogik Faktoren:
+<ol style="list-style-type: lower-alpha">
+<li>Vp-Bezeichnungen =&gt; eine Vp ist ein Faktorlevel auf dem Faktor “subject” (bei uns oft subjNr), denn eine Vp wird vielleicht nicht numerisch als 1, 2, … bezeichnet, sondern komplexer bspw. als B006_s01.</li>
+<li>Daten wie “gekreuzt, ungekreuzt” - es ist sinnvoll, wenn man die im Datensatz als Wort belässt; nur muss R wissen, dass man damit Bedingungen meint (und nicht zB einzelne Wörter)</li>
+<li>Sonderfall, wenn man unterschiedliche SOA verwendet und diese in die Analyse aufnehmen will: dies sind ja Zahlen (zB 100, 200, 300 ms zwischen einem Prime und einem Stimulus); aber in einer Anova sind es Faktorstufen. Darum muss man sie ebenfalls als Faktor codieren.</li>
+</ol></li>
+<li>Häufig enthalten Datenfiles allerlei Spalten, die man gar nicht braucht. Darum erstellt man für Übersichtlichkeit am Schluss ein data.frame, das nur die Sachen enthält, die man wirklich braucht.</li>
+</ol>
+<p>Im Folgenden, werden wir step-by-step durch diese Schritte durchgehen.</p>
+<div id="überblick-über-datensatz-verschaffen" class="section level3" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Überblick über Datensatz verschaffen</h3>
+<p>Zunächst muss man sich orientieren: was hat man eigentlich geladen??
+Im Folgenden wird angenommen, dass die .RData Daten geladen wurden. Im “Environment” bei RStudio sieht man, dass es ein data.frame “bsp” gibt.</p>
+<p>Mit dem Befehl “head” stellt man die ersten Zeilen dar.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="plan-analysis.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( bsp )</span></code></pre></div>
+<pre><code>##   Participant Tactor1 Tactor2 Stimuli                Time Condition Repetition Trialnumber Trialtype SOA
+## 1    B006b-08       6       1     6_1 2018-11-27-15-56-08 uncrossed          1         163       360 800
+## 2    B006b-08       5       2     5_2 2018-11-27-14-30-16 uncrossed          1         170       378 100
+## 3    B006b-08       6       2     6_2 2018-11-27-15-54-17 uncrossed          1         138       313  50
+## 4    B006b-08       6       1     6_1 2018-11-27-14-24-41 uncrossed          1          91       343 300
+## 5    B006b-08       2       5     2_5 2018-11-27-16-17-10   crossed          1          58       276 800
+## 6    B006b-08       1       6     1_6 2018-11-27-15-16-24   crossed          1         305       245  50
+##   Stim1Intens Stim2Intens  ITI TimeAfterBeep Response Release_RT Real_Release_RT RT1_press_raw RT1_release_raw
+## 1          90          75 1000           996      3_4       1433             618            []              []
+## 2          90          80 1000           612      3_4        939             824            []              []
+## 3         100          75 1000           969      1_2        817             752          1115             824
+## 4         100          70 1000           821      3_4        961             646            []              []
+## 5          75         100 1000           721      3_4       1684             869            []              []
+## 6          80          90 1000           656      3_4       1001             936            []              []
+##   RT2_press_raw RT2_release_raw RT3_press_raw RT3_release_raw RT4_press_raw RT4_release_raw Trial_ok
+## 1            []              []          1746            1475          1739            1433     True
+## 2            []              []          1272             960          1299             939     True
+## 3          1124             817            []              []            []              []     True
+## 4            []              []          1308             963          1336             961     True
+## 5            []              []          1985            1702          2000            1684     True
+## 6            []              []          1318            1017          1326            1001     True
+##   Trial_repeated    Reason LoadSucess  Run Tactor1Side Tactor2Side Tactor1Segment Tactor2Segment  StimSide
+## 1          False No reason    success Run2        left       right          upper          lower different
+## 2          False No reason    success Run1       right        left          upper          lower different
+## 3          False No reason    success Run2        left        left          upper          lower      same
+## 4          False No reason    success Run1        left       right          upper          lower different
+## 5          False No reason    success Run2        left       right          lower          upper different
+## 6          False No reason    success Run1       right        left          lower          upper different
+##   StimSegment           Order              ResponseCoding Response.meaning Response.correct
+## 1   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 2   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 3   different uncrossed first 1_2 (Zehen hoch) means same             same             TRUE
+## 4   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 5   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 6   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE</code></pre>
+<p>Man sieht, dass da sehr viel Zeug drin ist.</p>
+<p>Mit “str” kann man sich die Struktur des Datensatzes anschauen, d.h., herausfinden was für Variablen er enthält und was für Typen die Variablen haben.</p>
+<p>Vorne steht der Variablenname, danach der Typ; z.B. bei Participant “chr,” also Text und noch nicht Faktor!
+Selbiges gilt für viele andere Variablen auch. Nach der Typangabe sieht man ein par Beispiele, was für Daten genau in der Variable drin sind.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="plan-analysis.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>( bsp ) </span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    32455 obs. of  40 variables:
+##  $ Participant     : chr  &quot;B006b-08&quot; &quot;B006b-08&quot; &quot;B006b-08&quot; &quot;B006b-08&quot; ...
+##  $ Tactor1         : int  6 5 6 6 2 1 1 1 4 2 ...
+##  $ Tactor2         : int  1 2 2 1 5 6 3 5 1 5 ...
+##  $ Stimuli         : chr  &quot;6_1&quot; &quot;5_2&quot; &quot;6_2&quot; &quot;6_1&quot; ...
+##  $ Time            : chr  &quot;2018-11-27-15-56-08&quot; &quot;2018-11-27-14-30-16&quot; &quot;2018-11-27-15-54-17&quot; &quot;2018-11-27-14-24-41&quot; ...
+##  $ Condition       : chr  &quot;uncrossed&quot; &quot;uncrossed&quot; &quot;uncrossed&quot; &quot;uncrossed&quot; ...
+##  $ Repetition      : chr  &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;1&quot; ...
+##  $ Trialnumber     : int  163 170 138 91 58 305 224 203 117 123 ...
+##  $ Trialtype       : int  360 378 313 343 276 245 21 203 162 272 ...
+##  $ SOA             : int  800 100 50 300 800 50 50 300 100 800 ...
+##  $ Stim1Intens     : int  90 90 100 100 75 80 70 75 80 80 ...
+##  $ Stim2Intens     : int  75 80 75 70 100 90 85 100 80 90 ...
+##  $ ITI             : int  1000 1000 1000 1000 1000 1000 1000 1000 1000 1000 ...
+##  $ TimeAfterBeep   : int  996 612 969 821 721 656 592 786 684 504 ...
+##  $ Response        : chr  &quot;3_4&quot; &quot;3_4&quot; &quot;1_2&quot; &quot;3_4&quot; ...
+##  $ Release_RT      : chr  &quot;1433&quot; &quot;939&quot; &quot;817&quot; &quot;961&quot; ...
+##  $ Real_Release_RT : chr  &quot;618&quot; &quot;824&quot; &quot;752&quot; &quot;646&quot; ...
+##  $ RT1_press_raw   : chr  &quot;[]&quot; &quot;[]&quot; &quot;1115&quot; &quot;[]&quot; ...
+##  $ RT1_release_raw : chr  &quot;[]&quot; &quot;[]&quot; &quot;824&quot; &quot;[]&quot; ...
+##  $ RT2_press_raw   : chr  &quot;[]&quot; &quot;[]&quot; &quot;1124&quot; &quot;[]&quot; ...
+##  $ RT2_release_raw : chr  &quot;[]&quot; &quot;[]&quot; &quot;817&quot; &quot;[]&quot; ...
+##  $ RT3_press_raw   : chr  &quot;1746&quot; &quot;1272&quot; &quot;[]&quot; &quot;1308&quot; ...
+##  $ RT3_release_raw : chr  &quot;1475&quot; &quot;960&quot; &quot;[]&quot; &quot;963&quot; ...
+##  $ RT4_press_raw   : chr  &quot;1739&quot; &quot;1299&quot; &quot;[]&quot; &quot;1336&quot; ...
+##  $ RT4_release_raw : chr  &quot;1433&quot; &quot;939&quot; &quot;[]&quot; &quot;961&quot; ...
+##  $ Trial_ok        : chr  &quot;True&quot; &quot;True&quot; &quot;True&quot; &quot;True&quot; ...
+##  $ Trial_repeated  : chr  &quot;False&quot; &quot;False&quot; &quot;False&quot; &quot;False&quot; ...
+##  $ Reason          : chr  &quot;No reason&quot; &quot;No reason&quot; &quot;No reason&quot; &quot;No reason&quot; ...
+##  $ LoadSucess      : chr  &quot;success&quot; &quot;success&quot; &quot;success&quot; &quot;success&quot; ...
+##  $ Run             : chr  &quot;Run2&quot; &quot;Run1&quot; &quot;Run2&quot; &quot;Run1&quot; ...
+##  $ Tactor1Side     : Factor w/ 2 levels &quot;left&quot;,&quot;right&quot;: 1 2 1 1 1 2 2 2 1 1 ...
+##  $ Tactor2Side     : Factor w/ 2 levels &quot;left&quot;,&quot;right&quot;: 2 1 1 2 2 1 2 2 2 2 ...
+##  $ Tactor1Segment  : Factor w/ 2 levels &quot;lower&quot;,&quot;upper&quot;: 2 2 2 2 1 1 1 1 1 1 ...
+##  $ Tactor2Segment  : Factor w/ 2 levels &quot;lower&quot;,&quot;upper&quot;: 1 1 1 1 2 2 1 2 1 2 ...
+##  $ StimSide        : chr  &quot;different&quot; &quot;different&quot; &quot;same&quot; &quot;different&quot; ...
+##  $ StimSegment     : chr  &quot;different&quot; &quot;different&quot; &quot;different&quot; &quot;different&quot; ...
+##  $ Order           : chr  &quot;uncrossed first&quot; &quot;uncrossed first&quot; &quot;uncrossed first&quot; &quot;uncrossed first&quot; ...
+##  $ ResponseCoding  : chr  &quot;1_2 (Zehen hoch) means same&quot; &quot;1_2 (Zehen hoch) means same&quot; &quot;1_2 (Zehen hoch) means same&quot; &quot;1_2 (Zehen hoch) means same&quot; ...
+##  $ Response.meaning: chr  &quot;different&quot; &quot;different&quot; &quot;same&quot; &quot;different&quot; ...
+##  $ Response.correct: logi  TRUE TRUE TRUE TRUE TRUE TRUE ...</code></pre>
+<p>Wir sehen, dass bei Participant ziemlich lange Namen drin sind. Da sie informativ sind, wollen wir sie auch gern behalten. Dies ist kein Problem, weil Faktor-Level lange Namen haben dürfen.
+Hingegen ist es für Abbildungen oft praktischer, wenn Faktoren nicht so lange Namen haben, denn die sind dann schlecht lesbar in der Abbildung.
+Wir werden unten daher “uncrossed” in der Variable “Condition” umbenennen.</p>
+</div>
+<div id="kopie-des-originalen-datensatzes-machen" class="section level3" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Kopie des originalen Datensatzes machen</h3>
+<p>Weil man häufiger zu dem originalen Datensatz zurückkehren möchte (z.B., weil man später doch noch eine Variable braucht, die man vorher schon eliminiert hatte), empfehlt es sich, den originalen Datensatz im Workspace zu behalten und zum Bearbeiten lieber eine Kopie anzulegen. Dazu kopiert man ihn einfach in eine neue Variable. Weil man nicht so viel tippen will, kann man seinen Datensatz am besten sehr kurz benennen. Wir nennen ihn einfach mal “d.”
+Das hat den Nebeneffekt, dass man immer vergleichen kann, wie die Daten am Anfang aussahen (bsp) und wie sie aussehen, nachdem man etwas dran gemacht hat (d).</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="plan-analysis.html#cb27-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> bsp</span></code></pre></div>
+</div>
+<div id="variablen-und-faktorlevels-umbenennen" class="section level3" number="4.2.3">
+<h3><span class="header-section-number">4.2.3</span> Variablen und Faktorlevels umbenennen</h3>
+<p>Zu 1a und 1b: Faktoren machen und richtig ordnen
+R sortiert von sich aus alphabetisch. Diese Reihenfolge wird dann in Grafiken auch verwendet. Um das so zu haben, wie man es sich wünscht, sortiert man selbst.
+Da für das Beispiel der Inhalt des Experiments egal ist, benennen wir die Faktorlevel in Level 1 und Level 2 um.
+Wir belassen nur uncrossed/crossed, weil das bei unseren Datensätzen oft vorkommt.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="plan-analysis.html#cb28-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>Participant <span class="ot">&lt;-</span> <span class="fu">as.factor</span>( d<span class="sc">$</span>Participant ) <span class="co"># Faktor machen</span></span>
+<span id="cb28-2"><a href="plan-analysis.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="plan-analysis.html#cb28-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">mutate</span>( <span class="at">Condition =</span> <span class="fu">recode_factor</span>( <span class="fu">as.factor</span>( Condition ), <span class="st">&quot;uncrossed&quot;</span> <span class="ot">=</span> <span class="st">&quot;uncr&quot;</span>, <span class="st">&quot;crossed&quot;</span> <span class="ot">=</span> <span class="st">&quot;crossed&quot;</span> ) ) <span class="co"># vor dem = der alte Name, dahinter der neue</span></span>
+<span id="cb28-4"><a href="plan-analysis.html#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="plan-analysis.html#cb28-5" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">mutate</span>( <span class="at">StimSide =</span> <span class="fu">recode_factor</span>( <span class="fu">as.factor</span>( StimSide ), <span class="st">&quot;same&quot;</span> <span class="ot">=</span> <span class="st">&quot;Level_1&quot;</span>, <span class="st">&quot;different&quot;</span> <span class="ot">=</span> <span class="st">&quot;Level_2&quot;</span> ) )</span>
+<span id="cb28-6"><a href="plan-analysis.html#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="plan-analysis.html#cb28-7" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> <span class="fu">mutate</span>( <span class="at">StimSegment =</span> <span class="fu">recode_factor</span>( <span class="fu">as.factor</span>( StimSegment ), <span class="st">&quot;same&quot;</span> <span class="ot">=</span> <span class="st">&quot;Level_1&quot;</span>, <span class="st">&quot;different&quot;</span> <span class="ot">=</span> <span class="st">&quot;Level_2&quot;</span> ) )</span></code></pre></div>
+<p>zu 1c:
+Das Bsp-Experiment hatte auch verschiedene SOAs.
+Zunächst prüfen wir, welche SOAs vorliegen.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="plan-analysis.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>( d<span class="sc">$</span>SOA )</span></code></pre></div>
+<pre><code>##  int [1:32455] 800 100 50 300 800 50 50 300 100 800 ...</code></pre>
+<p>Wir schauen mal rein, was für Werte drin sind: Integer-Zahlen 50, 100, 300, 800
+Wir erstellen eine zweite Variable, die dieselben Daten aufnimmt.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="plan-analysis.html#cb31-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>soaNum <span class="ot">&lt;-</span> d<span class="sc">$</span>SOA</span></code></pre></div>
+<p>Anschließend machen wir aus der alten Variable einen Faktor.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="plan-analysis.html#cb32-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>SOA <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(d<span class="sc">$</span>SOA)</span></code></pre></div>
+<p>Warum macht man das? Wenn man SOA in einer ANOVA verwenden will, dann muss man es als Faktor eingeben. Manchmal möchte man Daten aber so plotten, dass die Abstände zwischen den Punkten den echten Wert widerspiegeln. Dazu muss man dann die Integer-Zahlen nutzen. Weil die Integer-Variable jetzt “num” heißt, weiß man, dass man die nur dann nimmt, wenn man keinen Faktor haben will. Wenn man diesen Schritt (Faktor machen) vergisst, erhält man seltsame Fehlermeldungen in ezAnova oder afex.</p>
+<p>Man muss sich auf diese Weise alle Daten ansehen und überlegen, welche Spalten man braucht, ob sie im richtigen Format sind etc.</p>
+</div>
+<div id="abhängige-variablen-prüfen-und-in-richtigers-format-bringen" class="section level3" number="4.2.4">
+<h3><span class="header-section-number">4.2.4</span> Abhängige Variablen prüfen und in richtigers Format bringen</h3>
+<p>Unsere abhängigen Variablen sind, (1) ob eine die korrekte Antwort gegeben wurde udn (2) die Reaktionszeit.</p>
+<div id="av-antwortverhalten" class="section level4" number="4.2.4.1">
+<h4><span class="header-section-number">4.2.4.1</span> AV Antwortverhalten</h4>
+<p>Die Kodierung für die Antworten liegt noch nicht so vor, wie wir sie gern hätten.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="plan-analysis.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>( d<span class="sc">$</span>Response.correct )</span></code></pre></div>
+<pre><code>##  logi [1:32455] TRUE TRUE TRUE TRUE TRUE TRUE ...</code></pre>
+<p>Da sind Wörter “TRUE, FALSE,” und Variablentyp “logi” = binär richtig/falsch.
+Wir erstellen daher eine neue Variable und füllen sie zunächst mit 1 für “richtig” oder “TRUE.” Überall da, wo gar nicht TRUE drinsteht, sondern FALSE, setzen wir dann eine 0 rein.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="plan-analysis.html#cb35-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>resp <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co">#zunächst alles auf 1</span></span>
+<span id="cb35-2"><a href="plan-analysis.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="plan-analysis.html#cb35-3" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>resp[ d<span class="sc">$</span>Response.correct <span class="sc">!=</span> <span class="st">&quot;TRUE&quot;</span> ] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#Fälle auf 0</span></span></code></pre></div>
+</div>
+<div id="av-reaktionszeit" class="section level4" number="4.2.4.2">
+<h4><span class="header-section-number">4.2.4.2</span> AV Reaktionszeit</h4>
+<p>Die RT ist auch nicht so, wie wir sie brauchen, denn der “str”-Befehl zeigt an, dass die Variable als “chr” formatiert ist.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="plan-analysis.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d<span class="sc">$</span>Real_Release_RT)</span></code></pre></div>
+<pre><code>##  chr [1:32455] &quot;618&quot; &quot;824&quot; &quot;752&quot; &quot;646&quot; &quot;869&quot; &quot;936&quot; &quot;544&quot; &quot;1029&quot; &quot;779&quot; &quot;504&quot; &quot;787&quot; &quot;553&quot; &quot;765&quot; &quot;507&quot; &quot;532&quot; ...</code></pre>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="plan-analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>rt <span class="ot">&lt;-</span><span class="fu">as.numeric</span>( <span class="fu">as.character</span>( d<span class="sc">$</span>Real_Release_RT ) )</span>
+<span id="cb38-2"><a href="plan-analysis.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d<span class="sc">$</span>rt)</span></code></pre></div>
+<pre><code>##  num [1:32455] 618 824 752 646 869 ...</code></pre>
+<p>Jetzt sind es Zahlen.</p>
+</div>
+</div>
+</div>
+<div id="variablen-von-interesse-auswählen" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Variablen von Interesse auswählen</h2>
+<p>Am Schluss erstellen wir einen neuen data.frame, der nur enthält, was wir wirklich brauchen. Damit wird im vorliegenden Fall aus einem data.frame mit 40 Spalten (sehr unübesichtlich) ein viel kürzerer.
+Dabei kann man auch gleich noch Namen umbenennen, die einem nicht gefallen.
+Z.B: ist die Bezeichnung “Condition” sehr ungünstig, weil sehr unspezifisch. Wir nennen sie hier “Posture.”
+Für das vorliegende Bsp. nennen wir die anderen Faktoren A und B, da für unser Bsp. egal ist, was da genau getestet wurde.
+Wieder machen wir (wie oben) eine Kopie des Datensatzes.
+Der neue Name “ds” steht für “data selected” und ist immer noch angenehm kurz.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="plan-analysis.html#cb40-1" aria-hidden="true" tabindex="-1"></a>ds <span class="ot">&lt;-</span> d <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>( <span class="at">participant =</span> Participant, <span class="at">factor_A =</span> StimSegment, <span class="at">factor_B =</span> StimSide, <span class="at">posture =</span> Condition, SOA, soaNum, resp, rt )</span></code></pre></div>
+</div>
+<div id="ergebnis-überprüfen" class="section level2" number="4.4">
+<h2><span class="header-section-number">4.4</span> Ergebnis überprüfen</h2>
+<p>Zuletzt sollten wir das Ergebnis unbedingt anschauen und prüfen, ob alles wie erwartet aussieht</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="plan-analysis.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ds)</span></code></pre></div>
+<pre><code>##   participant factor_A factor_B posture SOA soaNum resp  rt
+## 1    B006b-08  Level_2  Level_2    uncr 800    800    1 618
+## 2    B006b-08  Level_2  Level_2    uncr 100    100    1 824
+## 3    B006b-08  Level_2  Level_1    uncr  50     50    1 752
+## 4    B006b-08  Level_2  Level_2    uncr 300    300    1 646
+## 5    B006b-08  Level_2  Level_2 crossed 800    800    1 869
+## 6    B006b-08  Level_2  Level_2 crossed  50     50    1 936</code></pre>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="plan-analysis.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ds)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    32455 obs. of  8 variables:
+##  $ participant: Factor w/ 21 levels &quot;B006b-08&quot;,&quot;B006b-09&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ factor_A   : Factor w/ 2 levels &quot;Level_1&quot;,&quot;Level_2&quot;: 2 2 2 2 2 2 1 2 1 2 ...
+##  $ factor_B   : Factor w/ 2 levels &quot;Level_1&quot;,&quot;Level_2&quot;: 2 2 1 2 2 2 1 1 2 2 ...
+##  $ posture    : Factor w/ 2 levels &quot;uncr&quot;,&quot;crossed&quot;: 1 1 1 1 2 2 2 1 1 1 ...
+##  $ SOA        : Factor w/ 4 levels &quot;50&quot;,&quot;100&quot;,&quot;300&quot;,..: 4 2 1 3 4 1 1 3 2 4 ...
+##  $ soaNum     : int  800 100 50 300 800 50 50 300 100 800 ...
+##  $ resp       : num  1 1 1 1 1 1 1 1 1 1 ...
+##  $ rt         : num  618 824 752 646 869 ...</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="read-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plausibility-check.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Teil 3 Pakete und Daten laden | Analyse von Verhaltensdaten mit R</title>
+  <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Teil 3 Pakete und Daten laden | Analyse von Verhaltensdaten mit R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Teil 3 Pakete und Daten laden | Analyse von Verhaltensdaten mit R" />
+  
+  <meta name="twitter:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+<meta name="author" content="Xaver Fuchs, Christian Seegelke, Tobias Heed" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="get-started.html"/>
+<link rel="next" href="plan-analysis.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Auswerteschablone für R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Übersicht</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wozu-dieses-dokument-dient"><i class="fa fa-check"></i><b>1.1</b> Wozu dieses Dokument dient</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ergänzende-quellen"><i class="fa fa-check"></i><b>1.2</b> Ergänzende Quellen</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#hinweis-zu-diesem-dokument"><i class="fa fa-check"></i><b>1.3</b> Hinweis zu diesem Dokument</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#interaktive-verwendungsweise"><i class="fa fa-check"></i><b>1.4</b> Interaktive Verwendungsweise</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#rückmeldung-zu-der-lernerfahrung"><i class="fa fa-check"></i><b>1.5</b> Rückmeldung zu der Lernerfahrung</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#die-nächsten-schritte"><i class="fa fa-check"></i><b>1.6</b> Die nächsten Schritte</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="get-started.html"><a href="get-started.html"><i class="fa fa-check"></i><b>2</b> Einstieg</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="get-started.html"><a href="get-started.html#r-und-rstudio"><i class="fa fa-check"></i><b>2.1</b> R und RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="get-started.html"><a href="get-started.html#dokument-mit-ersten-schritten"><i class="fa fa-check"></i><b>2.2</b> Dokument mit ersten Schritten</a></li>
+<li class="chapter" data-level="2.3" data-path="get-started.html"><a href="get-started.html#code-und-daten-herunterladen"><i class="fa fa-check"></i><b>2.3</b> Code und Daten herunterladen</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="get-started.html"><a href="get-started.html#rmarkdown-code"><i class="fa fa-check"></i><b>2.3.1</b> RMarkdown code</a></li>
+<li class="chapter" data-level="2.3.2" data-path="get-started.html"><a href="get-started.html#daten"><i class="fa fa-check"></i><b>2.3.2</b> Daten</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="get-started.html"><a href="get-started.html#projektordner-anlegen"><i class="fa fa-check"></i><b>2.4</b> Projektordner anlegen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>3</b> Pakete und Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="read-data.html"><a href="read-data.html#verwendete-packages"><i class="fa fa-check"></i><b>3.1</b> Verwendete Packages</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="read-data.html"><a href="read-data.html#pakete-für-datenverarbeitung-und-statistik"><i class="fa fa-check"></i><b>3.1.1</b> Pakete für Datenverarbeitung und Statistik</a></li>
+<li class="chapter" data-level="3.1.2" data-path="read-data.html"><a href="read-data.html#pakete-für-rmarkdown"><i class="fa fa-check"></i><b>3.1.2</b> Pakete für RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="read-data.html"><a href="read-data.html#daten-einlesen"><i class="fa fa-check"></i><b>3.2</b> Daten einlesen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="read-data.html"><a href="read-data.html#verzeichnisse-und-pfade"><i class="fa fa-check"></i><b>3.2.1</b> Verzeichnisse und Pfade</a></li>
+<li class="chapter" data-level="3.2.2" data-path="read-data.html"><a href="read-data.html#verzeichnisse-ermitteln-und-setzen"><i class="fa fa-check"></i><b>3.2.2</b> Verzeichnisse ermitteln und setzen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="read-data.html"><a href="read-data.html#daten-laden"><i class="fa fa-check"></i><b>3.3</b> Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="read-data.html"><a href="read-data.html#daten-die-als-textdatei-vorliegen"><i class="fa fa-check"></i><b>3.3.1</b> Daten, die als Textdatei vorliegen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="read-data.html"><a href="read-data.html#daten-die-in-excel-vorliegen"><i class="fa fa-check"></i><b>3.3.2</b> Daten, die in Excel vorliegen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="read-data.html"><a href="read-data.html#daten-die-in-spss-vorliegen"><i class="fa fa-check"></i><b>3.3.3</b> Daten, die in SPSS vorliegen</a></li>
+<li class="chapter" data-level="3.3.4" data-path="read-data.html"><a href="read-data.html#daten-die-schon-in-r-gespeichert-waren"><i class="fa fa-check"></i><b>3.3.4</b> Daten, die schon in R gespeichert waren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="read-data.html"><a href="read-data.html#daten-speichern"><i class="fa fa-check"></i><b>3.4</b> Daten speichern</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="read-data.html"><a href="read-data.html#speichern-im-r-typischen-format-als-rdata"><i class="fa fa-check"></i><b>3.4.1</b> Speichern im R-typischen Format (als RData)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="read-data.html"><a href="read-data.html#speichern-als-textdatei"><i class="fa fa-check"></i><b>3.4.2</b> Speichern als Textdatei</a></li>
+<li class="chapter" data-level="3.4.3" data-path="read-data.html"><a href="read-data.html#speichern-als-als-excel-datei"><i class="fa fa-check"></i><b>3.4.3</b> Speichern als als Excel-Datei</a></li>
+<li class="chapter" data-level="3.4.4" data-path="read-data.html"><a href="read-data.html#speichern-als-spss-datei"><i class="fa fa-check"></i><b>3.4.4</b> Speichern als SPSS-Datei</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plan-analysis.html"><a href="plan-analysis.html"><i class="fa fa-check"></i><b>4</b> Analysen planen und Variablentypen anpassen</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plan-analysis.html"><a href="plan-analysis.html#die-richtige-analyse-für-das-vorliegende-design-wählen"><i class="fa fa-check"></i><b>4.1</b> Die richtige Analyse für das vorliegende Design wählen</a></li>
+<li class="chapter" data-level="4.2" data-path="plan-analysis.html"><a href="plan-analysis.html#daten-ins-richtige-format-bringen"><i class="fa fa-check"></i><b>4.2</b> Daten ins richtige Format bringen</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="plan-analysis.html"><a href="plan-analysis.html#überblick-über-datensatz-verschaffen"><i class="fa fa-check"></i><b>4.2.1</b> Überblick über Datensatz verschaffen</a></li>
+<li class="chapter" data-level="4.2.2" data-path="plan-analysis.html"><a href="plan-analysis.html#kopie-des-originalen-datensatzes-machen"><i class="fa fa-check"></i><b>4.2.2</b> Kopie des originalen Datensatzes machen</a></li>
+<li class="chapter" data-level="4.2.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-und-faktorlevels-umbenennen"><i class="fa fa-check"></i><b>4.2.3</b> Variablen und Faktorlevels umbenennen</a></li>
+<li class="chapter" data-level="4.2.4" data-path="plan-analysis.html"><a href="plan-analysis.html#abhängige-variablen-prüfen-und-in-richtigers-format-bringen"><i class="fa fa-check"></i><b>4.2.4</b> Abhängige Variablen prüfen und in richtigers Format bringen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-von-interesse-auswählen"><i class="fa fa-check"></i><b>4.3</b> Variablen von Interesse auswählen</a></li>
+<li class="chapter" data-level="4.4" data-path="plan-analysis.html"><a href="plan-analysis.html#ergebnis-überprüfen"><i class="fa fa-check"></i><b>4.4</b> Ergebnis überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="plausibility-check.html"><a href="plausibility-check.html"><i class="fa fa-check"></i><b>5</b> Daten auf Plausibilität prüfen</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-vpn-überprüfen"><i class="fa fa-check"></i><b>5.0.1</b> Anzahl Vpn überprüfen</a></li>
+<li class="chapter" data-level="5.0.2" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-von-trials-überprüfen"><i class="fa fa-check"></i><b>5.0.2</b> Anzahl von Trials überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clean-data.html"><a href="clean-data.html"><i class="fa fa-check"></i><b>6</b> Daten bereinigen</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="clean-data.html"><a href="clean-data.html#funktion-zur-beseitigung-von-trials-mit-zu-langen-oder-zu-kurzen-rts"><i class="fa fa-check"></i><b>6.1</b> Funktion zur Beseitigung von Trials mit zu langen oder zu kurzen RTs</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="clean-data.html"><a href="clean-data.html#test-der-funktion-an-einem-toy-vektor"><i class="fa fa-check"></i><b>6.1.1</b> Test der Funktion an einem Toy-Vektor</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="clean-data.html"><a href="clean-data.html#anwendung-der-rt-basierten-bereinigung-auf-die-daten"><i class="fa fa-check"></i><b>6.2</b> Anwendung der RT-basierten Bereinigung auf die Daten</a></li>
+<li class="chapter" data-level="6.3" data-path="clean-data.html"><a href="clean-data.html#korrektur-der-av-antwort-für-die-trials-mit-ungültigen-rts"><i class="fa fa-check"></i><b>6.3</b> Korrektur der AV Antwort für die Trials mit ungültigen RTs</a></li>
+<li class="chapter" data-level="6.4" data-path="clean-data.html"><a href="clean-data.html#anzahl-entfernter-trials-berichten"><i class="fa fa-check"></i><b>6.4</b> Anzahl entfernter Trials berichten</a></li>
+<li class="chapter" data-level="6.5" data-path="clean-data.html"><a href="clean-data.html#datensatz-auf-gültige-trials-beschränken"><i class="fa fa-check"></i><b>6.5</b> Datensatz auf gültige Trials beschränken</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="basic-plots.html"><a href="basic-plots.html"><i class="fa fa-check"></i><b>7</b> Visualisierung der Rohdaten</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="basic-plots.html"><a href="basic-plots.html#grammar-of-graphics"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-von-rohdaten-pro-vpn"><i class="fa fa-check"></i><b>7.2</b> Visualisierung von Rohdaten pro Vpn</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-antworten"><i class="fa fa-check"></i><b>7.2.1</b> Visualisierung der AV Antworten</a></li>
+<li class="chapter" data-level="7.2.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-rts"><i class="fa fa-check"></i><b>7.2.2</b> Visualisierung der AV RTs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-auf-gruppenebene"><i class="fa fa-check"></i><b>7.3</b> Visualisierung auf Gruppenebene</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="basic-plots.html"><a href="basic-plots.html#av-antwort"><i class="fa fa-check"></i><b>7.3.1</b> AV Antwort</a></li>
+<li class="chapter" data-level="7.3.2" data-path="basic-plots.html"><a href="basic-plots.html#av-rt"><i class="fa fa-check"></i><b>7.3.2</b> AV RT</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="basic-plots.html"><a href="basic-plots.html#daten-abspeichern"><i class="fa fa-check"></i><b>7.4</b> Daten abspeichern</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-stats.html"><a href="basic-stats.html"><i class="fa fa-check"></i><b>8</b> Statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basic-stats.html"><a href="basic-stats.html#vorwort-zu-statistische-analysen"><i class="fa fa-check"></i><b>8.1</b> Vorwort zu statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von--daten-zb-korrektinkorrekt"><i class="fa fa-check"></i><b>8.1.1</b> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.2</b> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-stats.html"><a href="basic-stats.html#rts-als-metrische-daten"><i class="fa fa-check"></i><b>8.1.3</b> RTs als metrische Daten</a></li>
+<li class="chapter" data-level="8.1.4" data-path="basic-stats.html"><a href="basic-stats.html#rts-bei-korrekten-und-inkorrekten-trials"><i class="fa fa-check"></i><b>8.1.4</b> RTs bei korrekten und inkorrekten Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basic-stats.html"><a href="basic-stats.html#die-normale-anova"><i class="fa fa-check"></i><b>8.2</b> Die “normale” Anova</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten"><i class="fa fa-check"></i><b>8.2.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basic-stats.html"><a href="basic-stats.html#der-anova-befehl-und-output"><i class="fa fa-check"></i><b>8.2.2</b> Der Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.2.3" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-vergleiche"><i class="fa fa-check"></i><b>8.2.3</b> Post-hoc Vergleiche</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="basic-stats.html"><a href="basic-stats.html#die-repeated-measures-anova"><i class="fa fa-check"></i><b>8.3</b> Die repeated measures Anova</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-1"><i class="fa fa-check"></i><b>8.3.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basic-stats.html"><a href="basic-stats.html#anova-befehl-und-output"><i class="fa fa-check"></i><b>8.3.2</b> Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.3.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion"><i class="fa fa-check"></i><b>8.3.3</b> Plots von estimated marginal means zum Nachvollziehen der Interaktion</a></li>
+<li class="chapter" data-level="8.3.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.3.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="basic-stats.html"><a href="basic-stats.html#das-linear-mixed-model-lmm"><i class="fa fa-check"></i><b>8.4</b> Das linear mixed model (LMM)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-2"><i class="fa fa-check"></i><b>8.4.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.4.2" data-path="basic-stats.html"><a href="basic-stats.html#mixed-befehl-und-output"><i class="fa fa-check"></i><b>8.4.2</b> Mixed-Befehl und Output</a></li>
+<li class="chapter" data-level="8.4.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.4.3</b> Plots von EMM für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1"><i class="fa fa-check"></i><b>8.4.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.5" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.5</b> Plots von EMM für die factor_B x factor_A Interaktion</a></li>
+<li class="chapter" data-level="8.4.6" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.6</b> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="basic-stats.html"><a href="basic-stats.html#das-generalized-linear-mixed-model-glmm"><i class="fa fa-check"></i><b>8.5</b> Das generalized linear mixed model (GLMM)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
+<li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
+<li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bis-score.html"><a href="bis-score.html#speed-accuracy-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Speed-Accuracy-Tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="bis-score.html"><a href="bis-score.html#der-bis-score"><i class="fa fa-check"></i><b>9.2</b> Der BIS-Score</a></li>
+<li class="chapter" data-level="9.3" data-path="bis-score.html"><a href="bis-score.html#analyse-des-bis-scores"><i class="fa fa-check"></i><b>9.3</b> Analyse des BIS-Scores</a></li>
+<li class="chapter" data-level="9.4" data-path="bis-score.html"><a href="bis-score.html#visualisierung-der-ergbenisse-des-modells"><i class="fa fa-check"></i><b>9.4</b> Visualisierung der Ergbenisse des Modells</a></li>
+<li class="chapter" data-level="9.5" data-path="bis-score.html"><a href="bis-score.html#post-hoc-vergleich-zum-bis-score"><i class="fa fa-check"></i><b>9.5</b> Post-hoc Vergleich zum BIS-Score</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse von Verhaltensdaten mit R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="read-data" class="section level1" number="3">
+<h1><span class="header-section-number">Teil 3</span> Pakete und Daten laden</h1>
+<div id="verwendete-packages" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Verwendete Packages</h2>
+<p>Man kann alle Packages zu Anfang laden, oder jeweils dann, wenn man sie im Skript braucht.</p>
+<div id="pakete-für-datenverarbeitung-und-statistik" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Pakete für Datenverarbeitung und Statistik</h3>
+<p>Das vorliegende Dokument verwendet <em>tidyverse</em>, welches sehr viele sehr nützliche Funktionen für Datenauswertung bereithält.
+<em>afex</em> und <em>emmeans</em> benötigt man nur, wenn man Linear Mixed Models verwendet. Bei BSc/MSc Arbeiten ist dies der Fall, wenn Prozentwert-Daten ausgewertet werden müssen.
+<em>rio</em> ist ein nützliches Paket, das man braucht, wenn man Datensätze aus anderen Formaten (z.B. Excel oder SPSS) einlesen oder in solchen Formaten speichern will.
+Mit <em>cowplot</em> lassen sich leicht mehrere Abbildungen kombinieren.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="read-data.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( tidyverse )</span>
+<span id="cb1-2"><a href="read-data.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( afex )</span>
+<span id="cb1-3"><a href="read-data.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( emmeans )</span>
+<span id="cb1-4"><a href="read-data.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( rio )</span>
+<span id="cb1-5"><a href="read-data.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( cowplot )</span></code></pre></div>
+</div>
+<div id="pakete-für-rmarkdown" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Pakete für RMarkdown</h3>
+<p>Zusätzlich verwenden wir noch zwei Pakete, die dazu da sind, Tabellen schöner aussehen zu lassen.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="read-data.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( knitr )</span>
+<span id="cb2-2"><a href="read-data.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( kableExtra )</span></code></pre></div>
+</div>
+</div>
+<div id="daten-einlesen" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Daten einlesen</h2>
+<p>Als nächstes wollen wir die Daten in R einlesen, so dass sie im Workspace sind und man damit arbeiten kann.</p>
+<div id="verzeichnisse-und-pfade" class="section level3" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Verzeichnisse und Pfade</h3>
+<p>R hat immer einen “Ort,” an dem es auf Ihrem Computer ist. Das ist der Pfad (oder das Verzeichnis) von dem aus R “denkt.”</p>
+<p>Man kann unterscheiden zwischen <em>absoluten Pfaden</em> und <em>relativen Pfaden</em>. Ein Absoluter Pfad fängt mit einer Laufwerksbezeichnung an (auf Windows), zum Beispiel wäre “C:/Programming &amp; Stats stuff/Statistics Tutorial RTL/Daten/Datensatz1.csv” ein absoluter Pfad. Absolute Pfade haben den Nachteil, dass sie dann nicht mehr stimmen, wenn Sie mal etwas in dem Namen (z.B. den Namen eines Ordners) verändern.</p>
+<p>Ein relativer Pfad ist ein Pfad, der relativ formuliert ist zu dem Ort, an dem R gerade “ist” bzw. von wo aus R gerade “denkt.” Nehmen wir mal an, der Arbeitspfad (working direectory) von R wäre bei Ihnen gerade auf das Verzeichnis “C:/Programming &amp; Stats stuff/Statistics Tutorial RTL/”
+gesetzt, dann wäre der Pfad zu dem Datensatz von oben <strong>relativ</strong> dazu ausgedrückt “Daten/Datensatz1.csv.” Der Vorteil von relativen Pfaden ist, dass sie weiterhin stimmen, selbst wenn Sie den Ordner verschieben oder umbenennen, so lange der relative Ort bestehen bleibt (also der Ordern “Daten” mit Inhalt) auch mitverschoben wird. Ein Nachteil ist, dass man den Pfad dann am Anfang der Session mit R auf das gewünschte Verzeichnis setzen muss.
+Ein weiterer großer Vorteil von relativen Pfaden ist, dass Plots, Daten dann auch dort gespeichert (es sei denn man spezifiziert es beim Speichern anders).</p>
+<p>In der Summe ist das Arbeiten mit relativen Pfaden sinnvoller und wir werden daher in diesem Dokument immer mit relativen Pfaden arbeiten.</p>
+</div>
+<div id="verzeichnisse-ermitteln-und-setzen" class="section level3" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Verzeichnisse ermitteln und setzen</h3>
+<div id="verzeichnis-ermitteln" class="section level4" number="3.2.2.1">
+<h4><span class="header-section-number">3.2.2.1</span> Verzeichnis ermitteln</h4>
+<p>Sie können einfach herausfinden, wo R gerade “ist,” indem Sie folgenden Befehl verwenden:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="read-data.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;/Users/xaverfuchs/nextcloud_plus/RTL_Auswerteschablone&quot;</code></pre>
+<p>RStudio hat eine sehr praktische Methode eingebaut, um herauszufinden, an welchem Ort sich das Skript oder Rmarkdown-Dokument befindet, in dem Sie <strong>aktuell</strong> arbeiten. Das kann sehr praktisch sein, da man oft das Arbeitsverzeichnis da hin setzen will, wo das Skript auch ist, um dann zum Beispiel von dort mit relativen Pfaden zu arbeiten.</p>
+<p>Dieser Befehl liest den Pfad des aktuellen Dokuments und schreibt ihn in die Variable “dataPath”:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="read-data.html#cb5-1" aria-hidden="true" tabindex="-1"></a>dataPath <span class="ot">&lt;-</span> <span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path)</span>
+<span id="cb5-2"><a href="read-data.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dataPath)</span></code></pre></div>
+<pre><code>## [1] &quot;&quot;</code></pre>
+</div>
+<div id="verzeichnis-setzen" class="section level4" number="3.2.2.2">
+<h4><span class="header-section-number">3.2.2.2</span> Verzeichnis setzen</h4>
+<p>Das Pendant zu “getwd()” heißt “setwd()” und ist dazu da, um ein Verzeichnis zu ändern.</p>
+<p>Sie können ganz einfach den Pfad “dataPath,” die oben definierte Variable erstellen.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="read-data.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(dataPath)</span></code></pre></div>
+<p>Sie können natürlich den Befehl auch auf einen xbeliebigen anderen (absoluten) Pfad setzen.
+Zum Beispiel könnten Sie zunächst definieren:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="read-data.html#cb8-1" aria-hidden="true" tabindex="-1"></a>dataPath <span class="ot">&lt;-</span> <span class="st">&quot;C:/Programming &amp; Stats stuff/Statistics Tutorial RTL/&quot;</span></span>
+<span id="cb8-2"><a href="read-data.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(dataPath)</span></code></pre></div>
+<p>Oder auch gleich:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="read-data.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:/Programming &amp; Stats stuff/Statistics Tutorial RTL/&quot;</span>)</span></code></pre></div>
+<p>Ersetzen Sie dabei einfach den Pfad auf was auch immer in Ihrer Situation zutrifft.</p>
+<p>Hinweis:
+Bei Pfaden gehen die Striche je nach Betriebssystem in die andere Richtung: Mac und Linux verwenden ein /, Windows aber einen  als Verzeichnistrenner.</p>
+</div>
+</div>
+</div>
+<div id="daten-laden" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Daten laden</h2>
+<p><strong>Zeitplanung: nach den ersten 1-2 Erhebungen</strong></p>
+<p>Die häufigsten Datenformate sind vermutlich:</p>
+<ul>
+<li>Textdateien, in denen jede Spalte eine Variable, und jede Zeile einen Trial enthält</li>
+<li>Exceldateien mit demselben Format</li>
+<li>bereits in R erstellte oder bearbeitete Daten, die im R-Format gespeichert wurden</li>
+<li>SPSS-Dateien, in denen repeated measures nicht über Codiervariablen, sondern über 1 Spalte je Bedingung gespeichert sind</li>
+</ul>
+<p>Für alle 4 Fälle wird hier Code zur Verfügung gestellt.</p>
+<div id="daten-die-als-textdatei-vorliegen" class="section level3" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Daten, die als Textdatei vorliegen</h3>
+<p>Beim Einlesen von sogenannten comma separated values (csv) Dateien, worunter auch übliche Text-Dateien fallen, ist zu beachten, dass diese Dateien bestimmte Trennzeichen haben können. Üblich sind durch einen Tabulator (Tab) getrennte
+Dateien, durch Komma getrennte Dateien oder durch Punkte getrennte Dateien. Dementsprechend muss man in der Funktion die Flag “sep” anpassen. Im Beispiel ist die Textdatei durch Tabs getrennt, deshalb funktioniert sep = “</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="read-data.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#daten laden</span></span>
+<span id="cb10-2"><a href="read-data.html#cb10-2" aria-hidden="true" tabindex="-1"></a>bsp <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;RTL_beispieldaten.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>Die Daten sehen in etwa so aus (Ausschnitt)</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="read-data.html#cb11-1" aria-hidden="true" tabindex="-1"></a>bsp <span class="sc">%&gt;%</span> <span class="fu">select</span>(Participant, Stimuli, Condition, </span>
+<span id="cb11-2"><a href="read-data.html#cb11-2" aria-hidden="true" tabindex="-1"></a>               Repetition, SOA, Response.correct, Real_Release_RT) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="read-data.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="read-data.html#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&#39;Ausschnitt der Beispieldaten&#39;</span>, <span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table>
+<caption>
+<span id="tab:Daten-glimpse">Table 3.1: </span>Ausschnitt der Beispieldaten
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Participant
+</th>
+<th style="text-align:left;">
+Stimuli
+</th>
+<th style="text-align:left;">
+Condition
+</th>
+<th style="text-align:left;">
+Repetition
+</th>
+<th style="text-align:right;">
+SOA
+</th>
+<th style="text-align:left;">
+Response.correct
+</th>
+<th style="text-align:right;">
+Real_Release_RT
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+6_1
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+800
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+618
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+5_2
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+824
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+6_2
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+752
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+6_1
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+646
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+2_5
+</td>
+<td style="text-align:left;">
+crossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+800
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+869
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+1_6
+</td>
+<td style="text-align:left;">
+crossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+936
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+1_3
+</td>
+<td style="text-align:left;">
+crossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+50
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+544
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+1_5
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+300
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+1029
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+4_1
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+100
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+779
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:left;">
+2_5
+</td>
+<td style="text-align:left;">
+uncrossed
+</td>
+<td style="text-align:left;">
+1
+</td>
+<td style="text-align:right;">
+800
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+504
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="daten-die-in-excel-vorliegen" class="section level3" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Daten, die in Excel vorliegen</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="read-data.html#cb12-1" aria-hidden="true" tabindex="-1"></a>bsp <span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;RTL_beispieldaten.xlsx&quot;</span>, <span class="at">which =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Dieser Befehl kommt aus dem Paket <em>riio</em> und kann für Exceltabellen auch noch andere Parameter annehmen, z.B. für das Excelblatt (bei Daten mit mehreren Blättern) kann man das zweite Blatt mit “which = 2” einlesen.</p>
+</div>
+<div id="daten-die-in-spss-vorliegen" class="section level3" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> Daten, die in SPSS vorliegen</h3>
+<p>Das Paket <em>rio</em> kann auch verwendet werden, um SPSS-Daten einzulesen.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="read-data.html#cb13-1" aria-hidden="true" tabindex="-1"></a>bsp_RTs<span class="ot">&lt;-</span> <span class="fu">import</span>(<span class="st">&quot;RTL_beispieldaten_RTs.sav&quot;</span>)</span></code></pre></div>
+</div>
+<div id="daten-die-schon-in-r-gespeichert-waren" class="section level3" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> Daten, die schon in R gespeichert waren</h3>
+<p>Hier kann es sein, dass mehr drin ist als man braucht. Also erstmal anschauen.
+Dazu den Workspace leeren (in RStudio oben rechts bei Reiter “Environment” den kleinen Besen klicken - das löscht alle vorhandenen Daten).
+Anschließend den load-Befehl ausführen. Das, was dann im “Global Environment” gezeigt wird, sind die Daten, die man geladen hat.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="read-data.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>( <span class="st">&quot;RTL_beispieldaten.RData&quot;</span> )</span></code></pre></div>
+</div>
+</div>
+<div id="daten-speichern" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Daten speichern</h2>
+<p>Sobald Daten in R importiert wurden, sollten sie im R-Format abgespeichert werden, da dann das Laden am einfachsten ist und alle bearbeiteten Variablen ihre Eigenschaften (z.B. Variablentyp) behalten. Dies gilt insbesondere dann, wenn man die Daten aus einem anderen Format (txt, SPSS) nach R holt.
+Wenn Sie an den Daten etwas verändert haben, passen Sie auf, dass Sie nicht ihre ursprünglichen Daten aus Versehen überschreiben. Das können Sie verhindern, indem Sie dem Datensatz einen neuen Namen geben. In unserem Beispiel hängen wir “_export” hinten an den Dateinamen dran.</p>
+<div id="speichern-im-r-typischen-format-als-rdata" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Speichern im R-typischen Format (als RData)</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="read-data.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten für weitere Verwendung in R speichern, zB um Sie seine*r Betreuer*in zu schicken</span></span>
+<span id="cb15-2"><a href="read-data.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>( bsp, <span class="at">file =</span> <span class="st">&quot;RTL_beispieldaten_export.RData&quot;</span>)</span></code></pre></div>
+</div>
+<div id="speichern-als-textdatei" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Speichern als Textdatei</h3>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="read-data.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write.table</span>(bsp, <span class="at">file =</span> <span class="st">&quot;RTL_beispieldaten_export.txt&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\t</span><span class="st">&quot;</span>,</span>
+<span id="cb16-2"><a href="read-data.html#cb16-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">row.names =</span> <span class="cn">FALSE</span>, <span class="at">col.names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>“sep” ist das Trennzeichen zwischen Spalten, t ist ein Tab-zeichen, das ist Standard.</p>
+<p>“col.names” exportiert auch die Variablennamen als erste Spalte</p>
+</div>
+<div id="speichern-als-als-excel-datei" class="section level3" number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Speichern als als Excel-Datei</h3>
+<p>Hierzu kann der “export”-Befehl aus dem Paket <em>rio</em> verwendet werden.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="read-data.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(bsp, <span class="at">file =</span> <span class="st">&quot;RTL_beispieldaten_export.xlsx&quot;</span>)</span></code></pre></div>
+</div>
+<div id="speichern-als-spss-datei" class="section level3" number="3.4.4">
+<h3><span class="header-section-number">3.4.4</span> Speichern als SPSS-Datei</h3>
+<p>Auch das SPSS-Format kann mit “export” wie bei den Excel-Dateien gespecihert werden. Bei SPSS ist das weite Format üblich. Da es aber schnell unübersichtlich wird, wird hier beispielhaft nur ein Ausschnitt verwendet, der nur die Reaktionszeiten (RTs) enthält. Die verwendeten Befehle zum Erstellen des Ausschnitts werden unten noch genauer erklärt (und müssen hier nicht im Detail nachvollzogen werden)</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="read-data.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Reaktionszeiten über die VP und Reize aggregieren (mitteln)</span></span>
+<span id="cb18-2"><a href="read-data.html#cb18-2" aria-hidden="true" tabindex="-1"></a>bsp_RTs <span class="ot">&lt;-</span> bsp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Repetition<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(Participant, Stimuli, SOA, Real_Release_RT) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Participant, Stimuli, SOA) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">RT=</span><span class="fu">round</span>(<span class="fu">mean</span>(<span class="fu">as.numeric</span>(Real_Release_RT), <span class="at">na.rm =</span> T), <span class="at">digits =</span> <span class="dv">2</span>)) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>()</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Participant&#39;, &#39;Stimuli&#39;. You can override using the `.groups` argument.</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="read-data.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># den Auschnitt in eine &quot;weites&quot; Format (SPSS-typisch) umwandeln...</span></span>
+<span id="cb20-2"><a href="read-data.html#cb20-2" aria-hidden="true" tabindex="-1"></a>bsp_RTs_wide <span class="ot">&lt;-</span>  bsp_RTs <span class="sc">%&gt;%</span> <span class="fu">unite</span>(Stim_SOA, <span class="fu">c</span>(Stimuli, SOA)) <span class="sc">%&gt;%</span> <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> Stim_SOA, <span class="at">values_from =</span> RT)</span></code></pre></div>
+<p>Die Daten im weiten Format sehen dann so aus (Ausschnitt)</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="read-data.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Datensatz betrachten: Jede VP ist jetzt in einer Zeile (=weites Format, s.u.)</span></span>
+<span id="cb21-2"><a href="read-data.html#cb21-2" aria-hidden="true" tabindex="-1"></a>bsp_RTs_wide <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="read-data.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href="read-data.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">caption =</span> <span class="st">&#39;Ausschnitt der Beispieldaten im weiten Format&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href="read-data.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scroll_box</span>(<span class="at">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table>
+<caption>
+<span id="tab:Daten-wide-glimpse">Table 3.2: </span>Ausschnitt der Beispieldaten im weiten Format
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Participant
+</th>
+<th style="text-align:right;">
+1_3_50
+</th>
+<th style="text-align:right;">
+1_3_100
+</th>
+<th style="text-align:right;">
+1_3_300
+</th>
+<th style="text-align:right;">
+1_3_800
+</th>
+<th style="text-align:right;">
+1_4_50
+</th>
+<th style="text-align:right;">
+1_4_100
+</th>
+<th style="text-align:right;">
+1_4_300
+</th>
+<th style="text-align:right;">
+1_4_800
+</th>
+<th style="text-align:right;">
+1_5_50
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+B006b-08
+</td>
+<td style="text-align:right;">
+743.00
+</td>
+<td style="text-align:right;">
+747.92
+</td>
+<td style="text-align:right;">
+733.92
+</td>
+<td style="text-align:right;">
+632.71
+</td>
+<td style="text-align:right;">
+924.33
+</td>
+<td style="text-align:right;">
+716.83
+</td>
+<td style="text-align:right;">
+647.58
+</td>
+<td style="text-align:right;">
+578.71
+</td>
+<td style="text-align:right;">
+872.04
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-09
+</td>
+<td style="text-align:right;">
+802.79
+</td>
+<td style="text-align:right;">
+720.42
+</td>
+<td style="text-align:right;">
+567.62
+</td>
+<td style="text-align:right;">
+572.75
+</td>
+<td style="text-align:right;">
+686.54
+</td>
+<td style="text-align:right;">
+668.83
+</td>
+<td style="text-align:right;">
+613.62
+</td>
+<td style="text-align:right;">
+567.92
+</td>
+<td style="text-align:right;">
+797.50
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-10
+</td>
+<td style="text-align:right;">
+1117.22
+</td>
+<td style="text-align:right;">
+976.00
+</td>
+<td style="text-align:right;">
+887.75
+</td>
+<td style="text-align:right;">
+928.29
+</td>
+<td style="text-align:right;">
+1122.54
+</td>
+<td style="text-align:right;">
+1087.75
+</td>
+<td style="text-align:right;">
+923.58
+</td>
+<td style="text-align:right;">
+864.96
+</td>
+<td style="text-align:right;">
+1107.52
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-11
+</td>
+<td style="text-align:right;">
+1144.91
+</td>
+<td style="text-align:right;">
+1020.50
+</td>
+<td style="text-align:right;">
+1101.33
+</td>
+<td style="text-align:right;">
+892.58
+</td>
+<td style="text-align:right;">
+1096.71
+</td>
+<td style="text-align:right;">
+960.54
+</td>
+<td style="text-align:right;">
+965.83
+</td>
+<td style="text-align:right;">
+936.04
+</td>
+<td style="text-align:right;">
+1112.96
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-12
+</td>
+<td style="text-align:right;">
+934.12
+</td>
+<td style="text-align:right;">
+786.08
+</td>
+<td style="text-align:right;">
+617.50
+</td>
+<td style="text-align:right;">
+693.38
+</td>
+<td style="text-align:right;">
+836.12
+</td>
+<td style="text-align:right;">
+803.46
+</td>
+<td style="text-align:right;">
+779.08
+</td>
+<td style="text-align:right;">
+725.23
+</td>
+<td style="text-align:right;">
+925.09
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-13
+</td>
+<td style="text-align:right;">
+672.25
+</td>
+<td style="text-align:right;">
+683.50
+</td>
+<td style="text-align:right;">
+599.79
+</td>
+<td style="text-align:right;">
+668.17
+</td>
+<td style="text-align:right;">
+950.77
+</td>
+<td style="text-align:right;">
+813.79
+</td>
+<td style="text-align:right;">
+719.17
+</td>
+<td style="text-align:right;">
+601.46
+</td>
+<td style="text-align:right;">
+617.67
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-14
+</td>
+<td style="text-align:right;">
+1318.33
+</td>
+<td style="text-align:right;">
+1354.79
+</td>
+<td style="text-align:right;">
+1271.75
+</td>
+<td style="text-align:right;">
+1063.04
+</td>
+<td style="text-align:right;">
+1112.21
+</td>
+<td style="text-align:right;">
+1114.29
+</td>
+<td style="text-align:right;">
+915.42
+</td>
+<td style="text-align:right;">
+877.22
+</td>
+<td style="text-align:right;">
+1571.54
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-15
+</td>
+<td style="text-align:right;">
+676.41
+</td>
+<td style="text-align:right;">
+690.81
+</td>
+<td style="text-align:right;">
+858.58
+</td>
+<td style="text-align:right;">
+866.30
+</td>
+<td style="text-align:right;">
+835.46
+</td>
+<td style="text-align:right;">
+763.48
+</td>
+<td style="text-align:right;">
+807.00
+</td>
+<td style="text-align:right;">
+840.59
+</td>
+<td style="text-align:right;">
+663.43
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-16
+</td>
+<td style="text-align:right;">
+1011.29
+</td>
+<td style="text-align:right;">
+922.17
+</td>
+<td style="text-align:right;">
+935.17
+</td>
+<td style="text-align:right;">
+812.08
+</td>
+<td style="text-align:right;">
+1099.46
+</td>
+<td style="text-align:right;">
+1065.29
+</td>
+<td style="text-align:right;">
+985.88
+</td>
+<td style="text-align:right;">
+933.71
+</td>
+<td style="text-align:right;">
+1023.21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+B006b-17
+</td>
+<td style="text-align:right;">
+852.88
+</td>
+<td style="text-align:right;">
+701.50
+</td>
+<td style="text-align:right;">
+741.35
+</td>
+<td style="text-align:right;">
+601.09
+</td>
+<td style="text-align:right;">
+870.79
+</td>
+<td style="text-align:right;">
+805.88
+</td>
+<td style="text-align:right;">
+721.65
+</td>
+<td style="text-align:right;">
+692.96
+</td>
+<td style="text-align:right;">
+687.25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Bevor wir als SPSS-Datei speichern, müssen wir die Variablen auch noch ein bisschen umbenenen, weil SPSS es nicht mag, wenn Variablennamen mit einer Zahl beginnen. Da es alles RTs sind, hängen wir einfach mal “RT” vorne an die Namen dran</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="read-data.html#cb22-1" aria-hidden="true" tabindex="-1"></a>VarsOldName <span class="ot">&lt;-</span> <span class="fu">grep</span>(<span class="st">&quot;[[:digit:]]&quot;</span>, <span class="fu">names</span>(bsp_RTs_wide), <span class="at">value =</span> T)</span>
+<span id="cb22-2"><a href="read-data.html#cb22-2" aria-hidden="true" tabindex="-1"></a>VarsNewName <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;RT&quot;</span>, VarsOldName, <span class="at">sep=</span><span class="st">&quot;s_&quot;</span>)</span>
+<span id="cb22-3"><a href="read-data.html#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-4"><a href="read-data.html#cb22-4" aria-hidden="true" tabindex="-1"></a>bsp_RTs_wide <span class="ot">&lt;-</span> bsp_RTs_wide <span class="sc">%&gt;%</span> <span class="fu">rename_at</span>(<span class="fu">vars</span>(VarsOldName), <span class="sc">~</span> VarsNewName)</span>
+<span id="cb22-5"><a href="read-data.html#cb22-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="read-data.html#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="fu">export</span>(bsp_RTs_wide, <span class="st">&quot;RTL_beispieldaten_export_RTs.sav&quot;</span>) <span class="co">#exportiert als SPSS-Datei</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="get-started.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plan-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

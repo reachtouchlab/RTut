@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Teil 9 Verknüpfung von Antworten und Reaktionszeiten in ein Maß | Analyse von Verhaltensdaten mit R</title>
+  <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Teil 9 Verknüpfung von Antworten und Reaktionszeiten in ein Maß | Analyse von Verhaltensdaten mit R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Teil 9 Verknüpfung von Antworten und Reaktionszeiten in ein Maß | Analyse von Verhaltensdaten mit R" />
+  
+  <meta name="twitter:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+<meta name="author" content="Xaver Fuchs, Christian Seegelke, Tobias Heed" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-stats.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Auswerteschablone für R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Übersicht</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wozu-dieses-dokument-dient"><i class="fa fa-check"></i><b>1.1</b> Wozu dieses Dokument dient</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ergänzende-quellen"><i class="fa fa-check"></i><b>1.2</b> Ergänzende Quellen</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#hinweis-zu-diesem-dokument"><i class="fa fa-check"></i><b>1.3</b> Hinweis zu diesem Dokument</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#interaktive-verwendungsweise"><i class="fa fa-check"></i><b>1.4</b> Interaktive Verwendungsweise</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#rückmeldung-zu-der-lernerfahrung"><i class="fa fa-check"></i><b>1.5</b> Rückmeldung zu der Lernerfahrung</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#die-nächsten-schritte"><i class="fa fa-check"></i><b>1.6</b> Die nächsten Schritte</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="get-started.html"><a href="get-started.html"><i class="fa fa-check"></i><b>2</b> Einstieg</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="get-started.html"><a href="get-started.html#r-und-rstudio"><i class="fa fa-check"></i><b>2.1</b> R und RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="get-started.html"><a href="get-started.html#dokument-mit-ersten-schritten"><i class="fa fa-check"></i><b>2.2</b> Dokument mit ersten Schritten</a></li>
+<li class="chapter" data-level="2.3" data-path="get-started.html"><a href="get-started.html#code-und-daten-herunterladen"><i class="fa fa-check"></i><b>2.3</b> Code und Daten herunterladen</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="get-started.html"><a href="get-started.html#rmarkdown-code"><i class="fa fa-check"></i><b>2.3.1</b> RMarkdown code</a></li>
+<li class="chapter" data-level="2.3.2" data-path="get-started.html"><a href="get-started.html#daten"><i class="fa fa-check"></i><b>2.3.2</b> Daten</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="get-started.html"><a href="get-started.html#projektordner-anlegen"><i class="fa fa-check"></i><b>2.4</b> Projektordner anlegen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>3</b> Pakete und Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="read-data.html"><a href="read-data.html#verwendete-packages"><i class="fa fa-check"></i><b>3.1</b> Verwendete Packages</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="read-data.html"><a href="read-data.html#pakete-für-datenverarbeitung-und-statistik"><i class="fa fa-check"></i><b>3.1.1</b> Pakete für Datenverarbeitung und Statistik</a></li>
+<li class="chapter" data-level="3.1.2" data-path="read-data.html"><a href="read-data.html#pakete-für-rmarkdown"><i class="fa fa-check"></i><b>3.1.2</b> Pakete für RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="read-data.html"><a href="read-data.html#daten-einlesen"><i class="fa fa-check"></i><b>3.2</b> Daten einlesen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="read-data.html"><a href="read-data.html#verzeichnisse-und-pfade"><i class="fa fa-check"></i><b>3.2.1</b> Verzeichnisse und Pfade</a></li>
+<li class="chapter" data-level="3.2.2" data-path="read-data.html"><a href="read-data.html#verzeichnisse-ermitteln-und-setzen"><i class="fa fa-check"></i><b>3.2.2</b> Verzeichnisse ermitteln und setzen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="read-data.html"><a href="read-data.html#daten-laden"><i class="fa fa-check"></i><b>3.3</b> Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="read-data.html"><a href="read-data.html#daten-die-als-textdatei-vorliegen"><i class="fa fa-check"></i><b>3.3.1</b> Daten, die als Textdatei vorliegen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="read-data.html"><a href="read-data.html#daten-die-in-excel-vorliegen"><i class="fa fa-check"></i><b>3.3.2</b> Daten, die in Excel vorliegen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="read-data.html"><a href="read-data.html#daten-die-in-spss-vorliegen"><i class="fa fa-check"></i><b>3.3.3</b> Daten, die in SPSS vorliegen</a></li>
+<li class="chapter" data-level="3.3.4" data-path="read-data.html"><a href="read-data.html#daten-die-schon-in-r-gespeichert-waren"><i class="fa fa-check"></i><b>3.3.4</b> Daten, die schon in R gespeichert waren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="read-data.html"><a href="read-data.html#daten-speichern"><i class="fa fa-check"></i><b>3.4</b> Daten speichern</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="read-data.html"><a href="read-data.html#speichern-im-r-typischen-format-als-rdata"><i class="fa fa-check"></i><b>3.4.1</b> Speichern im R-typischen Format (als RData)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="read-data.html"><a href="read-data.html#speichern-als-textdatei"><i class="fa fa-check"></i><b>3.4.2</b> Speichern als Textdatei</a></li>
+<li class="chapter" data-level="3.4.3" data-path="read-data.html"><a href="read-data.html#speichern-als-als-excel-datei"><i class="fa fa-check"></i><b>3.4.3</b> Speichern als als Excel-Datei</a></li>
+<li class="chapter" data-level="3.4.4" data-path="read-data.html"><a href="read-data.html#speichern-als-spss-datei"><i class="fa fa-check"></i><b>3.4.4</b> Speichern als SPSS-Datei</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plan-analysis.html"><a href="plan-analysis.html"><i class="fa fa-check"></i><b>4</b> Analysen planen und Variablentypen anpassen</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plan-analysis.html"><a href="plan-analysis.html#die-richtige-analyse-für-das-vorliegende-design-wählen"><i class="fa fa-check"></i><b>4.1</b> Die richtige Analyse für das vorliegende Design wählen</a></li>
+<li class="chapter" data-level="4.2" data-path="plan-analysis.html"><a href="plan-analysis.html#daten-ins-richtige-format-bringen"><i class="fa fa-check"></i><b>4.2</b> Daten ins richtige Format bringen</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="plan-analysis.html"><a href="plan-analysis.html#überblick-über-datensatz-verschaffen"><i class="fa fa-check"></i><b>4.2.1</b> Überblick über Datensatz verschaffen</a></li>
+<li class="chapter" data-level="4.2.2" data-path="plan-analysis.html"><a href="plan-analysis.html#kopie-des-originalen-datensatzes-machen"><i class="fa fa-check"></i><b>4.2.2</b> Kopie des originalen Datensatzes machen</a></li>
+<li class="chapter" data-level="4.2.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-und-faktorlevels-umbenennen"><i class="fa fa-check"></i><b>4.2.3</b> Variablen und Faktorlevels umbenennen</a></li>
+<li class="chapter" data-level="4.2.4" data-path="plan-analysis.html"><a href="plan-analysis.html#abhängige-variablen-prüfen-und-in-richtigers-format-bringen"><i class="fa fa-check"></i><b>4.2.4</b> Abhängige Variablen prüfen und in richtigers Format bringen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-von-interesse-auswählen"><i class="fa fa-check"></i><b>4.3</b> Variablen von Interesse auswählen</a></li>
+<li class="chapter" data-level="4.4" data-path="plan-analysis.html"><a href="plan-analysis.html#ergebnis-überprüfen"><i class="fa fa-check"></i><b>4.4</b> Ergebnis überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="plausibility-check.html"><a href="plausibility-check.html"><i class="fa fa-check"></i><b>5</b> Daten auf Plausibilität prüfen</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-vpn-überprüfen"><i class="fa fa-check"></i><b>5.0.1</b> Anzahl Vpn überprüfen</a></li>
+<li class="chapter" data-level="5.0.2" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-von-trials-überprüfen"><i class="fa fa-check"></i><b>5.0.2</b> Anzahl von Trials überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clean-data.html"><a href="clean-data.html"><i class="fa fa-check"></i><b>6</b> Daten bereinigen</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="clean-data.html"><a href="clean-data.html#funktion-zur-beseitigung-von-trials-mit-zu-langen-oder-zu-kurzen-rts"><i class="fa fa-check"></i><b>6.1</b> Funktion zur Beseitigung von Trials mit zu langen oder zu kurzen RTs</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="clean-data.html"><a href="clean-data.html#test-der-funktion-an-einem-toy-vektor"><i class="fa fa-check"></i><b>6.1.1</b> Test der Funktion an einem Toy-Vektor</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="clean-data.html"><a href="clean-data.html#anwendung-der-rt-basierten-bereinigung-auf-die-daten"><i class="fa fa-check"></i><b>6.2</b> Anwendung der RT-basierten Bereinigung auf die Daten</a></li>
+<li class="chapter" data-level="6.3" data-path="clean-data.html"><a href="clean-data.html#korrektur-der-av-antwort-für-die-trials-mit-ungültigen-rts"><i class="fa fa-check"></i><b>6.3</b> Korrektur der AV Antwort für die Trials mit ungültigen RTs</a></li>
+<li class="chapter" data-level="6.4" data-path="clean-data.html"><a href="clean-data.html#anzahl-entfernter-trials-berichten"><i class="fa fa-check"></i><b>6.4</b> Anzahl entfernter Trials berichten</a></li>
+<li class="chapter" data-level="6.5" data-path="clean-data.html"><a href="clean-data.html#datensatz-auf-gültige-trials-beschränken"><i class="fa fa-check"></i><b>6.5</b> Datensatz auf gültige Trials beschränken</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="basic-plots.html"><a href="basic-plots.html"><i class="fa fa-check"></i><b>7</b> Visualisierung der Rohdaten</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="basic-plots.html"><a href="basic-plots.html#grammar-of-graphics"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-von-rohdaten-pro-vpn"><i class="fa fa-check"></i><b>7.2</b> Visualisierung von Rohdaten pro Vpn</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-antworten"><i class="fa fa-check"></i><b>7.2.1</b> Visualisierung der AV Antworten</a></li>
+<li class="chapter" data-level="7.2.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-rts"><i class="fa fa-check"></i><b>7.2.2</b> Visualisierung der AV RTs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-auf-gruppenebene"><i class="fa fa-check"></i><b>7.3</b> Visualisierung auf Gruppenebene</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="basic-plots.html"><a href="basic-plots.html#av-antwort"><i class="fa fa-check"></i><b>7.3.1</b> AV Antwort</a></li>
+<li class="chapter" data-level="7.3.2" data-path="basic-plots.html"><a href="basic-plots.html#av-rt"><i class="fa fa-check"></i><b>7.3.2</b> AV RT</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="basic-plots.html"><a href="basic-plots.html#daten-abspeichern"><i class="fa fa-check"></i><b>7.4</b> Daten abspeichern</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-stats.html"><a href="basic-stats.html"><i class="fa fa-check"></i><b>8</b> Statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basic-stats.html"><a href="basic-stats.html#vorwort-zu-statistische-analysen"><i class="fa fa-check"></i><b>8.1</b> Vorwort zu statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von--daten-zb-korrektinkorrekt"><i class="fa fa-check"></i><b>8.1.1</b> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.2</b> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-stats.html"><a href="basic-stats.html#rts-als-metrische-daten"><i class="fa fa-check"></i><b>8.1.3</b> RTs als metrische Daten</a></li>
+<li class="chapter" data-level="8.1.4" data-path="basic-stats.html"><a href="basic-stats.html#rts-bei-korrekten-und-inkorrekten-trials"><i class="fa fa-check"></i><b>8.1.4</b> RTs bei korrekten und inkorrekten Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basic-stats.html"><a href="basic-stats.html#die-normale-anova"><i class="fa fa-check"></i><b>8.2</b> Die “normale” Anova</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten"><i class="fa fa-check"></i><b>8.2.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basic-stats.html"><a href="basic-stats.html#der-anova-befehl-und-output"><i class="fa fa-check"></i><b>8.2.2</b> Der Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.2.3" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-vergleiche"><i class="fa fa-check"></i><b>8.2.3</b> Post-hoc Vergleiche</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="basic-stats.html"><a href="basic-stats.html#die-repeated-measures-anova"><i class="fa fa-check"></i><b>8.3</b> Die repeated measures Anova</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-1"><i class="fa fa-check"></i><b>8.3.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basic-stats.html"><a href="basic-stats.html#anova-befehl-und-output"><i class="fa fa-check"></i><b>8.3.2</b> Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.3.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion"><i class="fa fa-check"></i><b>8.3.3</b> Plots von estimated marginal means zum Nachvollziehen der Interaktion</a></li>
+<li class="chapter" data-level="8.3.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.3.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="basic-stats.html"><a href="basic-stats.html#das-linear-mixed-model-lmm"><i class="fa fa-check"></i><b>8.4</b> Das linear mixed model (LMM)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-2"><i class="fa fa-check"></i><b>8.4.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.4.2" data-path="basic-stats.html"><a href="basic-stats.html#mixed-befehl-und-output"><i class="fa fa-check"></i><b>8.4.2</b> Mixed-Befehl und Output</a></li>
+<li class="chapter" data-level="8.4.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.4.3</b> Plots von EMM für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1"><i class="fa fa-check"></i><b>8.4.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.5" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.5</b> Plots von EMM für die factor_B x factor_A Interaktion</a></li>
+<li class="chapter" data-level="8.4.6" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.6</b> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="basic-stats.html"><a href="basic-stats.html#das-generalized-linear-mixed-model-glmm"><i class="fa fa-check"></i><b>8.5</b> Das generalized linear mixed model (GLMM)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
+<li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
+<li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bis-score.html"><a href="bis-score.html#speed-accuracy-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Speed-Accuracy-Tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="bis-score.html"><a href="bis-score.html#der-bis-score"><i class="fa fa-check"></i><b>9.2</b> Der BIS-Score</a></li>
+<li class="chapter" data-level="9.3" data-path="bis-score.html"><a href="bis-score.html#analyse-des-bis-scores"><i class="fa fa-check"></i><b>9.3</b> Analyse des BIS-Scores</a></li>
+<li class="chapter" data-level="9.4" data-path="bis-score.html"><a href="bis-score.html#visualisierung-der-ergbenisse-des-modells"><i class="fa fa-check"></i><b>9.4</b> Visualisierung der Ergbenisse des Modells</a></li>
+<li class="chapter" data-level="9.5" data-path="bis-score.html"><a href="bis-score.html#post-hoc-vergleich-zum-bis-score"><i class="fa fa-check"></i><b>9.5</b> Post-hoc Vergleich zum BIS-Score</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse von Verhaltensdaten mit R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="bis-score" class="section level1" number="9">
+<h1><span class="header-section-number">Teil 9</span> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</h1>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="bis-score.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;RTL_beispieldaten.RData&quot;</span>)</span>
+<span id="cb159-2"><a href="bis-score.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;RTL_beispieldaten_clean.RData&quot;</span>)</span>
+<span id="cb159-3"><a href="bis-score.html#cb159-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb159-4"><a href="bis-score.html#cb159-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="speed-accuracy-tradeoff" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Speed-Accuracy-Tradeoff</h2>
+<p>Der Zusammenhang von den in der kognitiven Psychologie typischen Verhaltensmaßen Reaktionszeit und (Korrektheit von) Antworten ist ein seit vielen Jahrzehnten viel diskutiertes Thema. Grundsätzlich ist die Idee, dass schwierige Kognitive Prozesse erstens länger dauern und zweitens zu mehr Fehlern führen. Demnach ist zu erwarten, dass eine höhere Anzahl an Fehlern auch mit längeren RTs einhergeht.
+Dieser Gedanke übersieht allerdings, dass sich Reaktionszeit und Fehlerhäufigkeit auch (teilweise mit einer strategischen Komponente) gegeneinander austauschen lassen. Eine Person könnte zum Beispiel sich mehr Zeit lassen beim Antworten mit dem Ziel möglichst wenig Fehler zu machen. (Wenn das aufgeht) hätte sie demnach wenig Fehler, aber lange RT. Eine andere Person könnte riskanter vorgehen und versuchen möglichst schnell zu antworten und dabei in Kauf zu nehmen, dass sie halt mehr Fehler macht. Sie hätte demnach mehr Fehler, aber dafür eine kurze RT. Dieses Phänomen, dass sozusagen Genauigkeit (wenig Fehler machen) gegen Geschwindigkeit “eingekauft” werden kann, ist in der Psychologie als ein <em>Speed-Accuracy-Tradeoff</em> bekannt und es ist vielfach belegt, dass Personen das tun und damit sozusagen die Idee, dass Genauigkeit und RT invers zusammenhängen, ein Stück weit untergraben.</p>
+</div>
+<div id="der-bis-score" class="section level2" number="9.2">
+<h2><span class="header-section-number">9.2</span> Der BIS-Score</h2>
+<p>Es gibt unterschiedliche Ansätze, Reaktionszeiten und Genauigkeiten (Korrektheit der Antworten) miteinander zu verknüpfen und so zu berücksichtigen, dass VPn (in unterschiedlichem Stil) einen Speed-Accuracy-Tradeoff machen.
+Eine neue Methode ist die Berechnung des sogenannten BIS-Scores.
+Wie der BIS-Score berechnet wird und auch, wie er sich von anderen Methoden mit einem ähnlichen Ziel abhebt, ist in dem dazugehörigen Paper nachzulesen:</p>
+<p>Liesefeld, H. R., &amp; Janczyk, M. (2019). Combining speed and accuracy to control for speed-accuracy trade-offs(?). Behavior Research Methods, 51(1), 40–60. <a href="https://doi.org/10.3758/s13428-018-1076-x" class="uri">https://doi.org/10.3758/s13428-018-1076-x</a></p>
+<p>Im Folgenden wird der BIS-Score für die Beispieldaten berechnet. Dazu wird zunächst ein Datensatz gebraucht, der die Mittelwerte der RTs (means) für korrekt und inkorrekt beantwortete Trials enthält. Wir nennen den Datensatz mal “dc.m.”</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="bis-score.html#cb160-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant, posture, factor_A, factor_B ) <span class="sc">%&gt;%</span></span>
+<span id="cb160-2"><a href="bis-score.html#cb160-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb160-3"><a href="bis-score.html#cb160-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">sdRtCorr =</span> <span class="fu">sd</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
+<span id="cb160-4"><a href="bis-score.html#cb160-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtCorr =</span> <span class="fu">mean</span>( rtClean[ respClean <span class="sc">==</span> <span class="dv">1</span> ] ),</span>
+<span id="cb160-5"><a href="bis-score.html#cb160-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">rtAll =</span> <span class="fu">mean</span>( rtClean ),</span>
+<span id="cb160-6"><a href="bis-score.html#cb160-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">corrCount =</span> <span class="fu">sum</span>( respClean <span class="sc">==</span> <span class="dv">1</span> ),</span>
+<span id="cb160-7"><a href="bis-score.html#cb160-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">totalCount =</span> <span class="fu">n</span>(),</span>
+<span id="cb160-8"><a href="bis-score.html#cb160-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pc =</span> corrCount <span class="sc">/</span> totalCount <span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb160-9"><a href="bis-score.html#cb160-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;participant&#39;, &#39;posture&#39;, &#39;factor_A&#39;. You can override using the `.groups` argument.</code></pre>
+<p>Jetzt können wir den BIS-Score berechnen.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="bis-score.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BIS</span></span>
+<span id="cb162-2"><a href="bis-score.html#cb162-2" aria-hidden="true" tabindex="-1"></a>dc.m <span class="ot">&lt;-</span> dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb162-3"><a href="bis-score.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">zRt =</span> ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( rtCorr <span class="sc">-</span> <span class="fu">mean</span>( rtCorr ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
+<span id="cb162-4"><a href="bis-score.html#cb162-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">zPc =</span> ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">/</span> <span class="fu">sqrt</span>( <span class="fu">sum</span> ( ( pc <span class="sc">-</span> <span class="fu">mean</span>( pc ) ) <span class="sc">^</span> <span class="dv">2</span> ) <span class="sc">/</span> <span class="fu">n</span>() ),</span>
+<span id="cb162-5"><a href="bis-score.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">bis =</span> zPc <span class="sc">-</span> zRt</span>
+<span id="cb162-6"><a href="bis-score.html#cb162-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Dabei sollte beachtet werden, dass der BIS-Score innerhalb der Versuchsperson berechnet ist und damit normalisiert wird. Das heißt, der BIS-Score drückt die Unterschiede zwischen Bedingungen aus und nicht die UNtersdchiede zwischen Personen generell. ODer in anderen Worten: die Summe der BIS-Scores innerhalb jeder Person über die Bedingungen ist (bis auf Rundungsfehler) immer gleich und hat den Wert 0.</p>
+<p>Das kann man einfach überprüfen:</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="bis-score.html#cb163-1" aria-hidden="true" tabindex="-1"></a>dc.m <span class="sc">%&gt;%</span> <span class="fu">group_by</span>( participant ) <span class="sc">%&gt;%</span> </span>
+<span id="cb163-2"><a href="bis-score.html#cb163-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanBIS=</span><span class="fu">round</span>(<span class="fu">mean</span>(bis)))</span></code></pre></div>
+<pre><code>## # A tibble: 18 x 2
+##    participant meanBIS
+##    &lt;fct&gt;         &lt;dbl&gt;
+##  1 B006b-08          0
+##  2 B006b-09          0
+##  3 B006b-10          0
+##  4 B006b-11          0
+##  5 B006b-12          0
+##  6 B006b-13          0
+##  7 B006b-14          0
+##  8 B006b-16          0
+##  9 B006b-17          0
+## 10 B006b-18          0
+## 11 B006b-19          0
+## 12 B006b-20          0
+## 13 B006b-21          0
+## 14 B006b-22          0
+## 15 B006b-24          0
+## 16 B006b-25          0
+## 17 B006b-26          0
+## 18 B006b-27          0</code></pre>
+</div>
+<div id="analyse-des-bis-scores" class="section level2" number="9.3">
+<h2><span class="header-section-number">9.3</span> Analyse des BIS-Scores</h2>
+<p>Der BIS-Score ist metrisch und normalerweise parametrisch. Es liegt pro Person und Zelle genau ein Wert vor.
+Eine gute Wahl für die statistische Analyse ist die rm-Anova, die wir in Teil <a href="basic-stats.html#basic-stats">8</a> schon vorgestellt haben.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="bis-score.html#cb165-1" aria-hidden="true" tabindex="-1"></a>BIS.rmanova <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&quot;participant&quot;</span>, <span class="at">dv =</span> <span class="st">&quot;bis&quot;</span>, <span class="at">data =</span> dc.m, <span class="at">within =</span> <span class="fu">c</span>(<span class="st">&quot;factor_A&quot;</span>, <span class="st">&quot;factor_B&quot;</span>, <span class="st">&quot;posture&quot;</span>))</span>
+<span id="cb165-2"><a href="bis-score.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="bis-score.html#cb165-3" aria-hidden="true" tabindex="-1"></a>BIS.rmanova</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: bis
+##                      Effect    df  MSE         F   ges p.value
+## 1                  factor_A 1, 17 0.53      0.84  .004    .372
+## 2                  factor_B 1, 17 1.09 56.98 ***  .352   &lt;.001
+## 3                   posture 1, 17 3.45 78.15 ***  .702   &lt;.001
+## 4         factor_A:factor_B 1, 17 0.56      0.12 &lt;.001    .738
+## 5          factor_A:posture 1, 17 0.30      0.01 &lt;.001    .924
+## 6          factor_B:posture 1, 17 0.49 86.16 ***  .271   &lt;.001
+## 7 factor_A:factor_B:posture 1, 17 0.31      1.75  .005    .204
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>So ähnlich wie bei der rm-Anova für die RTs sehen wir auch hier Haupteffekte für factor_B, für posture und für die factor_B:posture Interaktion.</p>
+</div>
+<div id="visualisierung-der-ergbenisse-des-modells" class="section level2" number="9.4">
+<h2><span class="header-section-number">9.4</span> Visualisierung der Ergbenisse des Modells</h2>
+<p>Wieder können wir uns die EMM graphisch anschauen.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="bis-score.html#cb167-1" aria-hidden="true" tabindex="-1"></a>emm.bis.factorBXposture <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(BIS.rmanova, <span class="sc">~</span>factor_B<span class="sc">:</span>posture)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="bis-score.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.bis.factorBXposture), </span>
+<span id="cb169-2"><a href="bis-score.html#cb169-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
+<span id="cb169-3"><a href="bis-score.html#cb169-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb169-4"><a href="bis-score.html#cb169-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower.CL, <span class="at">ymax=</span>upper.CL), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb169-5"><a href="bis-score.html#cb169-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;BIS score&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:EMM-bis"></span>
+<img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/EMM-bis-1.png" alt="EMM zur für factor_B und posture" width="672" />
+<p class="caption">
+Figure 9.1: EMM zur für factor_B und posture
+</p>
+</div>
+</div>
+<div id="post-hoc-vergleich-zum-bis-score" class="section level2" number="9.5">
+<h2><span class="header-section-number">9.5</span> Post-hoc Vergleich zum BIS-Score</h2>
+<p>Der paarweise Vergleich sieht wie folgt aus:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="bis-score.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.bis.factorBXposture, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          estimate    SE   df t.ratio p.value
+##  Level_1 uncr - Level_2 uncr          0.226 0.210 29.8  1.078  0.2899 
+##  Level_1 uncr - Level_1 crossed       1.649 0.331 21.8  4.981  0.0001 
+##  Level_1 uncr - Level_2 crossed       4.052 0.355 26.8 11.405  &lt;.0001 
+##  Level_2 uncr - Level_1 crossed       1.423 0.355 26.8  4.006  0.0005 
+##  Level_2 uncr - Level_2 crossed       3.825 0.331 21.8 11.554  &lt;.0001 
+##  Level_1 crossed - Level_2 crossed    2.402 0.210 29.8 11.446  &lt;.0001 
+## 
+## Results are averaged over the levels of: factor_A 
+## P value adjustment: fdr method for 6 tests</code></pre>
+<p>Wir hoffe, Sie haben gesehen, dass selbst diese etwas komplexeren Auswertemethoden in ihrer Implementierung in R und der Interpretation nicht all zu schwer sind.</p>
+<p>Im nächsten Teil wollen wir noch einige Möglichkeiten zeigen, wie man “schöne” Abbildungen und Tabellen machen kann.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-stats.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

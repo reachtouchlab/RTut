@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Teil 8 Statistische Analysen | Analyse von Verhaltensdaten mit R</title>
+  <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Teil 8 Statistische Analysen | Analyse von Verhaltensdaten mit R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Teil 8 Statistische Analysen | Analyse von Verhaltensdaten mit R" />
+  
+  <meta name="twitter:description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
+  
+
+<meta name="author" content="Xaver Fuchs, Christian Seegelke, Tobias Heed" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-plots.html"/>
+<link rel="next" href="bis-score.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Auswerteschablone für R</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Übersicht</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#wozu-dieses-dokument-dient"><i class="fa fa-check"></i><b>1.1</b> Wozu dieses Dokument dient</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#ergänzende-quellen"><i class="fa fa-check"></i><b>1.2</b> Ergänzende Quellen</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#hinweis-zu-diesem-dokument"><i class="fa fa-check"></i><b>1.3</b> Hinweis zu diesem Dokument</a></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#interaktive-verwendungsweise"><i class="fa fa-check"></i><b>1.4</b> Interaktive Verwendungsweise</a></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#rückmeldung-zu-der-lernerfahrung"><i class="fa fa-check"></i><b>1.5</b> Rückmeldung zu der Lernerfahrung</a></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#die-nächsten-schritte"><i class="fa fa-check"></i><b>1.6</b> Die nächsten Schritte</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="get-started.html"><a href="get-started.html"><i class="fa fa-check"></i><b>2</b> Einstieg</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="get-started.html"><a href="get-started.html#r-und-rstudio"><i class="fa fa-check"></i><b>2.1</b> R und RStudio</a></li>
+<li class="chapter" data-level="2.2" data-path="get-started.html"><a href="get-started.html#dokument-mit-ersten-schritten"><i class="fa fa-check"></i><b>2.2</b> Dokument mit ersten Schritten</a></li>
+<li class="chapter" data-level="2.3" data-path="get-started.html"><a href="get-started.html#code-und-daten-herunterladen"><i class="fa fa-check"></i><b>2.3</b> Code und Daten herunterladen</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="get-started.html"><a href="get-started.html#rmarkdown-code"><i class="fa fa-check"></i><b>2.3.1</b> RMarkdown code</a></li>
+<li class="chapter" data-level="2.3.2" data-path="get-started.html"><a href="get-started.html#daten"><i class="fa fa-check"></i><b>2.3.2</b> Daten</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="get-started.html"><a href="get-started.html#projektordner-anlegen"><i class="fa fa-check"></i><b>2.4</b> Projektordner anlegen</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="read-data.html"><a href="read-data.html"><i class="fa fa-check"></i><b>3</b> Pakete und Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="read-data.html"><a href="read-data.html#verwendete-packages"><i class="fa fa-check"></i><b>3.1</b> Verwendete Packages</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="read-data.html"><a href="read-data.html#pakete-für-datenverarbeitung-und-statistik"><i class="fa fa-check"></i><b>3.1.1</b> Pakete für Datenverarbeitung und Statistik</a></li>
+<li class="chapter" data-level="3.1.2" data-path="read-data.html"><a href="read-data.html#pakete-für-rmarkdown"><i class="fa fa-check"></i><b>3.1.2</b> Pakete für RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="read-data.html"><a href="read-data.html#daten-einlesen"><i class="fa fa-check"></i><b>3.2</b> Daten einlesen</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="read-data.html"><a href="read-data.html#verzeichnisse-und-pfade"><i class="fa fa-check"></i><b>3.2.1</b> Verzeichnisse und Pfade</a></li>
+<li class="chapter" data-level="3.2.2" data-path="read-data.html"><a href="read-data.html#verzeichnisse-ermitteln-und-setzen"><i class="fa fa-check"></i><b>3.2.2</b> Verzeichnisse ermitteln und setzen</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="read-data.html"><a href="read-data.html#daten-laden"><i class="fa fa-check"></i><b>3.3</b> Daten laden</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="read-data.html"><a href="read-data.html#daten-die-als-textdatei-vorliegen"><i class="fa fa-check"></i><b>3.3.1</b> Daten, die als Textdatei vorliegen</a></li>
+<li class="chapter" data-level="3.3.2" data-path="read-data.html"><a href="read-data.html#daten-die-in-excel-vorliegen"><i class="fa fa-check"></i><b>3.3.2</b> Daten, die in Excel vorliegen</a></li>
+<li class="chapter" data-level="3.3.3" data-path="read-data.html"><a href="read-data.html#daten-die-in-spss-vorliegen"><i class="fa fa-check"></i><b>3.3.3</b> Daten, die in SPSS vorliegen</a></li>
+<li class="chapter" data-level="3.3.4" data-path="read-data.html"><a href="read-data.html#daten-die-schon-in-r-gespeichert-waren"><i class="fa fa-check"></i><b>3.3.4</b> Daten, die schon in R gespeichert waren</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="read-data.html"><a href="read-data.html#daten-speichern"><i class="fa fa-check"></i><b>3.4</b> Daten speichern</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="read-data.html"><a href="read-data.html#speichern-im-r-typischen-format-als-rdata"><i class="fa fa-check"></i><b>3.4.1</b> Speichern im R-typischen Format (als RData)</a></li>
+<li class="chapter" data-level="3.4.2" data-path="read-data.html"><a href="read-data.html#speichern-als-textdatei"><i class="fa fa-check"></i><b>3.4.2</b> Speichern als Textdatei</a></li>
+<li class="chapter" data-level="3.4.3" data-path="read-data.html"><a href="read-data.html#speichern-als-als-excel-datei"><i class="fa fa-check"></i><b>3.4.3</b> Speichern als als Excel-Datei</a></li>
+<li class="chapter" data-level="3.4.4" data-path="read-data.html"><a href="read-data.html#speichern-als-spss-datei"><i class="fa fa-check"></i><b>3.4.4</b> Speichern als SPSS-Datei</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="plan-analysis.html"><a href="plan-analysis.html"><i class="fa fa-check"></i><b>4</b> Analysen planen und Variablentypen anpassen</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="plan-analysis.html"><a href="plan-analysis.html#die-richtige-analyse-für-das-vorliegende-design-wählen"><i class="fa fa-check"></i><b>4.1</b> Die richtige Analyse für das vorliegende Design wählen</a></li>
+<li class="chapter" data-level="4.2" data-path="plan-analysis.html"><a href="plan-analysis.html#daten-ins-richtige-format-bringen"><i class="fa fa-check"></i><b>4.2</b> Daten ins richtige Format bringen</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="plan-analysis.html"><a href="plan-analysis.html#überblick-über-datensatz-verschaffen"><i class="fa fa-check"></i><b>4.2.1</b> Überblick über Datensatz verschaffen</a></li>
+<li class="chapter" data-level="4.2.2" data-path="plan-analysis.html"><a href="plan-analysis.html#kopie-des-originalen-datensatzes-machen"><i class="fa fa-check"></i><b>4.2.2</b> Kopie des originalen Datensatzes machen</a></li>
+<li class="chapter" data-level="4.2.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-und-faktorlevels-umbenennen"><i class="fa fa-check"></i><b>4.2.3</b> Variablen und Faktorlevels umbenennen</a></li>
+<li class="chapter" data-level="4.2.4" data-path="plan-analysis.html"><a href="plan-analysis.html#abhängige-variablen-prüfen-und-in-richtigers-format-bringen"><i class="fa fa-check"></i><b>4.2.4</b> Abhängige Variablen prüfen und in richtigers Format bringen</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="plan-analysis.html"><a href="plan-analysis.html#variablen-von-interesse-auswählen"><i class="fa fa-check"></i><b>4.3</b> Variablen von Interesse auswählen</a></li>
+<li class="chapter" data-level="4.4" data-path="plan-analysis.html"><a href="plan-analysis.html#ergebnis-überprüfen"><i class="fa fa-check"></i><b>4.4</b> Ergebnis überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="plausibility-check.html"><a href="plausibility-check.html"><i class="fa fa-check"></i><b>5</b> Daten auf Plausibilität prüfen</a>
+<ul>
+<li class="chapter" data-level="5.0.1" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-vpn-überprüfen"><i class="fa fa-check"></i><b>5.0.1</b> Anzahl Vpn überprüfen</a></li>
+<li class="chapter" data-level="5.0.2" data-path="plausibility-check.html"><a href="plausibility-check.html#anzahl-von-trials-überprüfen"><i class="fa fa-check"></i><b>5.0.2</b> Anzahl von Trials überprüfen</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="clean-data.html"><a href="clean-data.html"><i class="fa fa-check"></i><b>6</b> Daten bereinigen</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="clean-data.html"><a href="clean-data.html#funktion-zur-beseitigung-von-trials-mit-zu-langen-oder-zu-kurzen-rts"><i class="fa fa-check"></i><b>6.1</b> Funktion zur Beseitigung von Trials mit zu langen oder zu kurzen RTs</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="clean-data.html"><a href="clean-data.html#test-der-funktion-an-einem-toy-vektor"><i class="fa fa-check"></i><b>6.1.1</b> Test der Funktion an einem Toy-Vektor</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="clean-data.html"><a href="clean-data.html#anwendung-der-rt-basierten-bereinigung-auf-die-daten"><i class="fa fa-check"></i><b>6.2</b> Anwendung der RT-basierten Bereinigung auf die Daten</a></li>
+<li class="chapter" data-level="6.3" data-path="clean-data.html"><a href="clean-data.html#korrektur-der-av-antwort-für-die-trials-mit-ungültigen-rts"><i class="fa fa-check"></i><b>6.3</b> Korrektur der AV Antwort für die Trials mit ungültigen RTs</a></li>
+<li class="chapter" data-level="6.4" data-path="clean-data.html"><a href="clean-data.html#anzahl-entfernter-trials-berichten"><i class="fa fa-check"></i><b>6.4</b> Anzahl entfernter Trials berichten</a></li>
+<li class="chapter" data-level="6.5" data-path="clean-data.html"><a href="clean-data.html#datensatz-auf-gültige-trials-beschränken"><i class="fa fa-check"></i><b>6.5</b> Datensatz auf gültige Trials beschränken</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="basic-plots.html"><a href="basic-plots.html"><i class="fa fa-check"></i><b>7</b> Visualisierung der Rohdaten</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="basic-plots.html"><a href="basic-plots.html#grammar-of-graphics"><i class="fa fa-check"></i><b>7.1</b> Grammar of Graphics</a></li>
+<li class="chapter" data-level="7.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-von-rohdaten-pro-vpn"><i class="fa fa-check"></i><b>7.2</b> Visualisierung von Rohdaten pro Vpn</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-antworten"><i class="fa fa-check"></i><b>7.2.1</b> Visualisierung der AV Antworten</a></li>
+<li class="chapter" data-level="7.2.2" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-der-av-rts"><i class="fa fa-check"></i><b>7.2.2</b> Visualisierung der AV RTs</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="basic-plots.html"><a href="basic-plots.html#visualisierung-auf-gruppenebene"><i class="fa fa-check"></i><b>7.3</b> Visualisierung auf Gruppenebene</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="basic-plots.html"><a href="basic-plots.html#av-antwort"><i class="fa fa-check"></i><b>7.3.1</b> AV Antwort</a></li>
+<li class="chapter" data-level="7.3.2" data-path="basic-plots.html"><a href="basic-plots.html#av-rt"><i class="fa fa-check"></i><b>7.3.2</b> AV RT</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="basic-plots.html"><a href="basic-plots.html#daten-abspeichern"><i class="fa fa-check"></i><b>7.4</b> Daten abspeichern</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="basic-stats.html"><a href="basic-stats.html"><i class="fa fa-check"></i><b>8</b> Statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="basic-stats.html"><a href="basic-stats.html#vorwort-zu-statistische-analysen"><i class="fa fa-check"></i><b>8.1</b> Vorwort zu statistische Analysen</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von--daten-zb-korrektinkorrekt"><i class="fa fa-check"></i><b>8.1.1</b> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</a></li>
+<li class="chapter" data-level="8.1.2" data-path="basic-stats.html"><a href="basic-stats.html#statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models"><i class="fa fa-check"></i><b>8.1.2</b> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</a></li>
+<li class="chapter" data-level="8.1.3" data-path="basic-stats.html"><a href="basic-stats.html#rts-als-metrische-daten"><i class="fa fa-check"></i><b>8.1.3</b> RTs als metrische Daten</a></li>
+<li class="chapter" data-level="8.1.4" data-path="basic-stats.html"><a href="basic-stats.html#rts-bei-korrekten-und-inkorrekten-trials"><i class="fa fa-check"></i><b>8.1.4</b> RTs bei korrekten und inkorrekten Trials</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="basic-stats.html"><a href="basic-stats.html#die-normale-anova"><i class="fa fa-check"></i><b>8.2</b> Die “normale” Anova</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten"><i class="fa fa-check"></i><b>8.2.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.2.2" data-path="basic-stats.html"><a href="basic-stats.html#der-anova-befehl-und-output"><i class="fa fa-check"></i><b>8.2.2</b> Der Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.2.3" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-vergleiche"><i class="fa fa-check"></i><b>8.2.3</b> Post-hoc Vergleiche</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="basic-stats.html"><a href="basic-stats.html#die-repeated-measures-anova"><i class="fa fa-check"></i><b>8.3</b> Die repeated measures Anova</a>
+<ul>
+<li class="chapter" data-level="8.3.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-1"><i class="fa fa-check"></i><b>8.3.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.3.2" data-path="basic-stats.html"><a href="basic-stats.html#anova-befehl-und-output"><i class="fa fa-check"></i><b>8.3.2</b> Anova-Befehl und Output</a></li>
+<li class="chapter" data-level="8.3.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion"><i class="fa fa-check"></i><b>8.3.3</b> Plots von estimated marginal means zum Nachvollziehen der Interaktion</a></li>
+<li class="chapter" data-level="8.3.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.3.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="basic-stats.html"><a href="basic-stats.html#das-linear-mixed-model-lmm"><i class="fa fa-check"></i><b>8.4</b> Das linear mixed model (LMM)</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="basic-stats.html"><a href="basic-stats.html#daten-vorbereiten-2"><i class="fa fa-check"></i><b>8.4.1</b> Daten vorbereiten</a></li>
+<li class="chapter" data-level="8.4.2" data-path="basic-stats.html"><a href="basic-stats.html#mixed-befehl-und-output"><i class="fa fa-check"></i><b>8.4.2</b> Mixed-Befehl und Output</a></li>
+<li class="chapter" data-level="8.4.3" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-posture-interaktion"><i class="fa fa-check"></i><b>8.4.3</b> Plots von EMM für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1"><i class="fa fa-check"></i><b>8.4.4</b> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</a></li>
+<li class="chapter" data-level="8.4.5" data-path="basic-stats.html"><a href="basic-stats.html#plots-von-emm-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.5</b> Plots von EMM für die factor_B x factor_A Interaktion</a></li>
+<li class="chapter" data-level="8.4.6" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion"><i class="fa fa-check"></i><b>8.4.6</b> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="basic-stats.html"><a href="basic-stats.html#das-generalized-linear-mixed-model-glmm"><i class="fa fa-check"></i><b>8.5</b> Das generalized linear mixed model (GLMM)</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
+<li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
+<li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="bis-score.html"><a href="bis-score.html#speed-accuracy-tradeoff"><i class="fa fa-check"></i><b>9.1</b> Speed-Accuracy-Tradeoff</a></li>
+<li class="chapter" data-level="9.2" data-path="bis-score.html"><a href="bis-score.html#der-bis-score"><i class="fa fa-check"></i><b>9.2</b> Der BIS-Score</a></li>
+<li class="chapter" data-level="9.3" data-path="bis-score.html"><a href="bis-score.html#analyse-des-bis-scores"><i class="fa fa-check"></i><b>9.3</b> Analyse des BIS-Scores</a></li>
+<li class="chapter" data-level="9.4" data-path="bis-score.html"><a href="bis-score.html#visualisierung-der-ergbenisse-des-modells"><i class="fa fa-check"></i><b>9.4</b> Visualisierung der Ergbenisse des Modells</a></li>
+<li class="chapter" data-level="9.5" data-path="bis-score.html"><a href="bis-score.html#post-hoc-vergleich-zum-bis-score"><i class="fa fa-check"></i><b>9.5</b> Post-hoc Vergleich zum BIS-Score</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Analyse von Verhaltensdaten mit R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basic-stats" class="section level1" number="8">
+<h1><span class="header-section-number">Teil 8</span> Statistische Analysen</h1>
+<div id="vorwort-zu-statistische-analysen" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Vorwort zu statistische Analysen</h2>
+<p>Bevor wir dezidiert an die Analysen der Antwort- und RT-Daten gehen, hier ein paar allgemeine Informationen vorweg.</p>
+<div id="statistische-auswertung-von--daten-zb-korrektinkorrekt" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Statistische Auswertung von %-Daten (zB korrekt/inkorrekt)</h3>
+<p>Prozentwerte darf man nicht mit einer Anova analysieren. Details dazu finden sich in:
+Jaeger, T. F. (2008). Categorical data analysis: Away from ANOVAs (transformation or not) and towards logit mixed models. Journal of Memory and Language, 59(4), 434–446. <a href="https://doi.org/10.1016/j.jml.2007.11.007" class="uri">https://doi.org/10.1016/j.jml.2007.11.007</a></p>
+<p>Stattdessen analysiert man sie mit generalized linear mixed models (GLMM). Diese modellieren die Wahrscheinlichkeit, dass ein Trial korrekt oder inkorrekt beantwortet war. Dies passiert auf Ebene eines einzelnen Trials: Statt Prozentwerte zu berechnen, wie viele Trials richtig waren, beantworten GLMM die Frage, wie wahrscheinlich ein gegebener Trial korrekt oder inkorrekt beantwortet wird, gegeben die Faktorausprägungen des jeweiligen Trials. Dabei ändert also ein Faktor die Wahrscheinlichkeit, dass man richtig oder falsch antwortet; dadurch ändert sich natürlich indirekt auch die Prozentzahl richtiger/falscher Trials.</p>
+<p>Im Rahmen von BSc/MSc-Arbeiten sind v.a. folgende Aspekte wichtig:</p>
+<ol style="list-style-type: decimal">
+<li>Prozentwerte nicht mit Anova auswerten, sondern korrekt mit GLMM; wir nutzen dazu das package afex.</li>
+<li>Dies zieht andere posthoc-Tests nach sich; wir nutzen dazu das package emmeans.</li>
+<li>Ein wesentlicher Punkt bei GLMM für korr/inkorr Daten ist, dass Veränderungen im Bereich nahe 50% (also Zufallsniveau) sehr viel wahrscheinlicher sind als Veränderungen im Beriech 100% (also perfekte Performance). Das heißt, Veränderungen bei GLMM sind nicht linear im Prozentbereich. Stattdessen sind sie linear auf der Skala, die das GLMM benutzt - dies ist eine logit Skala (also, wer sich damit nicht genauer auseinandersetzen will, der muss das auch nicht - aber es hat Konsequenzen füt die Darstellung, s.u.)
+Die Nichtlinearität auf der Prozent-Skala wirkt sich darin aus, dass error bars nicht mehr symmetrisch sind. Wie kann das sein? Das GLMM schätzt lineare Effekte auf der logit-Skala. Dort gibt es dann auch ganz normale, lineare s.d. und s.e. Aber wenn man diese dann in Prozentwerte transformiert, ist diese Transformation nicht linear. Wie man das macht, findet sich hier im Skript.</li>
+</ol>
+</div>
+<div id="statistische-auswertung-von-metrischen-daten-mit-anovas-und-linear-mixed-models" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Statistische Auswertung von metrischen Daten mit Anovas und linear mixed models</h3>
+<p>Kontinuierliche oder metrische Daten werden mit einer Anova oder mit einem linear mixed model (LMM) ausgewertet. Dabei ist zu beachten, durch was für eine Art von Design die Daten zustande gekommen sind. Wenn es sich um eine abhängiges, within-subject Design handelt, darf keine “normale”” Anova gerechnet werden, sondern es muss eine repeated-measures Anova (rmAnova) gerechnet werden, die berücksichtigt, dass mehre Daten (z.B. aus unterschiedlichen Bedingungen) von der gleichen Person kommen.
+In einem solchen Fall besteht auch die Möglichkeit, anstatt einer rmAnova ein LMM zu rechnen. Der Unterschied zwischen einer rmAnova und einem LMM bestehen in den sogenannten random effects, wie random intercepts und random slopes. LMMs “erlauben” Versuchspersonen, ein unterschiedliches Ausgangsniveau (random intercept) und auch unterschiedlich starke Steigungen von Regressionsgeraden zu haben (random slope). An der Terminologie kann man schon erkennen, dass LMMs eher eine Erweiterung von multiplen und gemischten (mehrere Faktoren und kontinuierliche Prädiktoren) Regressionen sind. Insofern ist hier auch der Begriff “Regressionsgerade” etwas weiter zu fassen und eher zu begreifen als ein Koeffizient, der auch die Veränderung zwischen (zwei oder mehr) Faktorabstufungen angibt. LMMs haben gegenüber der rmAnova einige Vorzüge, dazu zählen</p>
+<ul>
+<li>ein besserer Umgang mit fehlenden Datenpunkten</li>
+<li>eine hohe Felxibilität in der Modellformulierung, bei der von sehr einfachen bis komplexen Modellen alles innerhalb des gleichen Frameworks berechnet werden kann</li>
+</ul>
+<p>Ein wichtiger Unterschied und auch Vorzug ist auch, dass ein LMM durch die Verwandtschaft zu Regression ein echtes Modell ist, das heißt, dass es Daten fittet und damit Vorhersagen macht. Unterschiedliche Modelle können ebenfalls gegeneinander getestet werden, um herauszufinden, welches Modell angemessener ist.</p>
+</div>
+<div id="rts-als-metrische-daten" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> RTs als metrische Daten</h3>
+<p>In dem hier behandelten Beispieldatensatz sind Reaktionszeiten (RTs) enthalten. Wir werden sie als metrische Daten fassen und mit einer Anova auswerten. Ob RTs tatsächlich metrische Daten sind oder nicht, ist eine fortlaufende Diskussion und es wurde immer wieder der Einwand gebracht, dass sie transformiert (zum Beispiel log-transformiert) werden sollten, da sie häufig eine schiefe Verteilung haben. Allerdings lässt sich auch zeigen, dass die Transformationen Gefahren bergen und, dass von ihnen eher abgesehen werden sollte. Mehr Informationen findet man in folgendem Artikel:</p>
+<p>Schramm, P., &amp; Rouder, J. (2019). Are Reaction Time Transformations Really Beneficial? [Preprint]. <a href="https://doi.org/10.31234/osf.io/9ksa6" class="uri">https://doi.org/10.31234/osf.io/9ksa6</a></p>
+<p>Wir befürworten daher eher eine Auswertung von Reaktionszeiten, wie sie sind, anstatt einer Transformation.</p>
+</div>
+<div id="rts-bei-korrekten-und-inkorrekten-trials" class="section level3" number="8.1.4">
+<h3><span class="header-section-number">8.1.4</span> RTs bei korrekten und inkorrekten Trials</h3>
+<p>Es ist in der Literatur nicht ganz einheitlich (und kommt wahrscheinlich auf das Design an), ob Reaktionszeiten auf der Grundlage von allen Trials und ungeachtet der Frage analysiert werden, ob die Antwort in dem Trials korrekt war oder nicht. Es gibt aber gute Gründe zu argumentieren, dass ein Fehler etwas anderes ist als eine korrekte Antwort und, dass die Kombination von RTs von korrekten Antworten und Fehlern zwei Verteilungen vermischen würde. Demnach wäre es aussagekräftiger Fehler und korrekte Antworten separat zu analysieren oder sich die RTs halt nur für die korrekten Antworten anzuschauen.
+Das ist der Ansatz den wir hier verfolgen.
+Bei der Erstellung des Datensatzes für die Analysen der RTs werden also immer die inkorrekten Antworten ausgeschlossen.</p>
+</div>
+</div>
+<div id="die-normale-anova" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Die “normale” Anova</h2>
+<p>Bei dem bestehendem Datensatz bietet sich eine Anova als Auswertung der Verhaltensdaten nicht an, da es sich um ein within-subject Design handelt.
+Die “normale” Anova wird verwendet, um beispielsweise zu testen, ob sich drei distinkte Gruppen bezüglich einer metrischen Variable unterscheiden. Dass eine VP mehrmals vorkommt, ist nicht erlaubt, da es die Annahme der Unabhängigkeit der Beobachtung verletzt.
+In diesem Beispiel wird daher analysiert, ob die im Experiment verwendete Körperstellung (welcher Arm oben lag) und das Geschlecht (weiblich/männlich) einen Effekt auf die mittlere Reaktionszeit (gemittelt über alle Bedingungen und SOAs) hat.</p>
+<div id="daten-vorbereiten" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Daten vorbereiten</h3>
+<p>Zunächst generieren wir einen passenden Datensatz. Hierzu muss die Information aus dem Datensatz “bsp_demo” mitverwendent und an den andern Datensatz angehängt werden.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="basic-stats.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mittlere Reaktionszeiten der korrekten Antworten berechnen </span></span>
+<span id="cb103-2"><a href="basic-stats.html#cb103-2" aria-hidden="true" tabindex="-1"></a>dAnova <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(respClean<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(participant) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">n</span>(), <span class="at">meanRT=</span><span class="fu">mean</span>(rt))</span>
+<span id="cb103-3"><a href="basic-stats.html#cb103-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-4"><a href="basic-stats.html#cb103-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Anfangsbuchstaben der Variablennamen klein machen</span></span>
+<span id="cb103-5"><a href="basic-stats.html#cb103-5" aria-hidden="true" tabindex="-1"></a>bsp_demo <span class="ot">&lt;-</span> bsp_demo <span class="sc">%&gt;%</span> <span class="fu">rename_all</span>(tolower)</span>
+<span id="cb103-6"><a href="basic-stats.html#cb103-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb103-7"><a href="basic-stats.html#cb103-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Info aus den demographischen Daten hinzufügen</span></span>
+<span id="cb103-8"><a href="basic-stats.html#cb103-8" aria-hidden="true" tabindex="-1"></a>dAnova <span class="ot">&lt;-</span> <span class="fu">right_join</span>(bsp_demo, dAnova)</span></code></pre></div>
+<pre><code>## Joining, by = &quot;participant&quot;</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="basic-stats.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variablen korrekt als Faktoren definieren</span></span>
+<span id="cb105-2"><a href="basic-stats.html#cb105-2" aria-hidden="true" tabindex="-1"></a>dAnova<span class="sc">$</span>sex <span class="ot">&lt;-</span> <span class="fu">factor</span>(dAnova<span class="sc">$</span>sex)</span>
+<span id="cb105-3"><a href="basic-stats.html#cb105-3" aria-hidden="true" tabindex="-1"></a>dAnova<span class="sc">$</span>arm_top <span class="ot">&lt;-</span> <span class="fu">factor</span>(dAnova<span class="sc">$</span>arm_top)</span></code></pre></div>
+</div>
+<div id="der-anova-befehl-und-output" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Der Anova-Befehl und Output</h3>
+<p>Als nächstes rechnen wir die Anova mit dem Befehl “aov_ez” aus dem <em>afex</em> Paket.
+und bertrachten den Output.</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="basic-stats.html#cb106-1" aria-hidden="true" tabindex="-1"></a>meanRTs.anova <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&quot;participant&quot;</span>, <span class="at">dv =</span> <span class="st">&quot;meanRT&quot;</span>, <span class="at">data =</span> dAnova, <span class="at">between =</span> <span class="fu">c</span>(<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;arm_top&quot;</span>))</span></code></pre></div>
+<pre><code>## Contrasts set to contr.sum for the following variables: sex, arm_top</code></pre>
+<p>Nun betrachten wir den Output der Anova, den sogenannten Anova-Table:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="basic-stats.html#cb108-1" aria-hidden="true" tabindex="-1"></a>meanRTs.anova</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: meanRT
+##        Effect    df      MSE    F   ges p.value
+## 1         sex 1, 14 17089.40 2.02  .126    .177
+## 2     arm_top 1, 14 17089.40 1.12  .074    .308
+## 3 sex:arm_top 1, 14 17089.40 0.00 &lt;.001    .996
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Wie man der Anova-Tabelle entnehmen kann, hat keiner der beiden Faktoren Geschlecht und Armstellung einen signifikanten Effekt auf die Reaktionszeit. Auch die Interaktion ist nicht signifikant.
+Im Normalfall ist die Analyse dann an dieser Stelle beendet, da in der Situation eines nicht signifikanten Tests in der Anova, keine direkten Vergleiche mehr angestellt werden. Für den Fall, dass aber einer der Faktoren oder auch die Interaktion signifikant gewesen wäre, hätte man einen post-hoc Test gerechnet, um herauszufinden, welche der Gruppen sich unterscheiden.</p>
+</div>
+<div id="post-hoc-vergleiche" class="section level3" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Post-hoc Vergleiche</h3>
+<p>Wir werden aus Demonstrationsgründen hier einfach den post-hoc Test trotzdem rechnen. Dazu verwenden wir den Befehl “emmeans” aus dem gleichnamigen Paket.</p>
+<p>Das Paket emmeans ist sehr mächtig, es ist aber auch nicht ganz einfach in der Handhabung.
+Es lohnt sich für einen vertieften Einstig entweder die Vignette des Pakets unter <a href="https://cran.r-project.org/web/packages/emmeans/vignettes/comparisons.html" class="uri">https://cran.r-project.org/web/packages/emmeans/vignettes/comparisons.html</a> oder diesen Blog <a href="https://aosmith.rbind.io/2019/03/25/getting-started-with-emmeans/" class="uri">https://aosmith.rbind.io/2019/03/25/getting-started-with-emmeans/</a> zu lesen.</p>
+<p>Zunächst schauen wir uns den Haupteffekt von “sex” an:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="basic-stats.html#cb110-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(meanRTs.anova, pairwise <span class="sc">~</span> sex, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<pre><code>## $emmeans
+##  sex    emmean   SE df lower.CL upper.CL
+##  female    765 39.6 14      680      850
+##  male      856 49.9 14      749      963
+## 
+## Results are averaged over the levels of: arm_top 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast      estimate   SE df t.ratio p.value
+##  female - male    -90.6 63.7 14 -1.422  0.1768 
+## 
+## Results are averaged over the levels of: arm_top</code></pre>
+<p>Nun schauen wir uns die Interaktion von sex und arm_top an.
+Wenn, wie häufig bei Anova mehr als zwei levels bei einem Faktor vorkommen, dann sollte man unbedingt p-Werte von post-hoc Tests korrigieren. Als Methoden bieten sich Bonferroni oder False Discovery Rate (fdr) an. Diese Methoden lassen sich bei emmeans einfach anwenden indem sie bei dem “adjust”-Parameter definiert werden.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="basic-stats.html#cb113-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(meanRTs.anova, pairwise <span class="sc">~</span> sex<span class="sc">:</span>arm_top, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>## $emmeans
+##  sex    arm_top          emmean   SE df lower.CL upper.CL
+##  female left arm on top     799 53.4 14      684      913
+##  male   left arm on top     890 75.5 14      728     1051
+##  female right arm on top    732 58.5 14      606      857
+##  male   right arm on top    822 65.4 14      682      962
+## 
+## Confidence level used: 0.95 
+## 
+## $contrasts
+##  contrast                                         estimate   SE df t.ratio p.value
+##  female left arm on top - male left arm on top       -90.9 92.4 14 -0.984  0.6108 
+##  female left arm on top - female right arm on top     67.0 79.2 14  0.847  0.6108 
+##  female left arm on top - male right arm on top      -23.3 84.4 14 -0.276  0.7868 
+##  male left arm on top - female right arm on top      158.0 95.5 14  1.655  0.6108 
+##  male left arm on top - male right arm on top         67.7 99.8 14  0.678  0.6108 
+##  female right arm on top - male right arm on top     -90.3 87.7 14 -1.030  0.6108 
+## 
+## P value adjustment: fdr method for 6 tests</code></pre>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="basic-stats.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="co">#alternativer code:</span></span>
+<span id="cb115-2"><a href="basic-stats.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co">#emm.sex_armtop &lt;- emmeans(meanRTs.anova, ~ sex:arm_top)</span></span>
+<span id="cb115-3"><a href="basic-stats.html#cb115-3" aria-hidden="true" tabindex="-1"></a><span class="co">#contrast(emm.sex_armtop, method = &quot;pairwise&quot;, adjust = &quot;fdr&quot;)</span></span></code></pre></div>
+</div>
+</div>
+<div id="die-repeated-measures-anova" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Die repeated measures Anova</h2>
+<p>Im Gegensatz zu der “normalen” Anova, ist eine repeated measures anova (rm-Anova) dazu geeignet, um Daten auszuwerten, die mittels eines within-subject-Designs (das heißt mit mehren Messpunkten pro Person; wie bei dem gegebenen Datensatz) gewonnen wurden.</p>
+<p>Im Folgenden wird ein Datensatz erstellt, bei dem zunächst die RTs über die SOAs innerhalb jeder Person gemittelt werden. Dann wird der Einfluss von factor_A (gleich/ungleich) und factor_B (gleich/ungleich) und posture (crossed/uncrossed) auf die RTs analysiert.</p>
+<div id="daten-vorbereiten-1" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Daten vorbereiten</h3>
+<p>Da auch rm-Anova pro Person und Faktorkombination nur einen Wert erwartet, berechnen wir die mittlere Reaktionszeiten der entsprechenden Faktorkombinationen für die Vpn.</p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="basic-stats.html#cb116-1" aria-hidden="true" tabindex="-1"></a>drmAnova <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(respClean<span class="sc">==</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-2"><a href="basic-stats.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(participant, factor_A, factor_B, posture) <span class="sc">%&gt;%</span> </span>
+<span id="cb116-3"><a href="basic-stats.html#cb116-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanRT=</span><span class="fu">mean</span>(rtClean))</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;participant&#39;, &#39;factor_A&#39;, &#39;factor_B&#39;. You can override using the `.groups` argument.</code></pre>
+<p>Bei rm-Anova sollte man auch überprüfen, dass es auch keine missing values gibt, weil das problematisch ist.
+Das heßt, es sollte für jede Faktorkombi pro Person genau ein Wert da sein.
+Das kann man mit dem Befehl “table” prüfen.</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="basic-stats.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">with</span>(drmAnova, <span class="fu">table</span>(participant, factor_A, factor_B, posture)) </span></code></pre></div>
+<pre><code>## , , factor_B = Level_1, posture = uncr
+## 
+##            factor_A
+## participant Level_1 Level_2
+##    B006b-08       1       1
+##    B006b-09       1       1
+##    B006b-10       1       1
+##    B006b-11       1       1
+##    B006b-12       1       1
+##    B006b-13       1       1
+##    B006b-14       1       1
+##    B006b-16       1       1
+##    B006b-17       1       1
+##    B006b-18       1       1
+##    B006b-19       1       1
+##    B006b-20       1       1
+##    B006b-21       1       1
+##    B006b-22       1       1
+##    B006b-24       1       1
+##    B006b-25       1       1
+##    B006b-26       1       1
+##    B006b-27       1       1
+## 
+## , , factor_B = Level_2, posture = uncr
+## 
+##            factor_A
+## participant Level_1 Level_2
+##    B006b-08       1       1
+##    B006b-09       1       1
+##    B006b-10       1       1
+##    B006b-11       1       1
+##    B006b-12       1       1
+##    B006b-13       1       1
+##    B006b-14       1       1
+##    B006b-16       1       1
+##    B006b-17       1       1
+##    B006b-18       1       1
+##    B006b-19       1       1
+##    B006b-20       1       1
+##    B006b-21       1       1
+##    B006b-22       1       1
+##    B006b-24       1       1
+##    B006b-25       1       1
+##    B006b-26       1       1
+##    B006b-27       1       1
+## 
+## , , factor_B = Level_1, posture = crossed
+## 
+##            factor_A
+## participant Level_1 Level_2
+##    B006b-08       1       1
+##    B006b-09       1       1
+##    B006b-10       1       1
+##    B006b-11       1       1
+##    B006b-12       1       1
+##    B006b-13       1       1
+##    B006b-14       1       1
+##    B006b-16       1       1
+##    B006b-17       1       1
+##    B006b-18       1       1
+##    B006b-19       1       1
+##    B006b-20       1       1
+##    B006b-21       1       1
+##    B006b-22       1       1
+##    B006b-24       1       1
+##    B006b-25       1       1
+##    B006b-26       1       1
+##    B006b-27       1       1
+## 
+## , , factor_B = Level_2, posture = crossed
+## 
+##            factor_A
+## participant Level_1 Level_2
+##    B006b-08       1       1
+##    B006b-09       1       1
+##    B006b-10       1       1
+##    B006b-11       1       1
+##    B006b-12       1       1
+##    B006b-13       1       1
+##    B006b-14       1       1
+##    B006b-16       1       1
+##    B006b-17       1       1
+##    B006b-18       1       1
+##    B006b-19       1       1
+##    B006b-20       1       1
+##    B006b-21       1       1
+##    B006b-22       1       1
+##    B006b-24       1       1
+##    B006b-25       1       1
+##    B006b-26       1       1
+##    B006b-27       1       1</code></pre>
+<p>Das sieht alles richtig aus.</p>
+</div>
+<div id="anova-befehl-und-output" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Anova-Befehl und Output</h3>
+<p>Der wichtige Unterschied zu vorher ist der “within” Faktor.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="basic-stats.html#cb120-1" aria-hidden="true" tabindex="-1"></a>meanRTs.rmanova <span class="ot">&lt;-</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&quot;participant&quot;</span>, <span class="at">dv =</span> <span class="st">&quot;meanRT&quot;</span>, <span class="at">data =</span> drmAnova, <span class="at">within =</span> <span class="fu">c</span>(<span class="st">&quot;factor_A&quot;</span>, <span class="st">&quot;factor_B&quot;</span>, <span class="st">&quot;posture&quot;</span>))</span>
+<span id="cb120-2"><a href="basic-stats.html#cb120-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-3"><a href="basic-stats.html#cb120-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Ergebnisse in der Konsole anzeigen lassen</span></span>
+<span id="cb120-4"><a href="basic-stats.html#cb120-4" aria-hidden="true" tabindex="-1"></a>meanRTs.rmanova</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: meanRT
+##                      Effect    df      MSE         F   ges p.value
+## 1                  factor_A 1, 17  1209.01      0.05 &lt;.001    .826
+## 2                  factor_B 1, 17 10669.09    5.74 *  .019    .028
+## 3                   posture 1, 17 31739.73 30.85 ***  .234   &lt;.001
+## 4         factor_A:factor_B 1, 17  1093.64      1.32 &lt;.001    .266
+## 5          factor_A:posture 1, 17   561.62      0.00 &lt;.001    .973
+## 6          factor_B:posture 1, 17  3091.67 33.92 ***  .032   &lt;.001
+## 7 factor_A:factor_B:posture 1, 17   563.88      0.59 &lt;.001    .454
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Wie man in der Anova Tabelle sieht, sind “factor_B,” “posture” und auch die Interaktion aus “faktor_B” und “Posture” signifikant. Die Lage ist also schon ein Stück komplexer geartet.</p>
+</div>
+<div id="plots-von-estimated-marginal-means-zum-nachvollziehen-der-interaktion" class="section level3" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Plots von estimated marginal means zum Nachvollziehen der Interaktion</h3>
+<p>Im Folgenden wird ein graphischer Eindruck über die Werte vermittelt und die Interaktion heruntergebrochen. Das Paket <em>emmeans</em> kann uns hierbei wieder weiterhelfen. Es ist nämlich nicht nur dazu da, um post-hoc Tests zu rechnen, sondern auch, um estimated marginal means (EMM) zu berechnen. EMM sind vom Modell geschätzte Werte übder die Randhäufigkeiten (also für Faktoren und Faktorkombinationen).</p>
+<p>Beim Herunterbrechen einer Interaktion mittels EMM fängt man normalerweise mit der höchsten signifikanten Kombination an. In diesem Fall ist das die aus factor_B und posture.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="basic-stats.html#cb122-1" aria-hidden="true" tabindex="-1"></a>emm.factorBXposture <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(meanRTs.rmanova, <span class="sc">~</span>factor_B<span class="sc">:</span>posture)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="basic-stats.html#cb124-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(emm.factorBXposture)</span></code></pre></div>
+<pre><code>##  factor_B posture emmean   SE   df lower.CL upper.CL
+##  Level_1  uncr       729 35.9 28.2      656      803
+##  Level_2  uncr       716 35.9 28.2      643      790
+##  Level_1  crossed    840 35.9 28.2      767      914
+##  Level_2  crossed    935 35.9 28.2      862     1009
+## 
+## Results are averaged over the levels of: factor_A 
+## Warning: EMMs are biased unless design is perfectly balanced 
+## Confidence level used: 0.95</code></pre>
+<p>Die EMM kann man auch plotten, um sich einen besseren Überblick zu veschaffen:</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="basic-stats.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.factorBXposture), </span>
+<span id="cb126-2"><a href="basic-stats.html#cb126-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
+<span id="cb126-3"><a href="basic-stats.html#cb126-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb126-4"><a href="basic-stats.html#cb126-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>lower.CL, <span class="at">ymax=</span>upper.CL), <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb126-5"><a href="basic-stats.html#cb126-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;reaction time [ms]&quot;</span>)</span></code></pre></div>
+<p><img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p>In der Abbildung kann man sehen, dass die Reaktionszeiten insgesamt bei der “crossed” posture höher sind, was den in dem Anova-Table sichtbaren Haupteffekt von “posture” reflektiert. Zudem kann man sehen, dass die Reaktionszeit bei “Level_2” für den factor_B bei “crossed” erhöht ist und bei uncrossed nicht (hier ist die RT sogar etwas niedriger). Dieses Verhältnis spiegelt die signifikante Interaktion wieder.</p>
+</div>
+<div id="post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion" class="section level3" number="8.3.4">
+<h3><span class="header-section-number">8.3.4</span> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</h3>
+<p>Die Interaktion wird nun noch mit post-hoc Tests runtergebrochen, um zu prüfen, welche der Unterschiede signifikant sind.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="basic-stats.html#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.factorBXposture, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          estimate   SE   df t.ratio p.value
+##  Level_1 uncr - Level_2 uncr           12.7 19.6 26.1  0.652  0.5201 
+##  Level_1 uncr - Level_1 crossed      -111.0 31.1 20.3 -3.567  0.0023 
+##  Level_1 uncr - Level_2 crossed      -206.2 34.3 27.3 -6.007  &lt;.0001 
+##  Level_2 uncr - Level_1 crossed      -123.7 34.3 27.3 -3.604  0.0019 
+##  Level_2 uncr - Level_2 crossed      -218.9 31.1 20.3 -7.038  &lt;.0001 
+##  Level_1 crossed - Level_2 crossed    -95.2 19.6 26.1 -4.869  0.0001 
+## 
+## Results are averaged over the levels of: factor_A 
+## P value adjustment: fdr method for 6 tests</code></pre>
+<p>Wie man in der Tabelle sehen kann, sind also alle Vergleiche zwischen den Stufen signifikant mit Ausnahme des Vergleiches zwischen “Level_1”” und “Level_2”” bei “uncrossed.” Somit lassen sich sowohl der Haupteffekt wie auch die Interaktion mittels der post-hoc Vergleiche nachvollziehen.</p>
+</div>
+</div>
+<div id="das-linear-mixed-model-lmm" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Das linear mixed model (LMM)</h2>
+<p>Zuletzt wird noch das LMM vorgestellt, das sich auch gut eignet, um metrische repeated measures Daten zu analysieren.
+Trotz der mathematischen Unterschiede zu einer rm-Anova, lässt sich der Output recht ähnlich interpretieren.</p>
+<p>Ein Unterschied ist, dass LMMs in der Regel auf allen Daten beruhen und man nicht vorher, wie oben, über bestimmte Levels aggregiert (Mittelwerte gebildet) werden müssen. Hier werden wir also einfach alle SOAs und alle Wiederholungen der Trials des gleichen Typs “reinfüttern.”
+In der Anwendung ist ein Unterschied, dass das LMM mit dem afex-Befehl “mixed” angesprochen wird und, dass man die Faktorstruktur über eine Formel angibt.</p>
+<p>Sie können in dem Befehl unten (im nächsten Abschnitt) sehen, dass einige Parameter gesetzt werden, die Sie noch nicht kennen.</p>
+<p>Das eine ist der sogenannte <em>random effect</em>. Hier haben wir ihn definiert als “(1|participant).” Diese Art von random effect nennt man einen random intercept für den Faktor Versuchsperson. Kurz ausgedrückt bedeutet das, dass das Modell berücksichtigt, dass die Versuchspersonen einen eigenen Ausgangspunkt haben. Das ist die minimale Annahme, die wir für ein LMM machen können.
+Die korrekte Formulierung der random effects ist eine der größeren Kontroversen zu dieser Art von Modellen.</p>
+<p>Diese Kontroverse ist z.B. in folgendem Artikel behandelt:
+Barr, D. J., Levy, R., Scheepers, C., &amp; Tily, H. J. (2013). Random effects structure for confirmatory hypothesis testing: Keep it maximal. Journal of Memory and Language, 68(3), 255–278. <a href="https://doi.org/10.1016/j.jml.2012.11.001" class="uri">https://doi.org/10.1016/j.jml.2012.11.001</a></p>
+<p>Der andere Parameter, der für Sie neu sein dürfte ist “method.” Hier wird eine von mehreren zur Verfügugn stehenden Methoden für die Schätzung der Freiheitsgrade definiert.
+Es gibt:</p>
+<ul>
+<li>Kenward-Rogers “KR”: langsam</li>
+<li>Satterthwaite “S”: etwas schneller</li>
+<li>Asymptotic: das schnellste, schätzt df auf Inf</li>
+</ul>
+<p>Wir nehmen hier “S.”</p>
+<div id="daten-vorbereiten-2" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Daten vorbereiten</h3>
+<p>Wie oben beschreiben, wird nicht aggregiert, wir sortieren aber wieder die falschen Antworten raus.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="basic-stats.html#cb129-1" aria-hidden="true" tabindex="-1"></a>dLMM <span class="ot">&lt;-</span> dc <span class="sc">%&gt;%</span> <span class="fu">filter</span>(respClean<span class="sc">==</span><span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="mixed-befehl-und-output" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Mixed-Befehl und Output</h3>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="basic-stats.html#cb130-1" aria-hidden="true" tabindex="-1"></a>meanRTs.lmm <span class="ot">&lt;-</span> <span class="fu">mixed</span>(rtClean<span class="sc">~</span>factor_A<span class="sc">*</span>factor_B<span class="sc">*</span>posture <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>participant), <span class="at">data =</span> dLMM, <span class="at">method =</span> <span class="st">&quot;S&quot;</span>) </span></code></pre></div>
+<pre><code>## Contrasts set to contr.sum for the following variables: factor_A, factor_B, posture, participant</code></pre>
+<pre><code>## Fitting one lmer() model. [DONE]
+## Calculating p-values. [DONE]</code></pre>
+<p>Den Output schaut man wie zuvor an:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="basic-stats.html#cb133-1" aria-hidden="true" tabindex="-1"></a>meanRTs.lmm</span></code></pre></div>
+<pre><code>## Mixed Model Anova Table (Type 3 tests, S-method)
+## 
+## Model: rtClean ~ factor_A * factor_B * posture + (1 | participant)
+## Data: dLMM
+##                      Effect          df           F p.value
+## 1                  factor_A 1, 24290.02        0.58    .444
+## 2                  factor_B 1, 24290.20  191.66 ***   &lt;.001
+## 3                   posture 1, 24290.37 2827.75 ***   &lt;.001
+## 4         factor_A:factor_B 1, 24290.01      5.52 *    .019
+## 5          factor_A:posture 1, 24290.01        0.03    .858
+## 6          factor_B:posture 1, 24290.07  330.74 ***   &lt;.001
+## 7 factor_A:factor_B:posture 1, 24290.01        1.93    .165
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Auch beim LMM bekommt man einen Anova-Table. Der Output lässt sich genau so interpretieren, wie bei der Anova. Auch hier bekommen wir gezeigt, dass es einen signifikanten Haupteffekt von “factor_B” und “posture” gibt. Und eine Interaktion aus “factor_B” und “posture,” wie bei der rmAnova. Einziger Unterschied ist hier, dass das LMM auch noch eine (gerade so) signifikante Interaktion zwischen “factor_A” und “factor_B” anzeigt. Der folgende Plot soll aufzeigen, was es mit den Interaktionen auf sich hat.</p>
+</div>
+<div id="plots-von-emm-für-die-factor_b-x-posture-interaktion" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Plots von EMM für die factor_B x posture Interaktion</h3>
+<p>Wir beginnen zunächst wieder mit der Interaktiion aus “factor_B” und “posture,” die wir schon aus der rm-Anova kennen.</p>
+<p>Bevor wir die emms berechnen, sagen wir R noch, welche Methoden verwendet werden sollen, um die Freiheitsgrade zu schätzen. Das Paket <em>emmeans</em> kann mehrere verwenden, die sich mathematisch unterscheiden und teilweise sehr unterschiedlich lange Berechnungsdauern haben (ähnlich wie oben). Wir wählen die Methode, die “asymptotic” heißt.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="basic-stats.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="co">#options für df schätzung bei post hoc tests</span></span>
+<span id="cb135-2"><a href="basic-stats.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">emm_options</span>(<span class="at">lmer.df =</span> <span class="st">&quot;asymptotic&quot;</span>) <span class="co"># options: &#39;satterthwaite&#39;, &#39;kenward-roger&#39;, &#39;asymptotic&#39;</span></span>
+<span id="cb135-3"><a href="basic-stats.html#cb135-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-4"><a href="basic-stats.html#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Wenn Sie &#39;satterthwaite&#39; verwenden wollen, müssen Sie das Limit an Tests hochsetzen</span></span>
+<span id="cb135-5"><a href="basic-stats.html#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co">#emm_options(lmerTest.limit = 30000)</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="basic-stats.html#cb136-1" aria-hidden="true" tabindex="-1"></a>emm.lmm.factorBXPosture <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(meanRTs.lmm, <span class="sc">~</span>factor_B<span class="sc">:</span>posture)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="basic-stats.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.lmm.factorBXPosture), </span>
+<span id="cb138-2"><a href="basic-stats.html#cb138-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
+<span id="cb138-3"><a href="basic-stats.html#cb138-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb138-4"><a href="basic-stats.html#cb138-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>asymp.LCL, <span class="at">ymax=</span>asymp.UCL), </span>
+<span id="cb138-5"><a href="basic-stats.html#cb138-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb138-6"><a href="basic-stats.html#cb138-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;reaction time [ms]&quot;</span>)</span></code></pre></div>
+<p><img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/LMMMarginalMeans-1.png" width="672" /></p>
+<p>Das sieht im Wesentlichen aus wie oben bei der rmAnova.</p>
+</div>
+<div id="post-hoc-paarweiser-vergleich-für-die-factor_b-x-posture-interaktion-1" class="section level3" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Post-hoc paarweiser Vergleich für die factor_B x posture Interaktion</h3>
+<p>Das Vorgehen ist identisch wie bei der rm-Anova:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="basic-stats.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.lmm.factorBXPosture, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          estimate   SE  df z.ratio p.value
+##  Level_1 uncr - Level_2 uncr           13.6 4.33 Inf   3.138 0.0017 
+##  Level_1 uncr - Level_1 crossed      -109.9 4.37 Inf -25.126 &lt;.0001 
+##  Level_1 uncr - Level_2 crossed      -210.3 4.49 Inf -46.884 &lt;.0001 
+##  Level_2 uncr - Level_1 crossed      -123.5 4.39 Inf -28.142 &lt;.0001 
+##  Level_2 uncr - Level_2 crossed      -223.9 4.50 Inf -49.779 &lt;.0001 
+##  Level_1 crossed - Level_2 crossed   -100.4 4.53 Inf -22.152 &lt;.0001 
+## 
+## Results are averaged over the levels of: factor_A 
+## Degrees-of-freedom method: asymptotic 
+## P value adjustment: fdr method for 6 tests</code></pre>
+<p>Auch die Vergleiche fallen von der Interpretation her ähnlich aus wie oben bei der rmAnova. Es fällt aber ins Augem, dass auch der erste Vergleich zwischen Level_1 und Level_2 bei uncrossed signifikant wird. Man sieht auch, dass wir uns auch bei anderen Vergleichen durch das LMM etwas “sicherer” sein können, denn die p-Werte sind niedriger. Hier drückt sich die etwas höhere Power des LMM aus, das alle Trials mit einbezieht (die rmAnova war ja auf der Basis von Mittelwerten berechnet worden).</p>
+</div>
+<div id="plots-von-emm-für-die-factor_b-x-factor_a-interaktion" class="section level3" number="8.4.5">
+<h3><span class="header-section-number">8.4.5</span> Plots von EMM für die factor_B x factor_A Interaktion</h3>
+<p>Im Folgenden soll noch einmal die Abhängigkeit von “factor_A”von “factor_B” verdeutlicht werden (das war die “gerade so” signifikante Interaktion, die die rmAnova nicht zeigte).</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="basic-stats.html#cb141-1" aria-hidden="true" tabindex="-1"></a>emm.lmm.factorAXfactorB <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(meanRTs.lmm, <span class="sc">~</span>factor_A<span class="sc">:</span>factor_B)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="basic-stats.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.lmm.factorAXfactorB), </span>
+<span id="cb143-2"><a href="basic-stats.html#cb143-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>emmean, <span class="at">shape=</span>factor_A)) <span class="sc">+</span> </span>
+<span id="cb143-3"><a href="basic-stats.html#cb143-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb143-4"><a href="basic-stats.html#cb143-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>asymp.LCL, <span class="at">ymax=</span>asymp.UCL), </span>
+<span id="cb143-5"><a href="basic-stats.html#cb143-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb143-6"><a href="basic-stats.html#cb143-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;reaction time [ms]&quot;</span>)</span></code></pre></div>
+<p><img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/LMMMarginalMeans2-1.png" width="672" /></p>
+<p>Man sieht ein bisschen, dass sich die Stufen von “factor_A” über “factor_B” in leicht unterschiedliche Richtungen bewegen, also eine leichte Interaktion vorhanden ist.
+Auch hier kann man wieder einen post-hoc-Test rechnen.</p>
+</div>
+<div id="post-hoc-paarweiser-vergleich-für-die-factor_b-x-factor_a-interaktion" class="section level3" number="8.4.6">
+<h3><span class="header-section-number">8.4.6</span> Post-hoc paarweiser Vergleich für die factor_B x factor_A Interaktion</h3>
+<p>Das Vorgehen ist wiederum analog zu oben.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="basic-stats.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.lmm.factorAXfactorB, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          estimate   SE  df z.ratio p.value
+##  Level_1 Level_1 - Level_2 Level_1     4.97 4.37 Inf   1.136 0.2559 
+##  Level_1 Level_1 - Level_1 Level_2   -36.05 4.43 Inf  -8.144 &lt;.0001 
+##  Level_1 Level_1 - Level_2 Level_2   -45.81 4.43 Inf -10.332 &lt;.0001 
+##  Level_2 Level_1 - Level_1 Level_2   -41.02 4.43 Inf  -9.252 &lt;.0001 
+##  Level_2 Level_1 - Level_2 Level_2   -50.78 4.44 Inf -11.435 &lt;.0001 
+##  Level_1 Level_2 - Level_2 Level_2    -9.76 4.49 Inf  -2.172 0.0358 
+## 
+## Results are averaged over the levels of: posture 
+## Degrees-of-freedom method: asymptotic 
+## P value adjustment: fdr method for 6 tests</code></pre>
+</div>
+</div>
+<div id="das-generalized-linear-mixed-model-glmm" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Das generalized linear mixed model (GLMM)</h2>
+<p>Das GLMM ist in der Anwendung sehr ähnliich wie das LMM, ist aber, wie oben beschrieben, dazu da, um diskrete (z.B. ja/nein)-Antworten auszuwerten.
+In der Anwendung ist der wesentliche Unterschied im Code zu dem LMM, dass wir hier einen Parameter setzen: family=“binomial.” Das sagt dem “mixed”-Befehl, dass es sich um ein GLMM handelt mit einer binären AV. Zusätzlich müssen wir auch eine Methode wählen, um die p-Werte zu schäzten.
+Hier hat man die Wahl zwischen:</p>
+<ul>
+<li>Parametric Bootstrap (“PB”): das ist eine sichere Wahl, die eine gute Schätzung liefert für unterschiedlichste Modelle bzw. Faktorstrukturen. Der Nachteil ist, dass die Schätzung je nach Modell sehr lange dauern kann (tw. mehrere Stunden).</li>
+<li>Likelihood-Ratio-Test (“LRT”): Dieses Verfahren geht deutlich schneller, aber die Schätzungen können ungenau werden, wenn eine einfache random effect struktur gewählt wurde (siehe ?mixed für Informationen) dazu.</li>
+</ul>
+<p>Da GLMMs besonder bei “PB” eine deutlich längere Berechnungsdauer als andere Modelle haben, lohnt es sich mehrere Prozessoren gleichzeitig zu nuten und es macht unter diesen Umständen Sinn, die Ergebnisse abzuspeichern, damit man das Modell nicht erneut berechnen musss, wenn man die R-Session neu startet.</p>
+<div id="der-glmm-befehl-und-output" class="section level3" number="8.5.1">
+<h3><span class="header-section-number">8.5.1</span> Der GLMM-Befehl und Output</h3>
+<p>Wir zeigen hier ein Beispiel, wie das fitten mit mehreren Prozessorkernen und das abspeichern der Daten geht:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="basic-stats.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>( parallel ) <span class="co">#für Multicore-Prozesse</span></span>
+<span id="cb146-2"><a href="basic-stats.html#cb146-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-3"><a href="basic-stats.html#cb146-3" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">&lt;-</span> <span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span> <span class="co"># Anzahl an Prozessoren minus 1</span></span>
+<span id="cb146-4"><a href="basic-stats.html#cb146-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-5"><a href="basic-stats.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Um zu sehen, was der Prozess macht, wird Output in eine Textdatei geschrieben.</span></span>
+<span id="cb146-6"><a href="basic-stats.html#cb146-6" aria-hidden="true" tabindex="-1"></a>cl <span class="ot">&lt;-</span> <span class="fu">makeCluster</span>(<span class="fu">rep</span>(<span class="st">&quot;localhost&quot;</span>, nc), <span class="at">outfile =</span> <span class="st">&quot;cl1.log.txt&quot;</span>)</span>
+<span id="cb146-7"><a href="basic-stats.html#cb146-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-8"><a href="basic-stats.html#cb146-8" aria-hidden="true" tabindex="-1"></a>startTime <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>() <span class="co">#Anfangszeit, um zu sehen, wie lange das Modell läuft</span></span>
+<span id="cb146-9"><a href="basic-stats.html#cb146-9" aria-hidden="true" tabindex="-1"></a>resp.glmm <span class="ot">&lt;-</span> <span class="fu">mixed</span>( respClean <span class="sc">~</span> posture <span class="sc">*</span> factor_A <span class="sc">*</span> factor_B <span class="sc">+</span> ( <span class="dv">1</span> <span class="sc">|</span> participant ),</span>
+<span id="cb146-10"><a href="basic-stats.html#cb146-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> dc, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">method =</span> <span class="st">&quot;PB&quot;</span>, </span>
+<span id="cb146-11"><a href="basic-stats.html#cb146-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">args_test=</span><span class="fu">list</span>(<span class="at">nsim =</span> <span class="dv">500</span>), <span class="at">check_contrasts =</span> <span class="cn">TRUE</span>, <span class="at">cl =</span> cl ) <span class="co"># family = </span></span>
+<span id="cb146-12"><a href="basic-stats.html#cb146-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-13"><a href="basic-stats.html#cb146-13" aria-hidden="true" tabindex="-1"></a>endTime <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>() <span class="co">#Endzeit für den Vergleich mit der Anfangszeit</span></span>
+<span id="cb146-14"><a href="basic-stats.html#cb146-14" aria-hidden="true" tabindex="-1"></a>( endTime<span class="sc">-</span> startTime )</span>
+<span id="cb146-15"><a href="basic-stats.html#cb146-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb146-16"><a href="basic-stats.html#cb146-16" aria-hidden="true" tabindex="-1"></a><span class="co">#Modellergebnisse abspeichern</span></span>
+<span id="cb146-17"><a href="basic-stats.html#cb146-17" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(resp.glmm, <span class="at">file =</span> <span class="st">&quot;resp_glmm.RData&quot;</span>)</span></code></pre></div>
+<p>Hier wählen wir noch einen Ansatz mit der “LRT”-Methode:</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="basic-stats.html#cb147-1" aria-hidden="true" tabindex="-1"></a>resp.glmm <span class="ot">&lt;-</span> <span class="fu">mixed</span>( respClean <span class="sc">~</span> posture <span class="sc">*</span> factor_A <span class="sc">*</span> factor_B <span class="sc">+</span> ( <span class="dv">1</span> <span class="sc">|</span> participant ),</span>
+<span id="cb147-2"><a href="basic-stats.html#cb147-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> dc, <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>, <span class="at">method =</span> <span class="st">&quot;LRT&quot;</span>, </span>
+<span id="cb147-3"><a href="basic-stats.html#cb147-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">check_contrasts =</span> <span class="cn">TRUE</span> ) </span></code></pre></div>
+<pre><code>## Contrasts set to contr.sum for the following variables: posture, factor_A, factor_B, participant</code></pre>
+<pre><code>## Fitting 8 (g)lmer() models:
+## [........]</code></pre>
+<p>Als nächstes schauen wir den Output (Anova Table) an:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="basic-stats.html#cb150-1" aria-hidden="true" tabindex="-1"></a>resp.glmm</span></code></pre></div>
+<pre><code>## Mixed Model Anova Table (Type 3 tests, LRT-method)
+## 
+## Model: respClean ~ posture * factor_A * factor_B + (1 | participant)
+## Data: dc
+## Df full model: 9
+##                      Effect df      Chisq p.value
+## 1                   posture  1 649.80 ***   &lt;.001
+## 2                  factor_A  1       1.63    .201
+## 3                  factor_B  1 150.84 ***   &lt;.001
+## 4          posture:factor_A  1       0.02    .876
+## 5          posture:factor_B  1  14.56 ***   &lt;.001
+## 6         factor_A:factor_B  1       0.31    .576
+## 7 posture:factor_A:factor_B  1       1.94    .164
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>So ähnlich wie bei den RTs sehen wir auch hier einen Haupteffekt von “posture” und “factor_B,” sowie eine signifikante Interaktion “posture:factor_B.”</p>
+</div>
+<div id="emm-für-das-glmm" class="section level3" number="8.5.2">
+<h3><span class="header-section-number">8.5.2</span> EMM für das GLMM</h3>
+<p>Auch hier kann man diese Interaktion am besten mit einem Plot und post-hoc Tests nachvollziehen.</p>
+<p>Grundsätzlich geht das ähnlich wie bei dem LMM, aber es gibt einen Unterschied: das GLMM hat die Daten auf eine logit-Skala transformiert, die etwas kompliziert ist nachzuvollziehen. Wir können aber in “emmeans” definieren, dass wir die Daten wieder auf die Einheit der Antwort (also zwischen 0 und 1) zurücktransformieren wollen. Als Resultat bekommen wird Werte, die Schätzungen für den Anteil korrekter Antworten (den Wert 1 in unserer Variable) in den Faktorkombinationen sind. Dazu defnieren wir in “emmeans” einfach das Argument: type=“response.”</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="basic-stats.html#cb152-1" aria-hidden="true" tabindex="-1"></a>emm.resp.glmm <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(resp.glmm, <span class="sc">~</span>posture<span class="sc">:</span>factor_B, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>## NOTE: Results may be misleading due to involvement in interactions</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="basic-stats.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(emm.resp.glmm)</span></code></pre></div>
+<pre><code>##  posture factor_B  prob      SE  df asymp.LCL asymp.UCL
+##  uncr    Level_1  0.985 0.00389 Inf     0.975     0.991
+##  crossed Level_1  0.952 0.01168 Inf     0.923     0.971
+##  uncr    Level_2  0.976 0.00618 Inf     0.960     0.985
+##  crossed Level_2  0.884 0.02609 Inf     0.822     0.926
+## 
+## Results are averaged over the levels of: factor_A 
+## Confidence level used: 0.95 
+## Intervals are back-transformed from the logit scale</code></pre>
+</div>
+<div id="plot-der-emm-aus-dem-glmm" class="section level3" number="8.5.3">
+<h3><span class="header-section-number">8.5.3</span> Plot der EMM aus dem GLMM</h3>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="basic-stats.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">as.data.frame</span>(emm.resp.glmm), </span>
+<span id="cb156-2"><a href="basic-stats.html#cb156-2" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x=</span>factor_B, <span class="at">y=</span>prob, <span class="at">color=</span>posture)) <span class="sc">+</span> </span>
+<span id="cb156-3"><a href="basic-stats.html#cb156-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb156-4"><a href="basic-stats.html#cb156-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin=</span>asymp.LCL, <span class="at">ymax=</span>asymp.UCL), </span>
+<span id="cb156-5"><a href="basic-stats.html#cb156-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="fl">0.5</span>), <span class="at">width=</span><span class="fl">0.2</span>) <span class="sc">+</span> </span>
+<span id="cb156-6"><a href="basic-stats.html#cb156-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="at">label =</span> <span class="st">&quot;proportion of correct response&quot;</span>)</span></code></pre></div>
+<div class="figure"><span id="fig:emm-glmm-plot"></span>
+<img src="Reach---Touch-Lab-Auswerteschablone_files/figure-html/emm-glmm-plot-1.png" alt="EMM für die Interaktion im GLMM" width="672" />
+<p class="caption">
+Figure 8.1: EMM für die Interaktion im GLMM
+</p>
+</div>
+</div>
+<div id="post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm" class="section level3" number="8.5.4">
+<h3><span class="header-section-number">8.5.4</span> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</h3>
+<p>Für die paarweisen Vergleiche kann man identisch vorgehen wie zuvor:</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="basic-stats.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(emm.resp.glmm, <span class="at">method =</span> <span class="st">&quot;pairwise&quot;</span>, <span class="at">adjust =</span> <span class="st">&quot;fdr&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast                          odds.ratio     SE  df z.ratio p.value
+##  uncr Level_1 / crossed Level_1         3.310 0.3135 Inf 12.636  &lt;.0001 
+##  uncr Level_1 / uncr Level_2            1.646 0.1706 Inf  4.808  &lt;.0001 
+##  uncr Level_1 / crossed Level_2         8.670 0.7727 Inf 24.236  &lt;.0001 
+##  crossed Level_1 / uncr Level_2         0.497 0.0407 Inf -8.533  &lt;.0001 
+##  crossed Level_1 / crossed Level_2      2.619 0.1618 Inf 15.591  &lt;.0001 
+##  uncr Level_2 / crossed Level_2         5.268 0.3961 Inf 22.096  &lt;.0001 
+## 
+## Results are averaged over the levels of: factor_A 
+## P value adjustment: fdr method for 6 tests 
+## Tests are performed on the log odds ratio scale</code></pre>
+<p>Das einzige, was hier neu ist, ist die Teststatistik “odds.ratio.” Eine odds ratio ist das Verhältnis von zwei Wahrscheinlichkeiten. Eine korrekte Antwort ist also bei uncr Level_1 3.3 mal wahrscheinlicher als bei crossed Level_1 und das ist statistisch signifikant.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-plots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bis-score.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": null,
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
