@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Teil 5 Daten auf Plausibilität prüfen | Analyse von Verhaltensdaten mit R</title>
   <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Teil 5 Daten auf Plausibilität prüfen | Analyse von Verhaltensdaten mit R" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
 <link rel="prev" href="plan-analysis.html"/>
 <link rel="next" href="clean-data.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -117,6 +119,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -262,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
 <li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
 <li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
-<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleiche für die Interaktion im GLMM</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
@@ -321,9 +346,8 @@ Ungewöhnlich heißt z.B.:</p>
 <h3><span class="header-section-number">5.0.1</span> Anzahl Vpn überprüfen</h3>
 <p>Der “levels”-Befehl zegt an, welche Levels (also Faktorabstufungen) ein Faktor hat.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="plausibility-check.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>( ds<span class="sc">$</span>participant )</span></code></pre></div>
-<pre><code>##  [1] &quot;B006b-08&quot; &quot;B006b-09&quot; &quot;B006b-10&quot; &quot;B006b-11&quot; &quot;B006b-12&quot; &quot;B006b-13&quot; &quot;B006b-14&quot; &quot;B006b-15&quot; &quot;B006b-16&quot;
-## [10] &quot;B006b-17&quot; &quot;B006b-18&quot; &quot;B006b-19&quot; &quot;B006b-20&quot; &quot;B006b-21&quot; &quot;B006b-22&quot; &quot;B006b-23&quot; &quot;B006b-24&quot; &quot;B006b-25&quot;
-## [19] &quot;B006b-26&quot; &quot;B006b-27&quot; &quot;B006b-28&quot;</code></pre>
+<pre><code>##  [1] &quot;B006b-08&quot; &quot;B006b-09&quot; &quot;B006b-10&quot; &quot;B006b-11&quot; &quot;B006b-12&quot; &quot;B006b-13&quot; &quot;B006b-14&quot; &quot;B006b-15&quot; &quot;B006b-16&quot; &quot;B006b-17&quot; &quot;B006b-18&quot; &quot;B006b-19&quot; &quot;B006b-20&quot; &quot;B006b-21&quot; &quot;B006b-22&quot;
+## [16] &quot;B006b-23&quot; &quot;B006b-24&quot; &quot;B006b-25&quot; &quot;B006b-26&quot; &quot;B006b-27&quot; &quot;B006b-28&quot;</code></pre>
 <p>Wie viele Vpn habe ich im Datensatz? Dazu kann man schauen, wie lang der eben gezeigte Vektor ist.</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="plausibility-check.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>( <span class="fu">levels</span>( ds<span class="sc">$</span>participant ) ) </span></code></pre></div>
 <pre><code>## [1] 21</code></pre>
@@ -344,7 +368,7 @@ Theoretisch kann man aauch schauen, was einem im Envirnonment angeziegt wird, de
 <span id="cb52-2"><a href="plausibility-check.html#cb52-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
 <span id="cb52-3"><a href="plausibility-check.html#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">n</span>()</span>
 <span id="cb52-4"><a href="plausibility-check.html#cb52-4" aria-hidden="true" tabindex="-1"></a>  ) )</span></code></pre></div>
-<pre><code>## # A tibble: 21 x 2
+<pre><code>## # A tibble: 21 × 2
 ##    participant `n()`
 ##    &lt;fct&gt;       &lt;int&gt;
 ##  1 B006b-08     1536
@@ -362,7 +386,7 @@ Theoretisch kann man aauch schauen, was einem im Envirnonment angeziegt wird, de
 Tibbles stellen immer nur einige Zeilen dar. Um alle Zeilen zu sehen, kann man entweder den Tibble als einen dataa.frame anzeigen (auskommentierter Befehl) oder man verwendet die “print” Funktion, mit der man eine beliebge Anzahl an Zeilen darstellen kann und zeigen dabei alle Zeilen an, indem wir die Zeilenanzahl auf “Inf” setzen.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="plausibility-check.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co">#data.frame( sanCheck )</span></span>
 <span id="cb54-2"><a href="plausibility-check.html#cb54-2" aria-hidden="true" tabindex="-1"></a>sanCheck <span class="sc">%&gt;%</span> <span class="fu">print</span>(<span class="cn">Inf</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 21 x 2
+<pre><code>## # A tibble: 21 × 2
 ##    participant `n()`
 ##    &lt;fct&gt;       &lt;int&gt;
 ##  1 B006b-08     1536
@@ -384,7 +408,7 @@ Mit “filter” kann man Zeilen auswählen. Wir wählen alle Zeilen der vp15.</
 <span id="cb56-3"><a href="plausibility-check.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
 <span id="cb56-4"><a href="plausibility-check.html#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;factor_A&#39;, &#39;factor_B&#39;. You can override using the `.groups` argument.</code></pre>
-<pre><code>## # A tibble: 8 x 4
+<pre><code>## # A tibble: 8 × 4
 ## # Groups:   factor_A, factor_B [4]
 ##   factor_A factor_B posture `n()`
 ##   &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;
@@ -402,7 +426,7 @@ Mit “filter” kann man Zeilen auswählen. Wir wählen alle Zeilen der vp15.</
 <span id="cb59-3"><a href="plausibility-check.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
 <span id="cb59-4"><a href="plausibility-check.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;factor_A&#39;, &#39;factor_B&#39;. You can override using the `.groups` argument.</code></pre>
-<pre><code>## # A tibble: 8 x 4
+<pre><code>## # A tibble: 8 × 4
 ## # Groups:   factor_A, factor_B [4]
 ##   factor_A factor_B posture `n()`
 ##   &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;
@@ -426,7 +450,7 @@ Hier nehmen wir stattdessen an, dass die Vp nicht ausgewertet werden kann, weil 
 <span id="cb63-3"><a href="plausibility-check.html#cb63-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>( <span class="fu">n</span>() ) <span class="sc">%&gt;%</span> </span>
 <span id="cb63-4"><a href="plausibility-check.html#cb63-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="cn">Inf</span>)</span></code></pre></div>
 <pre><code>## `summarise()` has grouped output by &#39;factor_A&#39;, &#39;factor_B&#39;. You can override using the `.groups` argument.</code></pre>
-<pre><code>## # A tibble: 8 x 4
+<pre><code>## # A tibble: 8 × 4
 ## # Groups:   factor_A, factor_B [4]
 ##   factor_A factor_B posture `n()`
 ##   &lt;fct&gt;    &lt;fct&gt;    &lt;fct&gt;   &lt;int&gt;
@@ -456,7 +480,6 @@ Hier nehmen wir stattdessen an, dass die Vp nicht ausgewertet werden kann, weil 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -486,6 +509,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

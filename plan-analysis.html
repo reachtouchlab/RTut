@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Teil 4 Analysen planen und Variablentypen anpassen | Analyse von Verhaltensdaten mit R</title>
   <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Teil 4 Analysen planen und Variablentypen anpassen | Analyse von Verhaltensdaten mit R" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
 <link rel="prev" href="read-data.html"/>
 <link rel="next" href="plausibility-check.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -117,6 +119,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -262,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
 <li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
 <li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
-<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleiche für die Interaktion im GLMM</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
@@ -336,41 +361,27 @@ Dazu gehört u.a.:</p>
 Im Folgenden wird angenommen, dass die .RData Daten geladen wurden. Im “Environment” bei RStudio sieht man, dass es ein data.frame “bsp” gibt.</p>
 <p>Mit dem Befehl “head” stellt man die ersten Zeilen dar.</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="plan-analysis.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>( bsp )</span></code></pre></div>
-<pre><code>##   Participant Tactor1 Tactor2 Stimuli                Time Condition Repetition Trialnumber Trialtype SOA
-## 1    B006b-08       6       1     6_1 2018-11-27-15-56-08 uncrossed          1         163       360 800
-## 2    B006b-08       5       2     5_2 2018-11-27-14-30-16 uncrossed          1         170       378 100
-## 3    B006b-08       6       2     6_2 2018-11-27-15-54-17 uncrossed          1         138       313  50
-## 4    B006b-08       6       1     6_1 2018-11-27-14-24-41 uncrossed          1          91       343 300
-## 5    B006b-08       2       5     2_5 2018-11-27-16-17-10   crossed          1          58       276 800
-## 6    B006b-08       1       6     1_6 2018-11-27-15-16-24   crossed          1         305       245  50
-##   Stim1Intens Stim2Intens  ITI TimeAfterBeep Response Release_RT Real_Release_RT RT1_press_raw RT1_release_raw
-## 1          90          75 1000           996      3_4       1433             618            []              []
-## 2          90          80 1000           612      3_4        939             824            []              []
-## 3         100          75 1000           969      1_2        817             752          1115             824
-## 4         100          70 1000           821      3_4        961             646            []              []
-## 5          75         100 1000           721      3_4       1684             869            []              []
-## 6          80          90 1000           656      3_4       1001             936            []              []
-##   RT2_press_raw RT2_release_raw RT3_press_raw RT3_release_raw RT4_press_raw RT4_release_raw Trial_ok
-## 1            []              []          1746            1475          1739            1433     True
-## 2            []              []          1272             960          1299             939     True
-## 3          1124             817            []              []            []              []     True
-## 4            []              []          1308             963          1336             961     True
-## 5            []              []          1985            1702          2000            1684     True
-## 6            []              []          1318            1017          1326            1001     True
-##   Trial_repeated    Reason LoadSucess  Run Tactor1Side Tactor2Side Tactor1Segment Tactor2Segment  StimSide
-## 1          False No reason    success Run2        left       right          upper          lower different
-## 2          False No reason    success Run1       right        left          upper          lower different
-## 3          False No reason    success Run2        left        left          upper          lower      same
-## 4          False No reason    success Run1        left       right          upper          lower different
-## 5          False No reason    success Run2        left       right          lower          upper different
-## 6          False No reason    success Run1       right        left          lower          upper different
-##   StimSegment           Order              ResponseCoding Response.meaning Response.correct
-## 1   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
-## 2   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
-## 3   different uncrossed first 1_2 (Zehen hoch) means same             same             TRUE
-## 4   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
-## 5   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
-## 6   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE</code></pre>
+<pre><code>##   Participant Tactor1 Tactor2 Stimuli                Time Condition Repetition Trialnumber Trialtype SOA Stim1Intens Stim2Intens  ITI TimeAfterBeep Response Release_RT
+## 1    B006b-08       6       1     6_1 2018-11-27-15-56-08 uncrossed          1         163       360 800          90          75 1000           996      3_4       1433
+## 2    B006b-08       5       2     5_2 2018-11-27-14-30-16 uncrossed          1         170       378 100          90          80 1000           612      3_4        939
+## 3    B006b-08       6       2     6_2 2018-11-27-15-54-17 uncrossed          1         138       313  50         100          75 1000           969      1_2        817
+## 4    B006b-08       6       1     6_1 2018-11-27-14-24-41 uncrossed          1          91       343 300         100          70 1000           821      3_4        961
+## 5    B006b-08       2       5     2_5 2018-11-27-16-17-10   crossed          1          58       276 800          75         100 1000           721      3_4       1684
+## 6    B006b-08       1       6     1_6 2018-11-27-15-16-24   crossed          1         305       245  50          80          90 1000           656      3_4       1001
+##   Real_Release_RT RT1_press_raw RT1_release_raw RT2_press_raw RT2_release_raw RT3_press_raw RT3_release_raw RT4_press_raw RT4_release_raw Trial_ok Trial_repeated    Reason
+## 1             618            []              []            []              []          1746            1475          1739            1433     True          False No reason
+## 2             824            []              []            []              []          1272             960          1299             939     True          False No reason
+## 3             752          1115             824          1124             817            []              []            []              []     True          False No reason
+## 4             646            []              []            []              []          1308             963          1336             961     True          False No reason
+## 5             869            []              []            []              []          1985            1702          2000            1684     True          False No reason
+## 6             936            []              []            []              []          1318            1017          1326            1001     True          False No reason
+##   LoadSucess  Run Tactor1Side Tactor2Side Tactor1Segment Tactor2Segment  StimSide StimSegment           Order              ResponseCoding Response.meaning Response.correct
+## 1    success Run2        left       right          upper          lower different   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 2    success Run1       right        left          upper          lower different   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 3    success Run2        left        left          upper          lower      same   different uncrossed first 1_2 (Zehen hoch) means same             same             TRUE
+## 4    success Run1        left       right          upper          lower different   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 5    success Run2        left       right          lower          upper different   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE
+## 6    success Run1       right        left          lower          upper different   different uncrossed first 1_2 (Zehen hoch) means same        different             TRUE</code></pre>
 <p>Man sieht, dass da sehr viel Zeug drin ist.</p>
 <p>Mit “str” kann man sich die Struktur des Datensatzes anschauen, d.h., herausfinden was für Variablen er enthält und was für Typen die Variablen haben.</p>
 <p>Vorne steht der Variablenname, danach der Typ; z.B. bei Participant “chr,” also Text und noch nicht Faktor!
@@ -471,7 +482,7 @@ Wir erstellen daher eine neue Variable und füllen sie zunächst mit 1 für “r
 <h4><span class="header-section-number">4.2.4.2</span> AV Reaktionszeit</h4>
 <p>Die RT ist auch nicht so, wie wir sie brauchen, denn der “str”-Befehl zeigt an, dass die Variable als “chr” formatiert ist.</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="plan-analysis.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d<span class="sc">$</span>Real_Release_RT)</span></code></pre></div>
-<pre><code>##  chr [1:32455] &quot;618&quot; &quot;824&quot; &quot;752&quot; &quot;646&quot; &quot;869&quot; &quot;936&quot; &quot;544&quot; &quot;1029&quot; &quot;779&quot; &quot;504&quot; &quot;787&quot; &quot;553&quot; &quot;765&quot; &quot;507&quot; &quot;532&quot; ...</code></pre>
+<pre><code>##  chr [1:32455] &quot;618&quot; &quot;824&quot; &quot;752&quot; &quot;646&quot; &quot;869&quot; &quot;936&quot; &quot;544&quot; &quot;1029&quot; &quot;779&quot; &quot;504&quot; &quot;787&quot; &quot;553&quot; &quot;765&quot; &quot;507&quot; &quot;532&quot; &quot;798&quot; &quot;638&quot; &quot;812&quot; &quot;575&quot; &quot;510&quot; &quot;859&quot; &quot;695&quot; &quot;462&quot; &quot;776&quot; &quot;697&quot; ...</code></pre>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="plan-analysis.html#cb38-1" aria-hidden="true" tabindex="-1"></a>d<span class="sc">$</span>rt <span class="ot">&lt;-</span><span class="fu">as.numeric</span>( <span class="fu">as.character</span>( d<span class="sc">$</span>Real_Release_RT ) )</span>
 <span id="cb38-2"><a href="plan-analysis.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(d<span class="sc">$</span>rt)</span></code></pre></div>
 <pre><code>##  num [1:32455] 618 824 752 646 869 ...</code></pre>
@@ -523,7 +534,6 @@ Der neue Name “ds” steht für “data selected” und ist immer noch angeneh
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -553,6 +563,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

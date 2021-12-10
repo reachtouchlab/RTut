@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Analyse von Verhaltensdaten mit R</title>
   <meta name="description" content="Eine Handanweisung für die Analyse von behavioralen Daten aus dem Reach &amp; Touch Lab" />
-  <meta name="generator" content="bookdown 0.21 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Analyse von Verhaltensdaten mit R" />
   <meta property="og:type" content="book" />
@@ -33,7 +33,8 @@
 
 <link rel="next" href="get-started.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,7 +50,8 @@
 
 
 
-
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
@@ -117,6 +119,29 @@ code span.st { color: #4070a0; } /* String */
 code span.va { color: #19177c; } /* Variable */
 code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -262,7 +287,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.5.1" data-path="basic-stats.html"><a href="basic-stats.html#der-glmm-befehl-und-output"><i class="fa fa-check"></i><b>8.5.1</b> Der GLMM-Befehl und Output</a></li>
 <li class="chapter" data-level="8.5.2" data-path="basic-stats.html"><a href="basic-stats.html#emm-für-das-glmm"><i class="fa fa-check"></i><b>8.5.2</b> EMM für das GLMM</a></li>
 <li class="chapter" data-level="8.5.3" data-path="basic-stats.html"><a href="basic-stats.html#plot-der-emm-aus-dem-glmm"><i class="fa fa-check"></i><b>8.5.3</b> Plot der EMM aus dem GLMM</a></li>
-<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleeiche für die Interaktion im GLMM</a></li>
+<li class="chapter" data-level="8.5.4" data-path="basic-stats.html"><a href="basic-stats.html#post-hoc-paarweise-vergleiche-für-die-interaktion-im-glmm"><i class="fa fa-check"></i><b>8.5.4</b> Post-hoc paarweise Vergleiche für die Interaktion im GLMM</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="bis-score.html"><a href="bis-score.html"><i class="fa fa-check"></i><b>9</b> Verknüpfung von Antworten und Reaktionszeiten in ein Maß</a>
@@ -310,7 +335,7 @@ Viele Arbeiten werden an einzelnen Stellen von der Schablone abweichen müssen -
 <h2><span class="header-section-number">1.2</span> Ergänzende Quellen</h2>
 <p>Es ist ausgesprochen nicht der Anspruch dieses Dokuments, eine umfassende Einführung zu geben. Es soll eher eine Art “Starthilfe” sein. Die hier vorkommenden Themen sind komplex und jedes Kapitel kann für sich dedizierte Bücher füllen–und tut das auch.
 Es gibt einige hervorragende Quellen, zum Vertiefen, von denen hier einige genannt sein sollten.</p>
-<p>Das Thema Datenvisualisierung ist hervorragend in dem Buch von Hadley Wickham <span class="citation">(<a href="references.html#ref-wickham2009" role="doc-biblioref">Wickham 2009</a>)</span> beschrieben.
+<p>Das Thema Datenvisualisierung ist hervorragend in dem Buch von Hadley Wickham <span class="citation">(<a href="#ref-wickham2009" role="doc-biblioref">Wickham 2009</a>)</span> beschrieben.
 Datenanalyse und Visualisierung mit dem sogenannten Tidyverse ist tiefgehend in Hadley Wickhams Buch “R for data science” beschrieben, das auch online aufrufbar ist über die Website von Tidyverse: <a href="https://www.tidyverse.org/learn/" class="uri">https://www.tidyverse.org/learn/</a></p>
 <p>Zum Thema Datentransformation (“data wrangling”) gibt es auch eine sehr anschauliche Serie von Blog-Einträgen auf dieser Website: <a href="https://suzan.rbind.io/2018/01/dplyr-tutorial-1/" class="uri">https://suzan.rbind.io/2018/01/dplyr-tutorial-1/</a></p>
 <p>Insgesamt findet man über die üblichen Suchmaschinen im Internet sehr viel gutes Material.</p>
@@ -319,7 +344,7 @@ Datenanalyse und Visualisierung mit dem sogenannten Tidyverse ist tiefgehend in 
 <h2><span class="header-section-number">1.3</span> Hinweis zu diesem Dokument</h2>
 <p>Dieses Dokument basiert auf RMarkdown. Markdown ist eine einfache Syntax zur Erstellung von HTML, PDF, and MS Word Dokumenten. RMarkown ist eine spezielle Variante von Markdown, bei der Markdown mit R Code kombiniert wird, um reproduzierbare Reports zu erzeugen.</p>
 <p>Sie können hier mehr über RMarkdown lesen: <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>Die wohl ausführlichste Dokumentation zu RMarkdown ist in dem Buch von Yihui Xie <span class="citation">(<a href="references.html#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> zu finden. Der gleiche Autor hat ebenfalls eine umfassende Bechreibung, die online verfügbar ist: <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></p>
+<p>Die wohl ausführlichste Dokumentation zu RMarkdown ist in dem Buch von Yihui Xie <span class="citation">(<a href="#ref-xie2015" role="doc-biblioref">Xie 2015</a>)</span> zu finden. Der gleiche Autor hat ebenfalls eine umfassende Bechreibung, die online verfügbar ist: <a href="https://bookdown.org/yihui/rmarkdown/" class="uri">https://bookdown.org/yihui/rmarkdown/</a></p>
 </div>
 <div id="interaktive-verwendungsweise" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> Interaktive Verwendungsweise</h2>
@@ -338,6 +363,15 @@ Danach werden wir Schritt für Schritt verschiedenen Datenverarbeitungsschritte,
 
 </div>
 </div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-wickham2009" class="csl-entry">
+Wickham, Hadley. 2009. <em>Ggplot2: Elegant Graphics for Data Analysis</em>. New York: Springer Science &amp; Business Media.
+</div>
+<div id="ref-xie2015" class="csl-entry">
+Xie, Yihui. 2015. <em>Dynamic Documents with <span>R</span> and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.
+</div>
+</div>
             </section>
 
           </div>
@@ -348,7 +382,6 @@ Danach werden wir Schritt für Schritt verschiedenen Datenverarbeitungsschritte,
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -378,6 +411,10 @@ gitbook.start({
 "text": null
 },
 "download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }

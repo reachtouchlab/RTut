@@ -1167,9 +1167,9 @@ In der Anwendung ist der wesentliche Unterschied im Code zu dem LMM, dass wir hi
 Hier hat man die Wahl zwischen:
 
 - Parametric Bootstrap ("PB"): das ist eine sichere Wahl, die eine gute Schätzung liefert für unterschiedlichste Modelle bzw. Faktorstrukturen. Der Nachteil ist, dass die Schätzung je nach Modell sehr lange dauern kann (tw. mehrere Stunden).
-- Likelihood-Ratio-Test ("LRT"): Dieses Verfahren geht deutlich schneller, aber die Schätzungen können ungenau werden, wenn eine einfache random effect struktur gewählt wurde (siehe ?mixed für Informationen) dazu.
+- Likelihood-Ratio-Test ("LRT"): Dieses Verfahren geht deutlich schneller, aber die Schätzungen können ungenau werden, wenn eine einfache random-effect-Struktur gewählt wurde (siehe ?mixed für Informationen) dazu.
 
-Da GLMMs besonder bei "PB" eine deutlich längere Berechnungsdauer als andere  Modelle haben, lohnt es sich mehrere Prozessoren gleichzeitig zu nuten und es macht unter diesen Umständen Sinn, die Ergebnisse abzuspeichern, damit man das Modell nicht erneut berechnen musss, wenn man die R-Session neu startet.
+Da GLMMs besonders bei "PB" eine deutlich längere Berechnungsdauer als andere  Modelle haben, lohnt es sich mehrere Prozessoren gleichzeitig zu nuten und es macht unter diesen Umständen Sinn, die Ergebnisse abzuspeichern, damit man das Modell nicht erneut berechnen musss, wenn man die R-Session neu startet.
 
 ### Der GLMM-Befehl und Output
 Wir zeigen hier ein Beispiel, wie das fitten mit mehreren Prozessorkernen und das abspeichern der Daten geht:
@@ -1230,7 +1230,7 @@ ggplot(as.data.frame(emm.resp.glmm),
                 position = position_dodge(width=0.5), width=0.2) + 
   ylab(label = "proportion of correct response")
 ```
-### Post-hoc paarweise Vergleeiche für die Interaktion im GLMM
+### Post-hoc paarweise Vergleiche für die Interaktion im GLMM
 Für die paarweisen Vergleiche kann man identisch vorgehen wie zuvor:
 
 ```{r}
@@ -1248,13 +1248,6 @@ Das einzige, was hier neu ist, ist die Teststatistik "odds.ratio". Eine odds rat
 
 # Verknüpfung von Antworten und Reaktionszeiten in ein Maß {#bis-score}
 
-```{r}
-load("RTL_beispieldaten.RData")
-load("RTL_beispieldaten_clean.RData")
-
-library(tidyverse)
-```
-
 ## Speed-Accuracy-Tradeoff
 Der Zusammenhang von den in der kognitiven Psychologie typischen Verhaltensmaßen Reaktionszeit und (Korrektheit von) Antworten ist ein seit vielen Jahrzehnten viel diskutiertes Thema. Grundsätzlich ist die Idee, dass schwierige Kognitive Prozesse erstens länger dauern und zweitens zu mehr Fehlern führen. Demnach ist zu erwarten, dass eine höhere Anzahl an Fehlern auch mit längeren RTs einhergeht. 
 Dieser Gedanke übersieht allerdings, dass sich Reaktionszeit und Fehlerhäufigkeit auch (teilweise mit einer strategischen Komponente) gegeneinander austauschen lassen. Eine Person könnte zum Beispiel sich mehr Zeit lassen beim Antworten mit dem Ziel möglichst wenig Fehler zu machen. (Wenn das aufgeht) hätte sie demnach wenig Fehler, aber lange RT. Eine andere Person könnte riskanter vorgehen und versuchen möglichst schnell zu antworten und dabei in Kauf zu nehmen, dass sie halt mehr Fehler macht. Sie hätte demnach mehr Fehler, aber dafür eine kurze RT. Dieses Phänomen, dass sozusagen Genauigkeit (wenig Fehler machen) gegen Geschwindigkeit "eingekauft" werden kann, ist in der Psychologie als ein *Speed-Accuracy-Tradeoff* bekannt und es ist vielfach belegt, dass Personen das tun und damit sozusagen die Idee, dass Genauigkeit und RT invers zusammenhängen, ein Stück weit untergraben. 
@@ -1266,7 +1259,14 @@ Wie der BIS-Score berechnet wird und auch, wie er sich von anderen Methoden mit 
 
 Liesefeld, H. R., & Janczyk, M. (2019). Combining speed and accuracy to control for speed-accuracy trade-offs(?). Behavior Research Methods, 51(1), 40–60. https://doi.org/10.3758/s13428-018-1076-x
 
-Im Folgenden wird der BIS-Score für die Beispieldaten berechnet. Dazu wird zunächst ein Datensatz gebraucht, der die Mittelwerte der RTs (means) für korrekt und inkorrekt beantwortete Trials enthält. Wir nennen den Datensatz mal "dc.m".
+Im Folgenden wird der BIS-Score für die Beispieldaten berechnet. Dazu wird zunächst ein Datensatz gebraucht, der folgende Info enthält: 
+
+- die Anzahl korrekt beantwortete Trials 
+- die Anzahl aller Trials
+- die mittleren  RTs für korrekt beantwortete Trials 
+- die mittleren  RTs für alle Trials 
+
+Wir nennen den Datensatz mal "dc.m".
 
 ```{r BIS-data}
 dc.m <- dc %>% group_by( participant, posture, factor_A, factor_B ) %>%

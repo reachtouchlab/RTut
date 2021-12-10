@@ -95,7 +95,7 @@ das-generalized-linear-mixed-model-glmm
 der-glmm-befehl-und-output
 emm-für-das-glmm
 plot-der-emm-aus-dem-glmm
-post-hoc-paarweise-vergleeiche-für-die-interaktion-im-glmm
+post-hoc-paarweise-vergleiche-für-die-interaktion-im-glmm
 bis-score
 speed-accuracy-tradeoff
 der-bis-score
